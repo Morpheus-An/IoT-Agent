@@ -183,12 +183,12 @@ def gen_prompt_template(data_dict, ground_ans: str="WALKING", contrast_ans: str=
     if retrive:
         pass # todo 
     else:
-        demo_grd_acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
-        demo_grd_acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
-        demo_grd_acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
-        demo_grd_gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i][0]
-        demo_grd_gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i][1]
-        demo_grd_gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2]
+        demo_grd_acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i+1][0]
+        demo_grd_acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i+1][1]
+        demo_grd_acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i+1][2]
+        demo_grd_gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][0]
+        demo_grd_gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][1]
+        demo_grd_gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][2]
         demo_con_acc_x = data_dict[label2ids[contrast_ans]]["total_acc"][i][0]
         demo_con_acc_y = data_dict[label2ids[contrast_ans]]["total_acc"][i][1]
         demo_con_acc_z = data_dict[label2ids[contrast_ans]]["total_acc"][i][2]
