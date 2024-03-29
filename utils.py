@@ -173,28 +173,25 @@ def filter_data_dict_with_var(data_dict, thred: float=0.5, filter_by: str="body_
     return data_dict_filtered
 
 
-def gen_prompt_template(data_dict, ground_ans: str="WALKING", contrast_ans: str="STANDING", i: int=0, retrive=False):
+def gen_prompt_template_without_rag(data_dict, ground_ans: str="WALKING", contrast_ans: str="STANDING", i: int=0):
     acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
     acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
     acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
     gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i][0]
     gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i][1]
-    gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2]
-    if retrive:
-        pass # todo 
-    else:
-        demo_grd_acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i+1][0]
-        demo_grd_acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i+1][1]
-        demo_grd_acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i+1][2]
-        demo_grd_gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][0]
-        demo_grd_gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][1]
-        demo_grd_gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][2]
-        demo_con_acc_x = data_dict[label2ids[contrast_ans]]["total_acc"][i][0]
-        demo_con_acc_y = data_dict[label2ids[contrast_ans]]["total_acc"][i][1]
-        demo_con_acc_z = data_dict[label2ids[contrast_ans]]["total_acc"][i][2]
-        demo_con_gyr_x = data_dict[label2ids[contrast_ans]]["body_gyro"][i][0]
-        demo_con_gyr_y = data_dict[label2ids[contrast_ans]]["body_gyro"][i][1]
-        demo_con_gyr_z = data_dict[label2ids[contrast_ans]]["body_gyro"][i][2]
+    gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2] 
+    demo_grd_acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i+1][0]
+    demo_grd_acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i+1][1]
+    demo_grd_acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i+1][2]
+    demo_grd_gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][0]
+    demo_grd_gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][1]
+    demo_grd_gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][2]
+    demo_con_acc_x = data_dict[label2ids[contrast_ans]]["total_acc"][i][0]
+    demo_con_acc_y = data_dict[label2ids[contrast_ans]]["total_acc"][i][1]
+    demo_con_acc_z = data_dict[label2ids[contrast_ans]]["total_acc"][i][2]
+    demo_con_gyr_x = data_dict[label2ids[contrast_ans]]["body_gyro"][i][0]
+    demo_con_gyr_y = data_dict[label2ids[contrast_ans]]["body_gyro"][i][1]
+    demo_con_gyr_z = data_dict[label2ids[contrast_ans]]["body_gyro"][i][2]
     acc_x_str = ", ".join([f"{x}g" for x in acc_x])
     acc_y_str = ", ".join([f"{x}g" for x in acc_y])
     acc_z_str = ", ".join([f"{x}g" for x in acc_z])
