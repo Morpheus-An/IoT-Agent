@@ -220,48 +220,65 @@ EXPERT:
 The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
 2. Triaxial angular velocity signal: 
 The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s). 
-
-
+​
 You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING. 
-
+​
 EXAMPLE1: 
 1. Triaxial acceleration signal: 
 X-axis: {demo_grd_acc_x_str} 
 Y-axis: {demo_grd_acc_y_str} 
 Z-axis: {demo_grd_acc_z_str} 
+X-axis-mean={np.around(np.mean(demo_grd_acc_x), 3)}, X-axis-var={np.around(np.var(demo_grd_acc_x), 3)} 
+Y-axis-mean={np.around(np.mean(demo_grd_acc_y), 3)}, Y-axis-var={np.around(np.var(demo_grd_acc_y), 3)} 
+Z-axis-mean={np.around(np.mean(demo_grd_acc_z), 3)}, Z-axis-var={np.around(np.var(demo_grd_acc_z), 3)} 
 2. Triaxial angular velocity signal: 
 X-axis: {demo_grd_gyr_x_str} 
 Y-axis: {demo_grd_gyr_y_str} 
 Z-axis: {demo_grd_gyr_z_str} 
+X-axis-mean={np.around(np.mean(demo_grd_gyr_x), 3)}, X-axis-var={np.around(np.var(demo_grd_gyr_x), 3)} 
+Y-axis-mean={np.around(np.mean(demo_grd_gyr_y), 3)}, Y-axis-var={np.around(np.var(demo_grd_gyr_y), 3)} 
+Z-axis-mean={np.around(np.mean(demo_grd_gyr_z), 3)}, Z-axis-var={np.around(np.var(demo_grd_gyr_z), 3)} 
 ANSWER: {ground_ans} 
-
+​
 EXAMPLE2: 
 1. Triaxial acceleration signal: 
 X-axis: {demo_con_acc_x_str} 
 Y-axis: {demo_con_acc_y_str} 
 Z-axis: {demo_con_acc_z_str} 
+X-axis-mean={np.around(np.mean(demo_con_acc_x), 3)}, X-axis-var={np.around(np.var(demo_con_acc_x), 3)} 
+Y-axis-mean={np.around(np.mean(demo_con_acc_y), 3)}, Y-axis-var={np.around(np.var(demo_con_acc_y), 3)} 
+Z-axis-mean={np.around(np.mean(demo_con_acc_z), 3)}, Z-axis-var={np.around(np.var(demo_con_acc_z), 3)} 
 2. Triaxial angular velocity signal: 
 X-axis: {demo_con_gyr_x_str} 
 Y-axis: {demo_con_gyr_y_str} 
-Z-axis: {demo_con_gyr_z_str}  
+Z-axis: {demo_con_gyr_z_str} 
+X-axis-mean={np.around(np.mean(demo_con_gyr_x), 3)}, X-axis-var={np.around(np.var(demo_con_gyr_x), 3)} 
+Y-axis-mean={np.around(np.mean(demo_con_gyr_y), 3)}, Y-axis-var={np.around(np.var(demo_con_gyr_y), 3)} 
+Z-axis-mean={np.around(np.mean(demo_con_gyr_z), 3)}, Z-axis-var={np.around(np.var(demo_con_gyr_z), 3)} 
 ANSWER: {contrast_ans} 
-
-
+​
+​
 QUESTION: Based on the given data, choose the activity that the subject is most likely to be performing from the following two options: 
 {ground_ans} 
 {contrast_ans} 
 Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice. 
-
-
+​
+​
 THE GIVEN DATA: 
 1. Triaxial acceleration signal: 
 X-axis: {acc_x_str} 
 Y-axis: {acc_y_str} 
-Z-axis: {acc_z_str}  
+Z-axis: {acc_z_str} 
+X-axis-mean={np.around(np.mean(acc_x), 3)}, X-axis-var={np.around(np.var(acc_x), 3)} 
+Y-axis-mean={np.around(np.mean(acc_y), 3)}, Y-axis-var={np.around(np.var(acc_y), 3)} 
+Z-axis-mean={np.around(np.mean(acc_z), 3)}, Z-axis-var={np.around(np.var(acc_z), 3)} 
 2. Triaxial angular velocity signal: 
 X-axis: {gyr_x_str} 
 Y-axis: {gyr_y_str} 
 Z-axis: {gyr_z_str} 
+X-axis-mean={np.around(np.mean(gyr_x), 3)}, X-axis-var={np.around(np.var(gyr_x), 3)} 
+Y-axis-mean={np.around(np.mean(gyr_y), 3)}, Y-axis-var={np.around(np.var(gyr_y), 3)} 
+Z-axis-mean={np.around(np.mean(gyr_z), 3)}, Z-axis-var={np.around(np.var(gyr_z), 3)} 
 ANSWER:""" 
     return prompt
 
