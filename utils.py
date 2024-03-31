@@ -23,6 +23,147 @@ def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
 
     return indexing_pipeline
 
+def prepare_and_embed_documents(document_store, source_paths: list[str], metadata_fields_to_embed=None, meta_data: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]=None, splitter_kwards: dict=None, draw: str=None, device: str="cuda:0"):
+    assert ((metadata_fields_to_embed is None and meta_data is None) or (metadata_fields_to_embed is not None and meta_data is not None)) 
+    if type(meta_data) == list: 
+        assert len(meta_data) == len(source_paths)
+
+    file_type_router = FileTypeRouter(mime_types=["text/plain", "application/pdf", "text/markdown"])
+    text_file_converter = TextFileToDocument()
+    pdf_converter = PyPDFToDocument()
+    markdown_converter = MarkdownToDocument()
+    document_jointer = DocumentJoiner()
+    document_cleaner = DocumentCleaner()
+    if splitter_kwards is None:
+        document_splitter = DocumentSplitter(split_by="word", split_length=150, split_overlap=50)
+    else:
+        document_splitter = DocumentSplitter(**splitter_kwards)
+    
+    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device)) 
+
+    document_writer = DocumentWriter(document_store, policy=DuplicatePolicy.OVERWRITE)
+
+    preprocess_pipeline = Pipeline()
+    preprocess_pipeline.add_component(instance=file_type_router, name="file_type_router")
+    preprocess_pipeline.add_component(instance=text_file_converter, name="text_file_converter")
+    preprocess_pipeline.add_component(instance=pdf_converter, name="pdf_converter")
+    preprocess_pipeline.add_component(instance=markdown_converter, name="markdown_converter")
+    preprocess_pipeline.add_component(instance=document_jointer, name="document_jointer")
+    preprocess_pipeline.add_component(instance=document_cleaner, name="document_cleaner")
+    preprocess_pipeline.add_component(instance=document_splitter, name="document_splitter")
+    preprocess_pipeline.add_component(instance=document_embedder, name="document_embedder")
+    preprocess_pipeline.add_component(instance=document_writer, name="document_writer")
+
+    preprocess_pipeline.connect("file_type_router.text/plain", "text_file_converter.sources")
+    preprocess_pipeline.connect("file_type_router.application/pdf", "pdf_converter.sources")
+    preprocess_pipeline.connect("file_type_router.text/markdown", "markdown_converter.sources")
+    preprocess_pipeline.connect("text_file_converter", "document_jointer")
+    preprocess_pipeline.connect("pdf_converter", "document_jointer")
+    preprocess_pipeline.connect("markdown_converter", "document_jointer")
+    preprocess_pipeline.connect("document_jointer", "document_cleaner")
+    preprocess_pipeline.connect("document_cleaner", "document_splitter")
+    preprocess_pipeline.connect("document_splitter", "document_embedder")
+    preprocess_pipeline.connect("document_embedder", "document_writer")
+    if draw is not None:
+        preprocess_pipeline.draw(draw)
+    preprocess_pipeline.run(
+        {
+            "file_type_router": {
+                "sources": source_paths
+            },
+            "text_file_converter": {
+                "meta": meta_data
+            },
+            "pdf_converter": {
+                "meta": meta_data 
+            },
+            "markdown_converter": {
+                "meta": meta_data
+            }
+        }
+    )
+    return document_store
+
+def gen_prompt_template_with_rag(data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0):
+    acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
+    acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
+    acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
+    gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i][0]
+    gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i][1]
+    gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2] 
+    acc_x_str = ", ".join([f"{x}g" for x in acc_x])
+    acc_y_str = ", ".join([f"{x}g" for x in acc_y])
+    acc_z_str = ", ".join([f"{x}g" for x in acc_z])
+    gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
+    gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
+    gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
+    prompt = f"""{Role_Definition()}
+
+EXPERT:
+1. Triaxial acceleration signal: 
+The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
+2. Triaxial angular velocity signal: 
+The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+3. Other domain knowledge:
+"""
+    prompt += """
+{% for domain_doc in documents_domain %}
+    {{ domain_doc.content }}
+{% endfor %}
+
+You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.
+
+
+
+QUESTION: {{ query }}
+"""
+    prompt += f"""
+{ground_ans}
+{contract_ans}
+Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice. 
+​
+​
+THE GIVEN DATA: 
+1. Triaxial acceleration signal: 
+X-axis: {acc_x_str} 
+Y-axis: {acc_y_str} 
+Z-axis: {acc_z_str} 
+X-axis-mean={np.around(np.mean(acc_x), 3)}, X-axis-var={np.around(np.var(acc_x), 3)} 
+Y-axis-mean={np.around(np.mean(acc_y), 3)}, Y-axis-var={np.around(np.var(acc_y), 3)} 
+Z-axis-mean={np.around(np.mean(acc_z), 3)}, Z-axis-var={np.around(np.var(acc_z), 3)} 
+2. Triaxial angular velocity signal: 
+X-axis: {gyr_x_str} 
+Y-axis: {gyr_y_str} 
+Z-axis: {gyr_z_str} 
+X-axis-mean={np.around(np.mean(gyr_x), 3)}, X-axis-var={np.around(np.var(gyr_x), 3)} 
+Y-axis-mean={np.around(np.mean(gyr_y), 3)}, Y-axis-var={np.around(np.var(gyr_y), 3)} 
+Z-axis-mean={np.around(np.mean(gyr_z), 3)}, Z-axis-var={np.around(np.var(gyr_z), 3)} 
+ANSWER:""" 
+    return prompt
+
+
+# EXAMPLE1:
+# {{ document_demo_grd.content }}
+# EXAMPLE2:
+# {{ document_demo_con.content }}
+#     return """
+# Given the following information, answer the question.
+
+# Context:
+# {% for document in documents %}
+#     {{ document.content }}
+# {% endfor %}
+
+# Question: {{question}}
+# Answer:
+# """
+def pretty_print_res_of_ranker(res):
+    for doc in res["documents"]:
+        print(doc.meta["file_path"], "\t", doc.score)
+        print(doc.content)
+        print("\n", "\n")
+
+        
 def wikipedia_indexing(some_titles = ["Inertial measurement unit", ]):
     raw_docs = []
     for title in some_titles:
@@ -290,6 +431,7 @@ def eval_generated_ans(ans, grd, contrs):
         count_contrs = an.count(contrs)
         if count_grd == 0:
             # print(f"fault:{an}", end="\n__\n")
+            print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
             # 把回答错误的an用红色字体打印出来:
             print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
             continue 
@@ -301,7 +443,9 @@ def eval_generated_ans(ans, grd, contrs):
             if (grd_begin < contrs_begin and count_grd >= count_contrs) or grd_begin == 0:
                 correct += 1
             else:
+                print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
                 print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
         else:
+            print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
             print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
     return correct / len(ans)
