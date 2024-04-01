@@ -27,17 +27,12 @@ from typing import Any, Dict, List, Optional, Union
 from haystack.components.retrievers.in_memory import InMemoryBM25Retriever
 from haystack.components.rankers import TransformersSimilarityRanker
 import time 
+from openAI_API_key import *
+
 
 EMBEDDER_MODEL = "thenlper/gte-large"
 RANKER_MODEL = "BAAI/bge-reranker-base"
 MODEL = {"gpt3.5": "gpt-3.5-turbo", "gpt4": "gpt-4-turbo-preview"}
-TEACHER_API = ""
-MY_API = ""
-BASE_URL = ""
-TEACHER_API = "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"
-MY_API = "sk-3NOuUzTj0Dt97bfgW4AkOthKf0OFUAWgyU1Y3BgiXOj3yeo9"
-BASE_URL = "https://api.openai-proxy.org/v1"
-
 
 
 id2labels = {
