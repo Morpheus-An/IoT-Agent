@@ -1,5 +1,5 @@
 from imports import *
-from utils import read_raw_data_and_preprocess, filter_data_dict_with_var, get_openAI_model, gen_prompt_template_without_rag, eval_generated_ans, prepare_and_embed_documents, gen_prompt_template_with_rag, set_openAI_key_and_base, pretty_print_res_of_ranker
+from utils import read_raw_data_and_preprocess, filter_data_dict_with_var, get_openAI_model, gen_prompt_template_without_rag, eval_generated_ans, prepare_and_embed_documents, gen_prompt_template_with_rag, set_openAI_key_and_base, pretty_print_res_of_ranker, write_demo_knowledge
 
 
 def chat_with_openai(data_dict, ground_ans: str="WALKING", contrast_ans: str="STANDING", answer_num: int=10, api_base: bool=True, model: str=MODEL["gpt3.5"], retrive=False, print_prompt=True):
@@ -34,8 +34,19 @@ if __name__ == "__main__":
     data_dict = read_raw_data_and_preprocess()
     filtered_data_dict = filter_data_dict_with_var(data_dict, thred=0.5, filter_by="body_acc", print_log=False)
     data_dict = filtered_data_dict
-    ground_ans = "STANDING"
-    contrast_ans = "WALKING"
+    demo_file_paths = write_demo_knowledge("/home/ant/RAG/IMU_knowledge/demo-knowledge", data_dict)
+    # assert(0)
+    meta_data = [
+        {
+            "label": file_path.split("/")[-1][len("demo-knowledge"):-len("_i.txt")]
+        }
+        for file_path in demo_file_paths
+    ]
+    print(meta_data)
+    # assert(0)
+    ground_ans = "WALKING"
+    contrast_ans = "STANDING"
+
     start_time = time.perf_counter()
     # without retrieval:
     # ans = chat_with_openai(data_dict, ground_ans=ground_ans, contrast_ans=contrast_ans, answer_num=10, api_base=True, model=MODEL["gpt3.5"], retrive=False, print_prompt=False)
@@ -59,13 +70,8 @@ if __name__ == "__main__":
         "/home/ant/RAG/IMU_knowledge/domain-knowledge/Uni- and triaxial accelerometric signals agree during daily routine, but show differences between sports.pdf",
         "/home/ant/RAG/IMU_knowledge/domain-knowledge/walking.txt",
     ]
-    Demo_paths = [
-        # todo
-        "/home/ant/RAG/IMU_knowledge/domain-knowledge/walking.txt",
-    ]
-    Demo_paths2 = [
-        "/home/ant/RAG/IMU_knowledge/domain-knowledge/Uni- and triaxial accelerometric signals agree during daily routine, but show differences between sports.pdf",
-    ]
+    Demo_paths = demo_file_paths
+    # Demo_paths2 = demo_file_paths
     
     device = "cuda:0"
 
@@ -74,11 +80,11 @@ if __name__ == "__main__":
     embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_paths, draw="domain_indexing_pipeline.png", device=device, splitter_kwards=splitter_kwags_domain)
 
     document_store_demo = InMemoryDocumentStore()
-    splitter_kwags_demo = {"split_by": "sentence", "split_length": 2}
-    embedded_document_store_DM = prepare_and_embed_documents(document_store_demo, Demo_paths, draw="demo_indexing_pipeline.png", device=device, splitter_kwards=splitter_kwags_demo)
+    splitter_kwags_demo = {"split_by": "passage", "split_length": 1}
+    embedded_document_store_DM = prepare_and_embed_documents(document_store_demo, Demo_paths, draw="demo_indexing_pipeline.png", device=device, splitter_kwards=splitter_kwags_demo, meta_data=meta_data)
 
-    document_store_demo2 = InMemoryDocumentStore()
-    embedded_document_store_DM2 = prepare_and_embed_documents(document_store_demo2, Demo_paths2, draw="demo_indexing_pipeline.png", device=device, splitter_kwards=splitter_kwags_demo)
+    # document_store_demo2 = InMemoryDocumentStore()
+    # embedded_document_store_DM2 = prepare_and_embed_documents(document_store_demo2, Demo_paths2, draw="demo_indexing_pipeline.png", device=device, splitter_kwards=splitter_kwags_demo)
 
 
 
@@ -93,11 +99,11 @@ if __name__ == "__main__":
 
         embedding_retriever_domain = InMemoryEmbeddingRetriever(embedded_document_store_KB)
         grd_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
-        con_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM2)
+        con_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
 
         keyword_retriever_domain = InMemoryBM25Retriever(embedded_document_store_KB)
         grd_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
-        con_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM2)
+        con_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
 
         document_joiner_domain = DocumentJoiner()
         grd_document_joiner_demo = DocumentJoiner()
@@ -107,10 +113,10 @@ if __name__ == "__main__":
         ranker_domain = TransformersSimilarityRanker(model=RANKER_MODEL)
         grd_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
         con_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
-        template = gen_prompt_template_with_rag(data_dict, ground_ans, contrast_ans, i) 
+        template, data_des = gen_prompt_template_with_rag(data_dict, ground_ans, contrast_ans, i) 
         prompt_builder = PromptBuilder(template=template)
-        set_openAI_key_and_base(True)
-        generator = OpenAIGenerator(model=MODEL["gpt3.5"], api_base_url=os.environ["OPENAI_BASE_URL"])
+        set_openAI_key_and_base(False)
+        generator = OpenAIGenerator(model=MODEL["gpt3.5"])
 
         # seconde: 创建pipeline:
         rag_pipeline = Pipeline()
@@ -153,64 +159,183 @@ if __name__ == "__main__":
         # rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
         # rag_pipeline.draw("retriver_pipeline2.png")
         # print("draw1 done")
-        query = f"""Based on the given data, choose the activity that the subject is most likely to be performing from the following two options: 
-    {ground_ans} 
-    {contrast_ans} """
+        query = f"""Based on the given data, choose the activity that the subject is most likely to be performing from the following two options: """
         content4retrieval_domain = """1. Triaxial acceleration signal: 
     The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
     2. Triaxial angular velocity signal: 
     The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
 
     You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING."""
-        retrieved = rag_pipeline.run(
-            {
-                "text_embedder_domain": {"text": content4retrieval_domain},
-                # "grd_demo_embedder": {"text": content4retrieval_domain},
-                # "con_demo_embedder": {"text": content4retrieval_domain},
-                "keyword_retriever_domain": {"query": content4retrieval_domain},
-                # "grd_keyword_retriever_demo": {"query": content4retrieval_domain},
-                # "con_keyword_retriever_demo": {"query": content4retrieval_domain},
-                "ranker_domain": {"query": content4retrieval_domain},
-                # "grd_ranker_demo": {"query": content4retrieval_domain},
-                # "con_ranker_demo": {"query": content4retrieval_domain},
-            }
-        )
+        content4retrieval_grd_demo = data_des 
+        content4retrieval_con_demo = f"ANSWER: {contrast_ans}"
+        # retrieved = rag_pipeline.run(
+        #     {
+        #         # "text_embedder_domain": {"text": content4retrieval_domain},
+        #         "grd_demo_embedder": {"text": content4retrieval_grd_demo},
+        #         "con_demo_embedder": {"text": content4retrieval_con_demo},
+
+        #         "grd_embedding_retriever_demo": {
+        #             "filters": {
+        #                 "field": "meta.label",
+        #                 "operator": "in",
+        #                 "value": [ground_ans]
+        #             },
+        #             "top_k": 2,
+        #         },
+        #         "con_embedding_retriever_demo": {
+        #             "filters": {
+        #                 "field": "meta.label",
+        #                 "operator": "in",
+        #                 "value": [contrast_ans]
+        #             }
+        #         },
+        #         # "con_demo_embedder": {"text": content4retrieval_domain},
+        #         # "keyword_retriever_domain": {"query": content4retrieval_grd_demo},
+        #         "grd_keyword_retriever_demo": {"query": content4retrieval_grd_demo, "top_k": 1,
+                                               
+        #         "filters": {"field" : "meta.label", "operator": "in", "value": [ground_ans]
+        #         }
+        #         },
+        #         "con_keyword_retriever_demo": {
+        #             "query": content4retrieval_con_demo,
+        #             "top_k": 1,
+        #             "filters": {
+        #                 "field": "meta.label",
+        #                 "operator": "in",
+        #                 "value": [contrast_ans],
+        #             },
+        #         },
+        #         # "con_keyword_retriever_demo": {"query": content4retrieval_domain},
+        #         # "ranker_domain": {"query": content4retrieval_domain},
+        #         "grd_ranker_demo": {"query": content4retrieval_grd_demo, "top_k": 1},
+        #         "con_ranker_demo": {"query": content4retrieval_con_demo, "top_k": 1},
+        #     }
+        # )
         # pretty_print_res_of_ranker(retrieved["ranker_domain"])
         # print("___________________________________________________________")
         # pretty_print_res_of_ranker(retrieved["grd_ranker_demo"])
         # print("___________________________________________________________")
+        # assert(0)
         # pretty_print_res_of_ranker(retrieved["con_ranker_demo"])
-
-
+        # assert(0)
         rag_pipeline.add_component("prompt_builder", prompt_builder)
         rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
-        # rag_pipeline.connect("grd_ranker_demo", "prompt_builder.document_demo_grd")
+        # rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
+        # rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
         # rag_pipeline.connect("con_ranker_demo", "prompt_builder.document_demo_con")
         # 打印看看喂给llm的prompt长什么样子
-        final_prompt = rag_pipeline.run(
-            {
-                "text_embedder_domain": {"text": content4retrieval_domain},
-                "keyword_retriever_domain": {"query": content4retrieval_domain},
-                "ranker_domain": {"query": content4retrieval_domain},
-                "prompt_builder": {"query": query},
-            }
-        )
-        # print(f"final_prompt is:\n{final_prompt}")
-        print("___________________________________________________________")
+        # final_prompt = rag_pipeline.run(
+        #     {
+        #         "text_embedder_domain": {"text": content4retrieval_domain},
+        #         "keyword_retriever_domain": {"query": content4retrieval_domain},
+        #         "ranker_domain": {"query": content4retrieval_domain},
+        #         # "grd_demo_embedder": {"text": content4retrieval_grd_demo},
+        #         # "con_demo_embedder": {"text": content4retrieval_con_demo},
+        #         # "grd_embedding_retriever_demo": {
+        #         #     "filters": {
+        #         #         "field": "meta.label",
+        #         #         "operator": "in",
+        #         #         "value": [ground_ans],
+        #         #     },
+        #         #     "top_k": 1,
+        #         # },
+        #         # "con_embedding_retriever_demo": {
+        #         #     "filters": {
+        #         #         "field": "meta.label",
+        #         #         "operator": "in",
+        #         #         "value": [contrast_ans],
+        #         #     }
+        #         # },
+        #         # "grd_keyword_retriever_demo": {
+        #         #     "query": content4retrieval_grd_demo,
+        #         #     "top_k": 1,
+        #         #     "filters": {
+        #         #         "field": "meta.label",
+        #         #         "operator": "in",
+        #         #         "value": [ground_ans],
+        #         #     },
+        #         # },
+        #         # "con_keyword_retriever_demo": {
+        #         #     "query": content4retrieval_con_demo,
+        #         #     "top_k": 1,
+        #         #     "filters": {
+        #         #         "field": "meta.label",
+        #         #         "operator": "in",
+        #         #         "value": [contrast_ans],
+        #         #     },
+        #         # },
+        #         # "grd_ranker_demo": {
+        #         #     "query": content4retrieval_grd_demo,
+        #         #     "top_k": 1,
+        #         # },
+        #         # "con_ranker_demo": {
+        #         #     "query": content4retrieval_con_demo,
+        #         #     "top_k": 1,
+        #         # },             
+        #         "prompt_builder": {"query": query},
+        #     }
+        # )
+        # print(f"final_prompt is:\n{final_prompt['prompt_builder']['prompt']}")
+        # print("___________________________________________________________")
+        # assert(0)
         rag_pipeline.add_component("llm", generator)
         rag_pipeline.connect("prompt_builder", "llm")
-        rag_pipeline.draw("rag_pipeline.png")
+        # rag_pipeline.draw("rag_pipeline.png")
         result = rag_pipeline.run(
             {
                 "text_embedder_domain": {"text": content4retrieval_domain},
                 "keyword_retriever_domain": {"query": content4retrieval_domain},
                 "ranker_domain": {"query": content4retrieval_domain},
+                # "grd_demo_embedder": {"text": content4retrieval_grd_demo},
+                # "con_demo_embedder": {"text": content4retrieval_con_demo},
+                # "grd_embedding_retriever_demo": {
+                #     "filters": {
+                #         "field": "meta.label",
+                #         "operator": "in",
+                #         "value": [ground_ans],
+                #     },
+                #     "top_k": 1,
+                # },
+                # "con_embedding_retriever_demo": {
+                #     "filters": {
+                #         "field": "meta.label",
+                #         "operator": "in",
+                #         "value": [contrast_ans],
+                #     }
+                # },
+                # "grd_keyword_retriever_demo": {
+                #     "query": content4retrieval_grd_demo,
+                #     "top_k": 1,
+                #     "filters": {
+                #         "field": "meta.label",
+                #         "operator": "in",
+                #         "value": [ground_ans],
+                #     },
+                # },
+                # "con_keyword_retriever_demo": {
+                #     "query": content4retrieval_con_demo,
+                #     "top_k": 1,
+                #     "filters": {
+                #         "field": "meta.label",
+                #         "operator": "in",
+                #         "value": [contrast_ans],
+                #     },
+                # },
+                # "grd_ranker_demo": {
+                #     "query": content4retrieval_grd_demo,
+                #     "top_k": 1,
+                # },
+                # "con_ranker_demo": {
+                #     "query": content4retrieval_con_demo,
+                #     "top_k": 1,
+                # },             
                 "prompt_builder": {"query": query},
             }
         )
         an = result["llm"]["replies"][0]
         print(an)
         ans.append(an)
+        # assert(0)
         if i % 5 == 0:
             print(f"第{i}次预测完成")
     

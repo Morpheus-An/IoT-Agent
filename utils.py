@@ -24,7 +24,7 @@ def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
     return indexing_pipeline
 
 def prepare_and_embed_documents(document_store, source_paths: list[str], metadata_fields_to_embed=None, meta_data: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]=None, splitter_kwards: dict=None, draw: str=None, device: str="cuda:0"):
-    assert ((metadata_fields_to_embed is None and meta_data is None) or (metadata_fields_to_embed is not None and meta_data is not None)) 
+    # assert ((metadata_fields_to_embed is None and meta_data is None) or (metadata_fields_to_embed is not None and meta_data is not None)) 
     if type(meta_data) == list: 
         assert len(meta_data) == len(source_paths)
 
@@ -97,6 +97,21 @@ def gen_prompt_template_with_rag(data_dict, ground_ans: str="WALKING", contract_
     gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
     gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
     gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
+    data_des = f"""1. Triaxial acceleration signal: 
+X-axis: {acc_x_str} 
+Y-axis: {acc_y_str} 
+Z-axis: {acc_z_str} 
+X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)} 
+Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)} 
+Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)} 
+2. Triaxial angular velocity signal: 
+X-axis: {gyr_x_str} 
+Y-axis: {gyr_y_str} 
+Z-axis: {gyr_z_str} 
+X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)} 
+Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
+Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
+    
     prompt = f"""{Role_Definition()}
 
 EXPERT:
@@ -107,12 +122,9 @@ The provided three-axis angular velocity signals contain angular velocity data f
 3. Other domain knowledge:
 """
     prompt += """
-{% for domain_doc in documents_domain %}
-    {{ domain_doc.content }}
-{% endfor %}
+{% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
 
 You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.
-
 
 
 QUESTION: {{ query }}
@@ -120,28 +132,22 @@ QUESTION: {{ query }}
     prompt += f"""
 {ground_ans}
 {contract_ans}
-Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice. 
+Before answering your question, you must refer to the EXPERT, in order to help you make a clear choice. 
 ​
 ​
 THE GIVEN DATA: 
-1. Triaxial acceleration signal: 
-X-axis: {acc_x_str} 
-Y-axis: {acc_y_str} 
-Z-axis: {acc_z_str} 
-X-axis-mean={np.around(np.mean(acc_x), 3)}, X-axis-var={np.around(np.var(acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(acc_y), 3)}, Y-axis-var={np.around(np.var(acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(acc_z), 3)}, Z-axis-var={np.around(np.var(acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {gyr_x_str} 
-Y-axis: {gyr_y_str} 
-Z-axis: {gyr_z_str} 
-X-axis-mean={np.around(np.mean(gyr_x), 3)}, X-axis-var={np.around(np.var(gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}, Y-axis-var={np.around(np.var(gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}, Z-axis-var={np.around(np.var(gyr_z), 3)} 
+{data_des}
 ANSWER:""" 
-    return prompt
+    return prompt, data_des
 
 
+# EXAMPLE1:
+# {% for d in grd_demo %}{{ d.content }}{% endfor %}
+
+# EXAMPLE2:
+# {% for d in con_demo %}{{ d.content }}{% endfor %}
+
+#  to the previous EXAMPLES and compare the signal data, the mean data, and the var data in the EXAMPLES with those in the question,
 # EXAMPLE1:
 # {{ document_demo_grd.content }}
 # EXAMPLE2:
@@ -162,6 +168,47 @@ def pretty_print_res_of_ranker(res):
         print(doc.meta["file_path"], "\t", doc.score)
         print(doc.content)
         print("\n", "\n")
+
+# 写入demo-knowledge：
+def write_demo_knowledge(tgt_dir_path: str, data_dict, sample_num: int=5):
+    file_paths = []
+    # 为了不与test使用的demo重复，选用data_dict中的后面的数据作为范例知识
+    for label_id in label2ids.values():
+        for i in range(1, sample_num+1):
+            acc_x = data_dict[label_id]["total_acc"][-i][0]
+            acc_y = data_dict[label_id]["total_acc"][-i][1]
+            acc_z = data_dict[label_id]["total_acc"][-i][2]
+            gyr_x = data_dict[label_id]["body_gyro"][-i][0]
+            gyr_y = data_dict[label_id]["body_gyro"][-i][1]
+            gyr_z = data_dict[label_id]["body_gyro"][-i][2]
+            acc_x_str = ", ".join([f"{x}g" for x in acc_x])
+            acc_y_str = ", ".join([f"{x}g" for x in acc_y])
+            acc_z_str = ", ".join([f"{x}g" for x in acc_z])
+            gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
+            gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
+            gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
+            written_content = f"""1. Triaxial acceleration signal:
+X-axis: {acc_x_str}
+Y-axis: {acc_y_str}
+Z-axis: {acc_z_str}
+X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)}
+Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)}
+Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)}
+2. Triaxial angular velocity signal:
+X-axis: {gyr_x_str}
+Y-axis: {gyr_y_str}
+Z-axis: {gyr_z_str}
+X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)}
+Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)}
+Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}
+ANSWER: {id2labels[label_id]}"""
+            file_path = tgt_dir_path + f"{id2labels[label_id]}_{i}.txt"
+            file_paths.append(file_path)
+            with open(file_path, 'w') as f:
+                f.write(written_content)
+                f.write("\n\n")
+    return file_paths
+
 
         
 def wikipedia_indexing(some_titles = ["Inertial measurement unit", ]):
