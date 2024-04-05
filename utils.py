@@ -130,9 +130,7 @@ You need to comprehensively analyze the acceleration and angular velocity data o
 QUESTION: {{ query }}
 """
     prompt += f"""
-{ground_ans}
-{contract_ans}
-Before answering your question, you must refer to the EXPERT, in order to help you make a clear choice. 
+Before answering your question, you must refer to the EXPERT and make an analysis step by step.
 ​
 ​
 THE GIVEN DATA: 

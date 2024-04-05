@@ -44,8 +44,8 @@ if __name__ == "__main__":
     ]
     print(meta_data)
     # assert(0)
-    ground_ans = "WALKING"
-    contrast_ans = "STANDING"
+    ground_ans = "STANDING"
+    contrast_ans = "WALKING"
 
     start_time = time.perf_counter()
     # without retrieval:
@@ -159,8 +159,9 @@ if __name__ == "__main__":
         # rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
         # rag_pipeline.draw("retriver_pipeline2.png")
         # print("draw1 done")
-        query = f"""Based on the given data, choose the activity that the subject is most likely to be performing from the following two options: """
-        content4retrieval_domain = """1. Triaxial acceleration signal: 
+        # query = f"""Based on the given data, choose the activity that the subject is most likely to be performing from the following two options: """
+        query = f"The person’s action belongs to one of the following categories: [{ground_ans, contrast_ans}]. Could you please tell me what action the person was doing based on the given information and IMU readings?"
+        content4retrieval_domain = query + "\n" + """1. Triaxial acceleration signal: 
     The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
     2. Triaxial angular velocity signal: 
     The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
