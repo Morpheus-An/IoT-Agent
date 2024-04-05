@@ -122,17 +122,24 @@ The provided three-axis angular velocity signals contain angular velocity data f
 3. Other domain knowledge:
 """
     prompt += """
-{% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
+{% for domain_doc in documents_domain %}
+    {{ domain_doc.content }}
+{% endfor %}
 
 You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.
 
+EXAMPLE1:
+{% for d in grd_demo %}{{ d.content }}{% endfor %}
+
+EXAMPLE2:
+{% for d in con_demo %}{{ d.content }}{% endfor %}
 
 QUESTION: {{ query }}
 """
     prompt += f"""
 {ground_ans}
 {contract_ans}
-Before answering your question, you must refer to the EXPERT, in order to help you make a clear choice. 
+Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice.
 ​
 ​
 THE GIVEN DATA: 
@@ -140,12 +147,183 @@ THE GIVEN DATA:
 ANSWER:""" 
     return prompt, data_des
 
+#  demo_path, device, splitter_kwargs_domain = {}
+def generate_with_rag(
+        ground_ans,
+        contrast_ans,
+        KB_path,
+        data_dict,
+        demo_dir_path = "/home/ant/RAG/IMU_knowledge/demo-knowledge",
+        splitter_kwargs_domain = {
+            "split_by": "sentence",
+            "split_length": 2,
+        },
+        splitter_kwargs_demo = {
+            "split_by": "passage",
+            "split_length": 1,
+        },
+        num_samples = 50,
+        use_my_key = False,
+        device="cuda:0"
+):
+    Demo_paths = write_demo_knowledge(
+        demo_dir_path,
+        data_dict,
+    )
+    meta_data = [
+        {
+            "label": file_path.split('/')[-1][len("demo-knowledge"):-len("_i.txt")]
+        }
+        for file_path in Demo_paths
+    ]
+    print(meta_data)
+    document_store_domain = InMemoryDocumentStore()
+    embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_path, draw=None, device=device, splitter_kwards=splitter_kwargs_domain)
 
-# EXAMPLE1:
-# {% for d in grd_demo %}{{ d.content }}{% endfor %}
+    document_store_demo = InMemoryDocumentStore()
+    embedded_document_store_DM = prepare_and_embed_documents(document_store_demo, Demo_paths, draw=None, device=device, splitter_kwards=splitter_kwargs_demo, meta_data=meta_data)
 
-# EXAMPLE2:
-# {% for d in con_demo %}{{ d.content }}{% endfor %}
+    ans = []
+    for i in range(num_samples):
+        text_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
+        grd_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device)) 
+        con_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
+
+        embedding_retriever_domain = InMemoryEmbeddingRetriever(embedded_document_store_KB)
+        grd_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
+        con_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
+
+        keyword_retriever_domain = InMemoryBM25Retriever(embedded_document_store_KB)
+        grd_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
+        con_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
+
+        document_joiner_domain = DocumentJoiner()
+        grd_document_joiner_demo = DocumentJoiner()
+        con_document_joiner_demo = DocumentJoiner()
+
+        ranker_domain = TransformersSimilarityRanker(model=RANKER_MODEL)
+        grd_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
+        con_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
+
+        template, data_des = gen_prompt_template_with_rag(data_dict, ground_ans, contrast_ans, i)
+        prompt_builder = PromptBuilder(template=template)
+
+        set_openAI_key_and_base(use_my_key)
+        generator = OpenAIGenerator(model=MODEL["gpt3.5"], api_base_url=os.environ["OPENAI_BASE_URL"] if use_my_key else None)
+
+        rag_pipeline = Pipeline()
+        # 1. for domain-knowledge:
+        rag_pipeline.add_component("text_embedder_domain", text_embedder)
+        rag_pipeline.add_component("embedding_retriever_domain", embedding_retriever_domain)
+        rag_pipeline.add_component("keyword_retriever_domain", keyword_retriever_domain)
+        rag_pipeline.add_component("document_joiner_domain", document_joiner_domain)
+        rag_pipeline.add_component("ranker_domain", ranker_domain)
+        # 2.1 for grd-demo knowledge:
+        rag_pipeline.add_component("grd_demo_embedder", grd_demo_embedder)
+        rag_pipeline.add_component("grd_embedding_retriever_demo", grd_embedding_retriever_demo)
+        rag_pipeline.add_component("grd_keyword_retriever_demo", grd_keyword_retriever_demo)
+        rag_pipeline.add_component("grd_document_joiner_demo", grd_document_joiner_demo)
+        rag_pipeline.add_component("grd_ranker_demo", grd_ranker_demo)
+        # 2.2 for con-demo knowledge:
+        rag_pipeline.add_component("con_demo_embedder", con_demo_embedder)
+        rag_pipeline.add_component("con_embedding_retriever_demo", con_embedding_retriever_demo)
+        rag_pipeline.add_component("con_keyword_retriever_demo", con_keyword_retriever_demo)
+        rag_pipeline.add_component("con_document_joiner_demo", con_document_joiner_demo)
+        rag_pipeline.add_component("con_ranker_demo", con_ranker_demo)
+
+        # 连接各个components
+        # 1. for domain-knowledge:
+        rag_pipeline.connect("text_embedder_domain", "embedding_retriever_domain")
+        rag_pipeline.connect("embedding_retriever_domain", "document_joiner_domain")
+        rag_pipeline.connect("keyword_retriever_domain", "document_joiner_domain")
+        rag_pipeline.connect("document_joiner_domain", "ranker_domain")
+        # # 2. for demo-knowledge:
+        # # 2.1. for ground-truth demo knowledge:
+        rag_pipeline.connect("grd_demo_embedder", "grd_embedding_retriever_demo")
+        rag_pipeline.connect("grd_embedding_retriever_demo", "grd_document_joiner_demo")
+        rag_pipeline.connect("grd_keyword_retriever_demo", "grd_document_joiner_demo")
+        rag_pipeline.connect("grd_document_joiner_demo", "grd_ranker_demo")
+        # # 2.2. for contrast demo knowledge:
+        rag_pipeline.connect("con_demo_embedder", "con_embedding_retriever_demo")
+        rag_pipeline.connect("con_embedding_retriever_demo", "con_document_joiner_demo")
+        rag_pipeline.connect("con_keyword_retriever_demo", "con_document_joiner_demo")
+        rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
+        query = """Based on the given data, choose the activity that the subject is most likely to be performing from the following two options:"""
+        content4retrieval_domain = """1. Triaxial acceleration signal: 
+The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
+2. Triaxial angular velocity signal: 
+The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+
+You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING."""
+        content4retrieval_grd_demo = data_des 
+        content4retrieval_con_demo = f"ANSWER: {contrast_ans}"
+
+        rag_pipeline.add_component("prompt_builder", prompt_builder)
+        rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
+        rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
+        rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
+
+        rag_pipeline.add_component("llm", generator)
+        rag_pipeline.connect("prompt_builder", "llm")
+
+        result = rag_pipeline.run(
+            {
+                "text_embedder_domain": {"text": content4retrieval_domain},
+                "keyword_retriever_domain": {"query": content4retrieval_domain},
+                "ranker_domain": {"query": content4retrieval_domain},
+                "grd_demo_embedder": {"text": content4retrieval_grd_demo},
+                "con_demo_embedder": {"text": content4retrieval_con_demo},
+                "grd_embedding_retriever_demo": {
+                    "filters": {
+                        "field": "meta.label",
+                        "operator": "in",
+                        "value": [ground_ans],
+                    },
+                    "top_k": 1,
+                },
+                "con_embedding_retriever_demo": {
+                    "filters": {
+                        "field": "meta.label",
+                        "operator": "in",
+                        "value": [contrast_ans],
+                    }
+                },
+                "grd_keyword_retriever_demo": {
+                    "query": content4retrieval_grd_demo,
+                    "top_k": 1,
+                    "filters": {
+                        "field": "meta.label",
+                        "operator": "in",
+                        "value": [ground_ans],
+                    },
+                },
+                "con_keyword_retriever_demo": {
+                    "query": content4retrieval_con_demo,
+                    "top_k": 1,
+                    "filters": {
+                        "field": "meta.label",
+                        "operator": "in",
+                        "value": [contrast_ans],
+                    },
+                },
+                "grd_ranker_demo": {
+                    "query": content4retrieval_grd_demo,
+                    "top_k": 1,
+                },
+                "con_ranker_demo": {
+                    "query": content4retrieval_con_demo,
+                    "top_k": 1,
+                },             
+                "prompt_builder": {"query": query},
+            }
+        )
+        an = result["llm"]["replies"][0]
+        print(an)
+        ans.append(an)
+        # assert(0)
+        if i % 5 == 0:
+            print(f"第{i}次预测完成")
+    return ans
 
 #  to the previous EXAMPLES and compare the signal data, the mean data, and the var data in the EXAMPLES with those in the question,
 # EXAMPLE1:
