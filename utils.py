@@ -1,5 +1,26 @@
 from imports import * 
 
+
+def eval_by_gpt(ans, candidates, grd, con): 
+    eval = []
+    candidates_str = ", ".join(candidates)
+    role_des = f"""You are an evaluator, please judge the attitude expressed in the given statement. You should provide one of the results from the candidates, and do not include any other content.
+    candidates: [{candidates}]."""
+    for an in ans:
+        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": role_des},
+                {"role": "user", "content": an},
+            ]
+        ).choices[0].message.content 
+        eval.append(completion)
+        print(completion)
+    score = eval_generated_ans(eval, grd, con)
+    print(score)
+    return score
+        
 def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
 
     document_cleaner = DocumentCleaner()
@@ -39,7 +60,7 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
     else:
         document_splitter = DocumentSplitter(**splitter_kwards)
     
-    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device)) 
+    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL_LOCAL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device)) 
 
     document_writer = DocumentWriter(document_store, policy=DuplicatePolicy.OVERWRITE)
 
@@ -116,15 +137,17 @@ Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gy
 
 EXPERT:
 1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
+The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
 2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
 3. Other domain knowledge:
 """
     prompt += """
 {% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
 
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.
+
+You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status.
+For example, when the signal consistently shows significant fluctuations, it indicates that the person may be engaged in continuous activities, such as WALKING_UPSTAIRS. On the other hand, when the signal consistently displays fewer fluctuations, it suggests that the person may be in a relatively calm state, such as LAYING. However, if there are differing patterns between segments of the signal sequence, and there are notable changes, particularly on certain axes during specific periods, it suggests that the person may be transitioning between activity states, such as in the case of LIE-TO-SIT.
 
 
 QUESTION: {{ query }}
@@ -135,6 +158,7 @@ Before answering your question, you must refer to the EXPERT and make an analysi
 ​
 THE GIVEN DATA: 
 {data_des}
+ANALYSIS:
 ANSWER:""" 
     return prompt, data_des
 
@@ -285,8 +309,42 @@ def read_raw_data_and_preprocess(sample_step: int=5, raw_data_dir: str="/home/an
 
         data_dict[y_train[i]]["total_acc"].append([np.around(signal_data["total_acc_x_train"][i][::sample_step], 3), np.around(signal_data["total_acc_y_train"][i][::sample_step], 3), np.around(signal_data["total_acc_z_train"][i][::sample_step], 3)])
     return data_dict
-        
-def set_openAI_key_and_base(set_base=True):
+
+def read_multicls_data_and_preprocess(labels, sample_step: int=50, raw_data_dir: str="/home/ant/RAG/data/IMU/smartphone+based+recognition+of+human+activities+and+postural+transitions/RawData/"):
+    """return :
+    data_dict: dict[dict[list, list, list]]
+
+    >>> data_dict[label_id]["acc"] = [[acc_x, acc_y, acc_z], ...]
+    """
+    data_dict: dict[dict[list, list, list]] = {}
+    # 其中有12个key，分别代表12个活动类别，每个key中有两个list，分别代表两个传感器的数据
+    for label_id in id2labels.keys():
+        data_dict[label_id] = {"total_acc": [], "body_gyro": []}
+    for label in labels:
+        exp, user, cls_id, begin, end = label
+        acc_path = f"/home/ant/RAG/data/IMU/smartphone+based+recognition+of+human+activities+and+postural+transitions/RawData/acc_exp{exp:02d}_user{user:02d}.txt"
+        gyr_path = f"/home/ant/RAG/data/IMU/smartphone+based+recognition+of+human+activities+and+postural+transitions/RawData/gyro_exp{exp:02d}_user{user:02d}.txt"
+        acc_data = np.loadtxt(acc_path)
+        gyr_data = np.loadtxt(gyr_path)
+        if cls_id <= 6:
+            raw_data_acc = acc_data[begin-1:end-1:sample_step]
+            raw_data_gyr = gyr_data[begin-1:end-1:sample_step]
+        else:
+            raw_data_acc = acc_data[begin-1:end-1:sample_step//4]
+            raw_data_gyr = gyr_data[begin-1:end-1:sample_step//4]
+        data_dict[cls_id]["total_acc"].append([np.around(raw_data_acc[:, 0], 3), np.around(raw_data_acc[:, 1], 3), np.around(raw_data_acc[:, 2], 3)])
+
+        data_dict[cls_id]["body_gyro"].append([np.around(raw_data_gyr[:, 0], 3), np.around(raw_data_gyr[:, 1], 3), np.around(raw_data_gyr[:, 2], 3)])
+    for label_id in data_dict.keys():
+        print(f"{id2labels[label_id]}: {len(data_dict[label_id]['total_acc'])}")
+
+    return data_dict
+
+
+def set_openAI_key_and_base(set_base=True, set_proxy=None):
+    if set_proxy is not None:
+        os.environ["http_proxy"] = PROXY
+        os.environ["https_proxy"] = PROXY
     if set_base:
         os.environ["OPENAI_API_KEY"] = MY_API
         os.environ["OPENAI_BASE_URL"] = BASE_URL
@@ -469,28 +527,29 @@ def eval_generated_ans(ans, grd, contrs):
     # 计算正确率
     # 首先将ans中所有字符串变成大写
     for i in range(len(ans)):
-        ans[i] = ''.join([c.upper() for c in ans[i]])
+        ans[i] = ''.join([c.upper() if (c >= 'a' and c <= 'z') else c for c in ans[i]])
     correct = 0
     for an in ans:
         count_grd = an.count(grd)
-        count_contrs = an.count(contrs)
+        # count_contrs = an.count(contrs)
         if count_grd == 0:
             # print(f"fault:{an}", end="\n__\n")
-            print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
+            # print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
             # 把回答错误的an用红色字体打印出来:
             print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
             continue 
-        elif count_contrs == 0 and count_grd > 0:
-            correct += 1
-        elif count_contrs > 0 and count_grd > 0:
-            grd_begin = an.find(grd)
-            contrs_begin = an.find(contrs)  
-            if (grd_begin < contrs_begin and count_grd >= count_contrs) or grd_begin == 0:
-                correct += 1
-            else:
-                print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
-                print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
+        # elif count_contrs == 0 and count_grd > 0:
+        #     correct += 1
+        # elif count_contrs > 0 and count_grd > 0:
+        #     grd_begin = an.find(grd)
+        #     contrs_begin = an.find(contrs)  
+        #     if (grd_begin < contrs_begin and count_grd >= count_contrs) or grd_begin == 0:
+        #         correct += 1
+        #     else:
+        #         print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
+        #         print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
         else:
-            print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
-            print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
+            # print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
+            # print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
+            correct += 1
     return correct / len(ans)
