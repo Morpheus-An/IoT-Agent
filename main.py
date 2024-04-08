@@ -95,7 +95,7 @@ if __name__ == "__main__":
     
     ans = []
     with open("output_details.log", "a") as f:
-        for i in range(10):
+        for i in range(25):
             # 建立一个rag的pipeline，使用hybrid的retrieval方法进行检索
             # first, 定义components:
             text_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL_LOCAL, device=ComponentDevice.from_str(device))
