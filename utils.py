@@ -1,5 +1,27 @@
 from imports import * 
 
+
+
+def eval_by_gpt(ans, candidates, grd, con): 
+    eval = []
+    candidates_str = ", ".join(candidates)
+    role_des = f"""You are an evaluator, please judge the attitude expressed in the given statement. You should provide one of the results from the candidates, and do not include any other content.
+    candidates: [{candidates}]."""
+    for an in ans:
+        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": role_des},
+                {"role": "user", "content": an},
+            ]
+        ).choices[0].message.content 
+        eval.append(completion)
+        print(completion)
+    score = eval_generated_ans(eval, grd, con)
+    print(score)
+    return score
+        
 def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
 
     document_cleaner = DocumentCleaner()
@@ -39,7 +61,7 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
     else:
         document_splitter = DocumentSplitter(**splitter_kwards)
     
-    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device)) 
+    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL_LOCAL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device)) 
 
     document_writer = DocumentWriter(document_store, policy=DuplicatePolicy.OVERWRITE)
 
@@ -84,7 +106,7 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
     )
     return document_store
 
-def gen_prompt_template_with_rag(data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0):
+def gen_prompt_template_with_rag(data_dict, ground_ans: str="WALKING", contract_ans: List[str]=["STANDING"], i: int=0):
     acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
     acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
     acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
@@ -101,229 +123,129 @@ def gen_prompt_template_with_rag(data_dict, ground_ans: str="WALKING", contract_
 X-axis: {acc_x_str} 
 Y-axis: {acc_y_str} 
 Z-axis: {acc_z_str} 
-X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)} 
 2. Triaxial angular velocity signal: 
 X-axis: {gyr_x_str} 
 Y-axis: {gyr_y_str} 
 Z-axis: {gyr_z_str} 
-X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
+"""
     
     prompt = f"""{Role_Definition()}
 
 EXPERT:
 1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
+The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
 2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
-3. Other domain knowledge:
+The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
 """
     prompt += """
-{% for domain_doc in documents_domain %}
-    {{ domain_doc.content }}
-{% endfor %}
-
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.
-
-EXAMPLE1:
-{% for d in grd_demo %}{{ d.content }}{% endfor %}
-
-EXAMPLE2:
-{% for d in con_demo %}{{ d.content }}{% endfor %}
 
 QUESTION: {{ query }}
 """
     prompt += f"""
-{ground_ans}
-{contract_ans}
-Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice.
-​
+Before answering your question, you must refer to the EXPERT and make an analysis step by step.
 ​
 THE GIVEN DATA: 
 {data_des}
+ANALYSIS:
 ANSWER:""" 
     return prompt, data_des
 
-#  demo_path, device, splitter_kwargs_domain = {}
-def generate_with_rag(
-        ground_ans,
-        contrast_ans,
-        KB_path,
-        data_dict,
-        demo_dir_path = "/home/ant/RAG/IMU_knowledge/demo-knowledge",
-        splitter_kwargs_domain = {
-            "split_by": "sentence",
-            "split_length": 2,
-        },
-        splitter_kwargs_demo = {
-            "split_by": "passage",
-            "split_length": 1,
-        },
-        num_samples = 50,
-        use_my_key = False,
-        device="cuda:0"
-):
-    Demo_paths = write_demo_knowledge(
-        demo_dir_path,
-        data_dict,
-    )
-    meta_data = [
-        {
-            "label": file_path.split('/')[-1][len("demo-knowledge"):-len("_i.txt")]
+def gen_prompt_template_with_rag4daily(data_dict, activity_features: str, grd_ans: str, candidates: List[str], i:int=0, devicpos: List[str]=["torso", "left arm", "left leg"]):
+    def data_des_gen(is_demo, i, label, data_dict, devicpos):
+        axes = ['x', 'y', 'z']
+        accs = {
+            pos: {
+                axis: data_dict[label2ids[label]][pos]["acc"][axis][i] for axis in axes
+            }
+            for pos in devicpos
         }
-        for file_path in Demo_paths
-    ]
-    print(meta_data)
-    document_store_domain = InMemoryDocumentStore()
-    embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_path, draw=None, device=device, splitter_kwards=splitter_kwargs_domain)
+        gyros = {
+            pos: {
+                axis: data_dict[label2ids[label]][pos]["gyro"][axis][i] for axis in axes
+            }
+            for pos in devicpos
+        }
+        accs_str = {
+            pos: {
+                axis: ", ".join([f"{x}g" for x in accs[pos][axis]]) for axis in axes
+            }
+            for pos in devicpos
+        }
+        gyros_str = {
+            pos: {
+                axis: ", ".join([f"{x}rad/s" for x in gyros[pos][axis]]) for axis in axes
+            }
+            for pos in devicpos
+        }
+        data_des = f"""1. Triaxial acceleration signal:
+1.1 Left arm:
+X-axis: {accs_str["left arm"]["x"]}
+Y-axis: {accs_str["left arm"]["y"]}
+Z-axis: {accs_str["left arm"]["z"]}
+1.2 Left leg:
+X-axis: {accs_str["left leg"]["x"]}
+Y-axis: {accs_str["left leg"]["y"]}
+Z-axis: {accs_str["left leg"]["z"]}
+2. Triaxial angular velocity signal:
+2.1 Left arm:
+X-axis: {gyros_str["left arm"]["x"]}
+Y-axis: {gyros_str["left arm"]["y"]}
+Z-axis: {gyros_str["left arm"]["z"]}
+2.2 Left leg:
+X-axis: {gyros_str["left leg"]["x"]}
+Y-axis: {gyros_str["left leg"]["y"]}
+Z-axis: {gyros_str["left leg"]["z"]}
+""" 
+        if is_demo:
+            data_des = "EXAMPLE:\n" + data_des
+            data_des += f"\nANSWER:{label}\n"
+        return data_des
+    data_des = data_des_gen(False, i, grd_ans, data_dict, devicpos)
+    # demo_data_des = "\n".join([data_des_gen(True, i+1, label, data_dict, devicpos) for label in candidates])
+    prompt = f"""{Role_Definition()}
 
-    document_store_demo = InMemoryDocumentStore()
-    embedded_document_store_DM = prepare_and_embed_documents(document_store_demo, Demo_paths, draw=None, device=device, splitter_kwards=splitter_kwargs_demo, meta_data=meta_data)
+EXPERT:
+1. Triaxial acceleration signal: 
+The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity.
+2. Triaxial angular velocity signal: 
+The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+3. The signals of three-axis acceleration and three-axis angular velocity are collected from the wearer's left arm and left leg using accelerometers and gyroscopes, respectively. These signals reflect the movement status of different parts of the wearer's body. Some activities involve more leg movements, while others involve more arm movements. Therefore, analyzing the different parts of the wearer's body can help determine what activity they are doing.
+"""
+    prompt += """
+You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status."""
+#     prompt += f"""
 
-    ans = []
-    for i in range(num_samples):
-        text_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
-        grd_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device)) 
-        con_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
+# {demo_data_des}"""
+    prompt += """
 
-        embedding_retriever_domain = InMemoryEmbeddingRetriever(embedded_document_store_KB)
-        grd_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
-        con_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
+QUESTION: {{ query }}
+"""
+    prompt += f"""
 
-        keyword_retriever_domain = InMemoryBM25Retriever(embedded_document_store_KB)
-        grd_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
-        con_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
+You need to refer to the EXAMPLES provided above, compare the mean and variance features of the given data with those in the EXAMPLES. This will help you make your selection.
 
-        document_joiner_domain = DocumentJoiner()
-        grd_document_joiner_demo = DocumentJoiner()
-        con_document_joiner_demo = DocumentJoiner()
+Before answering your question, you must refer to the EXPERT and make an analysis step by step.
 
-        ranker_domain = TransformersSimilarityRanker(model=RANKER_MODEL)
-        grd_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
-        con_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
+THE GIVEN DATA:
+{data_des}
+ANALYSIS:
+ANSWER:"""
+    return prompt, data_des
 
-        template, data_des = gen_prompt_template_with_rag(data_dict, ground_ans, contrast_ans, i)
-        prompt_builder = PromptBuilder(template=template)
+
 
         set_openAI_key_and_base(use_my_key)
         generator = OpenAIGenerator(model=MODEL["gpt3.5"], api_base_url=os.environ["OPENAI_BASE_URL"] if use_my_key else None)
+    
+        set_openAI_key_and_base(use_my_key)
+        generator = OpenAIGenerator(model=MODEL["gpt3.5"], api_base_url=os.environ["OPENAI_BASE_URL"] if use_my_key else None)
 
-        rag_pipeline = Pipeline()
-        # 1. for domain-knowledge:
-        rag_pipeline.add_component("text_embedder_domain", text_embedder)
-        rag_pipeline.add_component("embedding_retriever_domain", embedding_retriever_domain)
-        rag_pipeline.add_component("keyword_retriever_domain", keyword_retriever_domain)
-        rag_pipeline.add_component("document_joiner_domain", document_joiner_domain)
-        rag_pipeline.add_component("ranker_domain", ranker_domain)
-        # 2.1 for grd-demo knowledge:
-        rag_pipeline.add_component("grd_demo_embedder", grd_demo_embedder)
-        rag_pipeline.add_component("grd_embedding_retriever_demo", grd_embedding_retriever_demo)
-        rag_pipeline.add_component("grd_keyword_retriever_demo", grd_keyword_retriever_demo)
-        rag_pipeline.add_component("grd_document_joiner_demo", grd_document_joiner_demo)
-        rag_pipeline.add_component("grd_ranker_demo", grd_ranker_demo)
-        # 2.2 for con-demo knowledge:
-        rag_pipeline.add_component("con_demo_embedder", con_demo_embedder)
-        rag_pipeline.add_component("con_embedding_retriever_demo", con_embedding_retriever_demo)
-        rag_pipeline.add_component("con_keyword_retriever_demo", con_keyword_retriever_demo)
-        rag_pipeline.add_component("con_document_joiner_demo", con_document_joiner_demo)
-        rag_pipeline.add_component("con_ranker_demo", con_ranker_demo)
 
-        # 连接各个components
-        # 1. for domain-knowledge:
-        rag_pipeline.connect("text_embedder_domain", "embedding_retriever_domain")
-        rag_pipeline.connect("embedding_retriever_domain", "document_joiner_domain")
-        rag_pipeline.connect("keyword_retriever_domain", "document_joiner_domain")
-        rag_pipeline.connect("document_joiner_domain", "ranker_domain")
-        # # 2. for demo-knowledge:
-        # # 2.1. for ground-truth demo knowledge:
-        rag_pipeline.connect("grd_demo_embedder", "grd_embedding_retriever_demo")
-        rag_pipeline.connect("grd_embedding_retriever_demo", "grd_document_joiner_demo")
-        rag_pipeline.connect("grd_keyword_retriever_demo", "grd_document_joiner_demo")
-        rag_pipeline.connect("grd_document_joiner_demo", "grd_ranker_demo")
-        # # 2.2. for contrast demo knowledge:
-        rag_pipeline.connect("con_demo_embedder", "con_embedding_retriever_demo")
-        rag_pipeline.connect("con_embedding_retriever_demo", "con_document_joiner_demo")
-        rag_pipeline.connect("con_keyword_retriever_demo", "con_document_joiner_demo")
-        rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
-        query = """Based on the given data, choose the activity that the subject is most likely to be performing from the following two options:"""
-        content4retrieval_domain = """1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+# EXAMPLE1:
+# {% for d in grd_demo %}{{ d.content }}{% endfor %}
 
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING."""
-        content4retrieval_grd_demo = data_des 
-        content4retrieval_con_demo = f"ANSWER: {contrast_ans}"
-
-        rag_pipeline.add_component("prompt_builder", prompt_builder)
-        rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
-        rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
-        rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
-
-        rag_pipeline.add_component("llm", generator)
-        rag_pipeline.connect("prompt_builder", "llm")
-
-        result = rag_pipeline.run(
-            {
-                "text_embedder_domain": {"text": content4retrieval_domain},
-                "keyword_retriever_domain": {"query": content4retrieval_domain},
-                "ranker_domain": {"query": content4retrieval_domain},
-                "grd_demo_embedder": {"text": content4retrieval_grd_demo},
-                "con_demo_embedder": {"text": content4retrieval_con_demo},
-                "grd_embedding_retriever_demo": {
-                    "filters": {
-                        "field": "meta.label",
-                        "operator": "in",
-                        "value": [ground_ans],
-                    },
-                    "top_k": 1,
-                },
-                "con_embedding_retriever_demo": {
-                    "filters": {
-                        "field": "meta.label",
-                        "operator": "in",
-                        "value": [contrast_ans],
-                    }
-                },
-                "grd_keyword_retriever_demo": {
-                    "query": content4retrieval_grd_demo,
-                    "top_k": 1,
-                    "filters": {
-                        "field": "meta.label",
-                        "operator": "in",
-                        "value": [ground_ans],
-                    },
-                },
-                "con_keyword_retriever_demo": {
-                    "query": content4retrieval_con_demo,
-                    "top_k": 1,
-                    "filters": {
-                        "field": "meta.label",
-                        "operator": "in",
-                        "value": [contrast_ans],
-                    },
-                },
-                "grd_ranker_demo": {
-                    "query": content4retrieval_grd_demo,
-                    "top_k": 1,
-                },
-                "con_ranker_demo": {
-                    "query": content4retrieval_con_demo,
-                    "top_k": 1,
-                },             
-                "prompt_builder": {"query": query},
-            }
-        )
-        an = result["llm"]["replies"][0]
-        print(an)
-        ans.append(an)
-        # assert(0)
-        if i % 5 == 0:
-            print(f"第{i}次预测完成")
-    return ans
+# EXAMPLE2:
+# {% for d in con_demo %}{{ d.content }}{% endfor %}
 
 #  to the previous EXAMPLES and compare the signal data, the mean data, and the var data in the EXAMPLES with those in the question,
 # EXAMPLE1:
@@ -465,7 +387,7 @@ def read_raw_data_and_preprocess(sample_step: int=5, raw_data_dir: str="/home/an
 
         data_dict[y_train[i]]["total_acc"].append([np.around(signal_data["total_acc_x_train"][i][::sample_step], 3), np.around(signal_data["total_acc_y_train"][i][::sample_step], 3), np.around(signal_data["total_acc_z_train"][i][::sample_step], 3)])
     return data_dict
-        
+
 def set_openAI_key_and_base(set_base=True):
     if set_base:
         os.environ["OPENAI_API_KEY"] = MY_API
@@ -656,21 +578,22 @@ def eval_generated_ans(ans, grd, contrs):
         count_contrs = an.count(contrs)
         if count_grd == 0:
             # print(f"fault:{an}", end="\n__\n")
-            print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
+            # print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
             # 把回答错误的an用红色字体打印出来:
             print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
             continue 
-        elif count_contrs == 0 and count_grd > 0:
-            correct += 1
-        elif count_contrs > 0 and count_grd > 0:
-            grd_begin = an.find(grd)
-            contrs_begin = an.find(contrs)  
-            if (grd_begin < contrs_begin and count_grd >= count_contrs) or grd_begin == 0:
-                correct += 1
-            else:
-                print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
-                print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
+        # elif count_contrs == 0 and count_grd > 0:
+        #     correct += 1
+        # elif count_contrs > 0 and count_grd > 0:
+        #     grd_begin = an.find(grd)
+        #     contrs_begin = an.find(contrs)  
+        #     if (grd_begin < contrs_begin and count_grd >= count_contrs) or grd_begin == 0:
+        #         correct += 1
+        #     else:
+        #         print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
+        #         print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
         else:
-            print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
-            print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
+            # print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
+            # print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
+            correct += 1
     return correct / len(ans)
