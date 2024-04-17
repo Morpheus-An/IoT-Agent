@@ -234,11 +234,6 @@ ANSWER:"""
 
 
 
-        set_openAI_key_and_base(use_my_key)
-        generator = OpenAIGenerator(model=MODEL["gpt3.5"], api_base_url=os.environ["OPENAI_BASE_URL"] if use_my_key else None)
-    
-        set_openAI_key_and_base(use_my_key)
-        generator = OpenAIGenerator(model=MODEL["gpt3.5"], api_base_url=os.environ["OPENAI_BASE_URL"] if use_my_key else None)
 
 
 # EXAMPLE1:
