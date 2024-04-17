@@ -1,6 +1,6 @@
 from imports import *
-from utils import read_raw_data_and_preprocess, filter_data_dict_with_var, get_openAI_model, gen_prompt_template_without_rag, eval_generated_ans, prepare_and_embed_documents, gen_prompt_template_with_rag, set_openAI_key_and_base, pretty_print_res_of_ranker, write_demo_knowledge, generate_with_rag
-
+# from utils import read_raw_data_and_preprocess, filter_data_dict_with_var, get_openAI_model, gen_prompt_template_without_rag, eval_generated_ans, prepare_and_embed_documents, gen_prompt_template_with_rag, set_openAI_key_and_base, pretty_print_res_of_ranker, write_demo_knowledge, generate_with_rag
+from utils import * 
 
 def chat_with_openai(data_dict, ground_ans: str="WALKING", contrast_ans: str="STANDING", answer_num: int=10, api_base: bool=True, model: str=MODEL["gpt3.5"], retrive=False, print_prompt=True):
     """
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
     print(f"总共耗时{elapsed_time}秒")
-    print(eval_generated_ans(ans, ground_ans, contrast_ans))
+    # print(eval_generated_ans(ans, ground_ans, contrast_ans)) ### 最好换成人工评估，不仅仅是看最终结果正确性，还需要关注大模型的分析能力，其是否表现出对物理规律的认识能力
 
      
 

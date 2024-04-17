@@ -5,7 +5,7 @@ def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
     document_cleaner = DocumentCleaner()
     document_splitter = DocumentSplitter(split_by="sentence", split_length=10, split_overlap=2)
     document_embedder = SentenceTransformersDocumentEmbedder(
-        model="thenlper/gte-large",
+        model=EMBEDDER_MODEL,
         meta_fields_to_embed=metadata_fields_to_embed,
         device=ComponentDevice.from_str("cuda:0"),
     )
@@ -24,7 +24,7 @@ def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
     return indexing_pipeline
 
 def prepare_and_embed_documents(document_store, source_paths: list[str], metadata_fields_to_embed=None, meta_data: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]=None, splitter_kwards: dict=None, draw: str=None, device: str="cuda:0"):
-    # assert ((metadata_fields_to_embed is None and meta_data is None) or (metadata_fields_to_embed is not None and meta_data is not None)) 
+    """将指定路径下的领域知识文档emebedding成向量库（支持pdf,markdown,txt格式）"""
     if type(meta_data) == list: 
         assert len(meta_data) == len(source_paths)
 
@@ -140,10 +140,11 @@ QUESTION: {{ query }}
 {ground_ans}
 {contract_ans}
 Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice.
-​
+​Please think step by step, you should analysis first and then give your answer.
 ​
 THE GIVEN DATA: 
 {data_des}
+ANALYSIS:
 ANSWER:""" 
     return prompt, data_des
 
@@ -325,22 +326,6 @@ You need to comprehensively analyze the acceleration and angular velocity data o
             print(f"第{i}次预测完成")
     return ans
 
-#  to the previous EXAMPLES and compare the signal data, the mean data, and the var data in the EXAMPLES with those in the question,
-# EXAMPLE1:
-# {{ document_demo_grd.content }}
-# EXAMPLE2:
-# {{ document_demo_con.content }}
-#     return """
-# Given the following information, answer the question.
-
-# Context:
-# {% for document in documents %}
-#     {{ document.content }}
-# {% endfor %}
-
-# Question: {{question}}
-# Answer:
-# """
 def pretty_print_res_of_ranker(res):
     for doc in res["documents"]:
         print(doc.meta["file_path"], "\t", doc.score)
