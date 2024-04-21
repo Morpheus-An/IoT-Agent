@@ -185,6 +185,171 @@ ANSWER:"""
 # Question: {{question}}
 # Answer:
 # """
+def read_machine_data(sample_step=100):
+    # 读入profile_labels文件，其中每行包括五列数据，数据之间由空格隔开
+    labels = np.loadtxt('/home/ant/RAG/data/machine_detect/profile.txt', dtype=int)
+    labels.shape
+    label_dict = {
+        "Cooler condition %": labels[:, 0],
+        "Valve condition %": labels[:, 1],
+        "Internal pump leakage": labels[:, 2],
+        "Hydraulic accumulator": labels[:, 3],
+        "Stable flag": labels[:, 4]
+    } # 分别是五列数据表示的含义
+    # print(label_dict["Cooler condition %"][:10])
+    # 读取PS1-PS6.txt的数据：
+    PS1 = np.loadtxt('/home/ant/RAG/data/machine_detect/PS1.txt')
+    # .shape
+    PS2 = np.loadtxt('/home/ant/RAG/data/machine_detect/PS2.txt')
+    PS3 = np.loadtxt('/home/ant/RAG/data/machine_detect/PS3.txt')
+    PS4 = np.loadtxt('/home/ant/RAG/data/machine_detect/PS4.txt')
+    PS5 = np.loadtxt('/home/ant/RAG/data/machine_detect/PS5.txt')
+    PS6 = np.loadtxt('/home/ant/RAG/data/machine_detect/PS6.txt')
+
+    # 读取EPS1.txt的数据
+    EPS1 = np.loadtxt('/home/ant/RAG/data/machine_detect/EPS1.txt')
+    # print(EPS1.shape)
+    # EPS1[:10]
+    # 读取FS1/FS2.txt的数据
+    FS1 = np.loadtxt('/home/ant/RAG/data/machine_detect/FS1.txt')
+    FS2 = np.loadtxt('/home/ant/RAG/data/machine_detect/FS2.txt')
+    # print(FS1.shape)
+    # FS1[:10]
+    # 读取TS1-4.txt的数据
+    TS1 = np.loadtxt('/home/ant/RAG/data/machine_detect/TS1.txt')
+    TS2 = np.loadtxt('/home/ant/RAG/data/machine_detect/TS2.txt')
+    TS3 = np.loadtxt('/home/ant/RAG/data/machine_detect/TS3.txt')
+    TS4 = np.loadtxt('/home/ant/RAG/data/machine_detect/TS4.txt')
+    # print(TS1.shape)
+    # TS1[:10]
+    # 读取VS1.txt的数据
+    VS1 = np.loadtxt('/home/ant/RAG/data/machine_detect/VS1.txt')
+    # print(VS1.shape)
+    # VS1[:10]
+    SE = np.loadtxt('/home/ant/RAG/data/machine_detect/SE.txt')
+    # print(SE.shape)   
+    # SE[:10]
+    CE = np.loadtxt('/home/ant/RAG/data/machine_detect/CE.txt')
+    # print(CE.shape)
+    # CE[:10]
+    CP = np.loadtxt('/home/ant/RAG/data/machine_detect/CP.txt')
+    # print(CP.shape)
+    # CP[:10]
+    print(PS1.shape)
+    data_dict = {
+        "PS1": PS1[:,::sample_step],
+        "PS2": PS2[:,::sample_step],
+        "PS3": PS3[:,::sample_step],
+        "PS4": PS4[:,::sample_step],
+        "PS5": PS5[:,::sample_step],
+        "PS6": PS6[:,::sample_step],
+        "EPS1": EPS1[:,::sample_step],
+        "FS1": FS1[:,::sample_step//10],
+        "FS2": FS2[:,::sample_step//10],
+        "TS1": TS1,
+        "TS2": TS2,
+        "TS3": TS3,
+        "TS4": TS4,
+        "VS1": VS1,
+        "SE": SE,
+        "CE": CE,
+        "CP": CP
+    }
+    print(f"machine_data loaded")
+    return data_dict, label_dict
+def gen_prompt_tamplate_with_rag_machine(data_dict, label_dict, target, i: int=0, ground_truth="Pos"):
+    assert target in label_dict.keys()
+    if target == "Cooler condition %":
+        Cooler_condition_3_data = {}
+        Cooler_condition_100_data = {}
+        for key in data_dict.keys():
+            Cooler_condition_3_data[key] = data_dict[key][np.where(label_dict["Cooler condition %"] == 3)]
+            Cooler_condition_100_data[key] = data_dict[key][np.where(label_dict["Cooler condition %"] == 100)]
+        print(f"Cooler_condition_3_data: {Cooler_condition_3_data['PS1'].shape}")
+        print(f"Cooler_condition_100_data: {Cooler_condition_100_data['PS1'].shape}")
+        TS_neg_demo = Cooler_condition_3_data["TS1"][-i-1]
+        CP_neg_demo = Cooler_condition_3_data["CP"][-i-1]
+        CE_neg_demo = Cooler_condition_3_data["CE"][-i-1]
+        TS_pos_demo = Cooler_condition_100_data["TS1"][-i-1]
+        CP_pos_demo = Cooler_condition_100_data["CP"][-i-1]
+        CE_pos_demo = Cooler_condition_100_data["CE"][-i-1]
+        TS_pos_demo_str = ", ".join([f"{x}°C" for x in TS_pos_demo])
+        CP_pos_demo_str = ", ".join([f"{x}KW" for x in CP_pos_demo])
+        CE_pos_demo_str = ", ".join([f"{x}%" for x in CE_pos_demo])
+        TS_neg_demo_str = ", ".join([f"{x}°C" for x in TS_neg_demo])
+        CP_neg_demo_str = ", ".join([f"{x}KW" for x in CP_neg_demo])
+        CE_neg_demo_str = ", ".join([f"{x}%" for x in CE_neg_demo])
+
+        TS_pos = Cooler_condition_100_data["TS1"][-i]
+        CP_pos = Cooler_condition_100_data["CP"][-i]
+        CE_pos = Cooler_condition_100_data["CE"][-i]
+        TS_neg = Cooler_condition_3_data["TS1"][-i]
+        CP_neg = Cooler_condition_3_data["CP"][-i]
+        CE_neg = Cooler_condition_3_data["CE"][-i]
+        Ts_pos_str = ", ".join([f"{x}°C" for x in TS_pos])
+        CP_pos_str = ", ".join([f"{x}KW" for x in CP_pos])
+        CE_pos_str = ", ".join([f"{x}%" for x in CE_pos])
+        TS_neg_str = ", ".join([f"{x}°C" for x in TS_neg])
+        CP_neg_str = ", ".join([f"{x}KW" for x in CP_neg])
+        CE_neg_str = ", ".join([f"{x}%" for x in CE_neg])
+        prompt = f"""{Role_Definition()}
+
+SENSOR DATA:
+For each sensor, we collected 60 data points over a period of 60 seconds at a monitoring frequency of 1Hz (measuring sensor data once every second), forming a time series of length 60. We measured the following sequences using temperature sensors, Cooling power sensors, and Cooling efficiency sensors:
+
+1. **Temperature Change Sequence**: Reflects the machine's temperature variation over 60 seconds, in degrees Celsius. By analyzing this sequence, you can assess whether the cooling equipment is operating normally. Typically, when the cooling system is functioning well, the machine's temperature is relatively low (below 40 degrees Celsius) and does not fluctuate by more than 1 degree Celsius. If the temperature consistently remains above 40 degrees Celsius or fluctuates significantly, it may indicate an abnormal issue with the cooling equipment.
+
+2. **Cooling Power Change Sequence**: Reflects the variation in the cooling power of the machine's cooling equipment over 60 seconds, in kilowatts (KW). By analyzing this sequence, you can determine if the cooling equipment is operating normally. Generally, when the cooling system is functioning properly, the cooling power is relatively high (above 2KW) and remains relatively stable throughout the period. If the power consistently stays below 2KW, it may suggest an abnormal issue with the cooling equipment.
+
+3. **Cooling Efficiency Change Sequence**: Reflects the variation in the efficiency of the machine's cooling equipment over 60 seconds, in percentage (%). By analyzing this sequence, you can judge if the cooling equipment is operating normally. Typically, when the cooling system is working well, the cooling efficiency is relatively high (above 40%). If the cooling efficiency consistently falls below 40%, it indicates that there may be an abnormal issue with the cooling equipment.
+
+EXAMPLE1:
+1. Temperature Change Sequence:
+{TS_neg_demo_str}
+2. Cooling Power Change Sequence:
+{CP_neg_demo_str}
+3. Cooling Efficiency Change Sequence:
+{CE_neg_demo_str}
+ANSWER: not operating normally. 
+EXAMPLE2:
+1. Temperature Change Sequence:
+{TS_pos_demo_str}
+2. Cooling Power Change Sequence:
+{CP_pos_demo_str}
+3. Cooling Efficiency Change Sequence:
+{CE_pos_demo_str}
+ANSWER: operating normally."""
+        prompt += """
+QUESTION: {{ query }}"""
+        if ground_truth == "Pos":
+            prompt += f"""
+THE GIVEN DATA:
+1. Temperature Change Sequence:
+{Ts_pos_str}
+2. Cooling Power Change Sequence:
+{CP_pos_str}
+3. Cooling Efficiency Change Sequence:
+{CE_pos_str}
+"""
+        else:
+            prompt += f"""
+THE GIVEN DATA:
+1. Temperature Change Sequence:
+{TS_neg_str}
+2. Cooling Power Change Sequence:
+{CP_neg_str}
+3. Cooling Efficiency Change Sequence:
+{CE_neg_str}
+"""
+        prompt += """
+Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is the machine's cooling system functioning properly?"
+ANALYSIS:
+ANSWER:
+"""
+    return prompt
+
+    
+
 def pretty_print_res_of_ranker(res):
     for doc in res["documents"]:
         print(doc.meta["file_path"], "\t", doc.score)
@@ -248,13 +413,22 @@ def wikipedia_indexing(some_titles = ["Inertial measurement unit", ]):
 def Role_Definition(Task_Description=None, Preprocessed_Data=None, model="chatgpt"):
     """input: Task_Descriping(str), Preprocessed_Data(str), model(str)
     output: role_definition(str)"""
-    return """You are an assistant sports scientist, specialized in analyzing sensor data to understand human movement and activity patterns. Your expertise in interpreting accelerometer sensor data makes you an expert in human activity recognition tasks. Your role is to assist users in determining the status of human activities by analyzing accelerometer data.
-Your training enables you to interpret and analyze the data collected by accelerometer sensors, thereby identifying different motion patterns. You understand the acceleration patterns generated by the human body in various activities and can determine the current activity status based on changes in the data.
-Your professional knowledge includes, but is not limited to:
-1. Human Biomechanics: You understand the acceleration patterns generated by the human body in different activity modes and their relationship with specific activities.
-2. Data Analysis and Pattern Recognition: You can utilize machine learning and pattern recognition techniques to analyze and process sensor data, accurately identifying human activities.
-3. Exercise Physiology: You understand the physiological changes that occur in the human body during exercise, which can assist in activity recognition.
-As an assistant sports scientist, your task is to classify human activities based on the acceleration data you receive, helping users better understand and monitor their exercise activities."""
+#     return """You are an assistant sports scientist, specialized in analyzing sensor data to understand human movement and activity patterns. Your expertise in interpreting accelerometer sensor data makes you an expert in human activity recognition tasks. Your role is to assist users in determining the status of human activities by analyzing accelerometer data.
+# Your training enables you to interpret and analyze the data collected by accelerometer sensors, thereby identifying different motion patterns. You understand the acceleration patterns generated by the human body in various activities and can determine the current activity status based on changes in the data.
+# Your professional knowledge includes, but is not limited to:
+# 1. Human Biomechanics: You understand the acceleration patterns generated by the human body in different activity modes and their relationship with specific activities.
+# 2. Data Analysis and Pattern Recognition: You can utilize machine learning and pattern recognition techniques to analyze and process sensor data, accurately identifying human activities.
+# 3. Exercise Physiology: You understand the physiological changes that occur in the human body during exercise, which can assist in activity recognition.
+# As an assistant sports scientist, your task is to classify human activities based on the acceleration data you receive, helping users better understand and monitor their exercise activities."""
+    return """As a seasoned machine evaluation expert with a profound understanding of hydraulic systems, you possess the following key abilities and knowledge:
+
+- **System Comprehension**: You are well-versed in the inner workings of hydraulic systems, including the functions of key components such as coolers, pumps, valves, and accumulators, as well as their interplay.
+- **Data Analysis**: You are adept at handling and analyzing complex datasets, employing advanced techniques like time series analysis, signal processing, and pattern recognition to uncover the underlying stories in the data.
+- **Sensor Interpretation**: You have a deep understanding of various sensor data (e.g., pressure, temperature, flow, vibration) and can discern the operational status of machinery that these data represent.
+- **Fault Diagnosis**: You are familiar with the types of malfunctions that can occur in hydraulic systems and can recognize the signs of these faults in sensor data, enabling you to monitor the machine's operating condition and diagnose potential issues.
+- **System Synergy**: You understand how the different parts of a machine work together and how anomalies in one component can trigger a cascade effect throughout the system.
+
+In the upcoming task of machine condition assessment, you will leverage your expertise and skills to conduct an in-depth analysis of the data collected by the hydraulic test rig. You will evaluate the operational status of the cooler and other critical components, providing professional insights and recommendations for machine performance optimization and preventive maintenance."""
 
 def prompt_template_generation(Task_Description, Preprocessed_Data):
     """template中的变量为：domain_ks, demonstrations, question"""
