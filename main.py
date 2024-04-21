@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     
     ans = []
-    with open("output_details.log", "a") as f:
+    with open("output_details-machine.log", "a") as f:
         for i in range(1, 51):
             # 建立一个rag的pipeline，使用hybrid的retrieval方法进行检索
             # first, 定义components:
@@ -121,7 +121,8 @@ if __name__ == "__main__":
             # con_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL_LOCAL)
             # template, data_des = gen_prompt_template_with_rag(data_dict, ground_ans, candidates, i) 
             # template, data_des = gen_prompt_template_with_rag_machine(data_dict, labels, i)
-            template = gen_prompt_tamplate_with_rag_machine(data_dict, label_duct, "Cooler condition %", i, "Neg")
+            grd = "Neg"
+            template = gen_prompt_tamplate_with_rag_machine(data_dict, label_duct, "Cooler condition %", i, grd)
             prompt_builder = PromptBuilder(template=template)
             set_openAI_key_and_base(False, set_proxy=PROXY)
             generator = OpenAIGenerator(model=MODEL["gpt4"])
@@ -347,7 +348,7 @@ if __name__ == "__main__":
             an = result["llm"]["replies"][0]
             print(an)
             if i == 1:
-                f.write('=================BEGIN A NEW RUNz(Neg)====================\n\n')
+                f.write(f'=================BEGIN A NEW RUNz({grd})====================\n\n')
             f.write(an)
             f.write(f'\n{i} done_____________________________\n')
             ans.append(an)
@@ -361,10 +362,10 @@ if __name__ == "__main__":
     # print(eval_generated_ans(ans, ground_ans, contrast_ans)
    
     # print(eval_by_gpt(ans, candidates, ground_ans, None))
-    with open('output_details-machine.txt', 'a') as f:
-        for an in ans:
-            f.write(an)
-            f.write("_____________________________\n\n")
+    # with open('output_details-machine.txt', 'a') as f:
+    #     for an in ans:
+    #         f.write(an)
+    #         f.write("_____________________________\n\n")
 
     
 
