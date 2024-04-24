@@ -257,6 +257,27 @@ def read_machine_data(sample_step=100):
     }
     print(f"machine_data loaded")
     return data_dict, label_dict
+def gen_content4retrive_domain(data_des=""):
+    return """
+The data set was experimentally obtained with a hydraulic test rig. This test rig consists of a primary working and a secondary cooling-filtration circuit which are connected via the oil tank [1], [2]. The system cyclically repeats constant load cycles (duration 60 seconds) and measures process values such as pressures, volume flows and temperatures while the condition of four hydraulic components (cooler, valve, pump and accumulator) is quantitatively varied.
+    
+Attributes are sensor data (all numeric and continuous) from measurements taken at the same point in time, respectively, of a hydraulic test rig's working cycle.
+
+Temepurature sensors (TS) measure the temperature of the oil at different points in the hydraulic system. The sensors are named TS1, TS2, TS3, and TS4. The temperature is measured in degrees Celsius.
+Efficiency factor sensors (SE) measure the efficiency of the cooler. The efficiency is calculated from the ratio of the actual cooling power to the ideal cooling power. The sensors are named SE. The efficiency factor is given in percentage.
+Cooling power sensors (CP) measure the cooling power in kilowatts. The sensors are named CP1 and CP2. The cooling power is measured in kilowatts.
+
+For each sensor, we collected 60 data points over a period of 60 seconds at a monitoring frequency of 1Hz (measuring sensor data once every second), forming a time series of length 60. We measured the following sequences using temperature sensors, Cooling power sensors, and Cooling efficiency sensors:
+
+1. **Temperature Change Sequence**: Reflects the machine's temperature variation over 60 seconds, in degrees Celsius. By analyzing this sequence, you can assess whether the cooling equipment is operating normally. Typically, when the cooling system is functioning well, the machine's temperature is relatively low and does not fluctuate too significantly. If the temperature consistently remains at a high degrees Celsius or fluctuates significantly, it may indicate an abnormal issue with the cooling equipment.
+
+2. **Cooling Power Change Sequence**: Reflects the variation in the cooling power of the machine's cooling equipment over 60 seconds, in kilowatts (KW). By analyzing this sequence, you can determine if the cooling equipment is operating normally. Generally, when the cooling system is functioning properly, the cooling power is relatively high and remains relatively stable throughout the period. If the power consistently stays low, it may suggest an abnormal issue with the cooling equipment.
+
+3. **Cooling Efficiency Change Sequence**: Reflects the variation in the efficiency of the machine's cooling equipment over 60 seconds, in percentage (%). By analyzing this sequence, you can judge if the cooling equipment is operating normally. Typically, when the cooling system is working well, the cooling efficiency is relatively high, otherwise, it indicates that there may be an abnormal issue with the cooling equipment.
+
+Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is the machine's cooling system functioning properly?"
+""" + data_des 
+
 def gen_prompt_tamplate_with_rag_machine(data_dict, label_dict, target, i: int=0, ground_truth="Pos"):
     assert target in label_dict.keys()
     if target == "Cooler condition %":
@@ -301,8 +322,17 @@ For each sensor, we collected 60 data points over a period of 60 seconds at a mo
 
 2. **Cooling Power Change Sequence**: Reflects the variation in the cooling power of the machine's cooling equipment over 60 seconds, in kilowatts (KW). By analyzing this sequence, you can determine if the cooling equipment is operating normally. Generally, when the cooling system is functioning properly, the cooling power is relatively high and remains relatively stable throughout the period. If the power consistently stays low, it may suggest an abnormal issue with the cooling equipment.
 
-3. **Cooling Efficiency Change Sequence**: Reflects the variation in the efficiency of the machine's cooling equipment over 60 seconds, in percentage (%). By analyzing this sequence, you can judge if the cooling equipment is operating normally. Typically, when the cooling system is working well, the cooling efficiency is relatively high, otherwise, it indicates that there may be an abnormal issue with the cooling equipment.
+3. **Cooling Efficiency Change Sequence**: Reflects the variation in the efficiency of the machine's cooling equipment over 60 seconds, in percentage (%). By analyzing this sequence, you can judge if the cooling equipment is operating normally. Typically, when the cooling system is working well, the cooling efficiency is relatively high, otherwise, it indicates that there may be an abnormal issue with the cooling equipment."""
+        prompt += """
+EXPERT: 
+{% for domain_doc in documents_domain %}
+    {{ domain_doc.content }}
+{% endfor %}
 
+
+
+"""
+        prompt += f"""
 EXAMPLE1:
 1. Temperature Change Sequence:
 {TS_neg_demo_str}
@@ -322,7 +352,7 @@ ANSWER: operating normally."""
         prompt += """
 QUESTION: {{ query }}"""
         if ground_truth == "Pos":
-            prompt += f"""
+            data_des = f"""
 THE GIVEN DATA:
 1. Temperature Change Sequence:
 {Ts_pos_str}
@@ -331,8 +361,9 @@ THE GIVEN DATA:
 3. Cooling Efficiency Change Sequence:
 {CE_pos_str}
 """
+            prompt += data_des
         else:
-            prompt += f"""
+            data_des = f"""
 THE GIVEN DATA:
 1. Temperature Change Sequence:
 {TS_neg_str}
@@ -341,12 +372,15 @@ THE GIVEN DATA:
 3. Cooling Efficiency Change Sequence:
 {CE_neg_str}
 """
+            prompt += data_des
         prompt += """
 Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is the machine's cooling system functioning properly?"
 ANALYSIS:
 ANSWER:
 """
-    return prompt
+    elif target == "":
+        pass 
+    return prompt, data_des
 
     
 
