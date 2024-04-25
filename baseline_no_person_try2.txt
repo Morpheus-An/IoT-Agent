@@ -1,0 +1,541 @@
+/home/ntu/anaconda3/envs/zyj310/bin/python /data1/msc/zyj/iot-agent/occupancy/main.py 
+set OPENAI by teacher's key
+第0次预测完成
+ANALYSIS:
+- The given CSI data consists of 20 samples along the time axis and 21 subcarriers.
+- The mean value of CSI is 0.282, indicating the average amplitude of the signal data.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.016, showing the variability of the mean CSI amplitude across different subcarriers.
+- The mean standard deviation across subcarriers for each time point is 0.044, representing the overall degree of signal oscillation in time.
+
+Based on the data analysis, the CSI values show consistent variations across different time points and subcarriers. There are fluctuations in the signal amplitudes, indicating some level of movement or presence in the indoor space. The mean value of CSI being 0.282 suggests a moderate signal strength on average.
+
+ANSWER:
+Based on the analysis of the given data, it is likely that there is a person present in the indoor space. The fluctuations in the signal data and the average amplitude values indicate human presence or movement affecting the Wi-Fi CSI data.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+By analyzing the given CSI data, we can observe the variations in signal amplitudes across different time points and subcarriers. The mean value of CSI is 0.2916, indicating the average amplitude of the signal data. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0155, showing the variability in amplitude across different subcarriers. The mean standard deviation across subcarriers for each time point is 0.0339, reflecting the overall degree of signal oscillation in time.
+
+Comparing the data to previous examples, we can see that the mean value and standard deviations are within a similar range. The variations in signal amplitudes and standard deviations are consistent with human occupancy patterns, where movements and presence would cause fluctuations in the Wi-Fi CSI data.
+
+ANSWER:
+Based on the analysis of the given CSI data and comparison with previous examples, it is likely that there is a person present in the indoor space. The fluctuations and variations in CSI data align with human occupancy patterns, indicating that the occupancy status is 'have_person.'
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+Looking at the provided CSI data, we can see that the values of the amplitudes vary across different subcarriers and time points. There are fluctuations in the data indicating changes in the Wi-Fi signal amplitude, potentially due to human presence or movement.
+
+The mean value of the CSI data is 0.2855, which represents the average amplitude of the signal. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0169, indicating the variability of the mean CSI amplitude across different subcarriers.
+
+The mean standard deviation across subcarriers for each time point is 0.0275, reflecting the overall degree of signal oscillation in time. This suggests that there are variations in the signal over time, which could be attributed to human occupancy.
+
+Overall, the fluctuations in the CSI data and the calculated metrics suggest that there is a possibility of human presence based on the changes in the Wi-Fi signal amplitudes.
+
+ANSWER:
+Based on the analysis of the provided CSI data and the calculated metrics, it is likely that there is a person present in the indoor space. The fluctuations in the Wi-Fi signal amplitude, along with the variability in the mean amplitude and standard deviations, indicate changes that are consistent with human occupancy patterns.
+----------------------------------------------------------------------------------------------------
+**ANALYSIS:**
+
+1. **Signal Data Analysis:**
+   - The provided CSI data represents the amplitude of Wi-Fi signals across 20 time samples and 21 subcarriers.
+   - The values range from around 0.07 to 0.61, indicating variations in signal strength.
+
+2. **Mean Value Analysis:**
+   - The mean value of CSI across all samples is 0.2899, providing a baseline for signal amplitude.
+   - This mean value can be used for comparison with individual data points to identify deviations.
+
+3. **Standard Deviation Analysis:**
+   - The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0168.
+   - This value represents the variability in signal strength across different subcarriers at each time point.
+
+4. **Mean Standard Deviation Analysis:**
+   - The mean standard deviation across subcarriers for each time point is 0.0350, indicating the average degree of signal oscillation over time.
+   - A higher value suggests more fluctuation in signal strength over time.
+
+**ANSWER:**
+Based on the analysis of the provided CSI data, the mean value, standard deviation, and mean standard deviation, it is likely that there is a person present in the indoor space. The fluctuation in signal strength across subcarriers and time samples indicates human movement and presence, leading to changes in the Wi-Fi CSI data. Therefore, the occupancy status is most likely 'have_person'.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+Looking at the given CSI data, we can observe the variations in signal amplitudes across different subcarriers over time. There are fluctuations in the data indicating changes in the environment.
+
+The mean value of CSI is calculated to be 0.3000934485000796, which gives us an average amplitude of the CSI data.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.02064151026131843, indicating the variability of the mean CSI amplitude across different subcarriers over time.
+
+The mean standard deviation across subcarriers for each time point is 0.03600159350833912, reflecting the overall degree of signal oscillation in time.
+
+Based on the provided data and analysis, we can see that there are noticeable fluctuations and variations in the CSI data. These variations in signal amplitudes could potentially be indicative of human presence or movement within the indoor space.
+
+ANSWER:
+Based on the analysis of the CSI data, considering the fluctuations and variations observed, it is likely that there is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+第5次预测完成
+ANALYSIS:
+Upon analyzing the given Wi-Fi CSI data, we can see that the signal amplitudes vary across the different time points and subcarriers. The mean value of the CSI data is calculated to be 0.3009 and the standard deviation across subcarriers for the mean CSI amplitude over time is 0.0117. Additionally, the mean standard deviation across subcarriers for each time point is 0.0275.
+
+From the data, we can observe fluctuations in signal amplitudes over time and differences in amplitudes across subcarriers. These variations could be indicative of human presence, as movements and interactions in the indoor space can cause changes in Wi-Fi signals.
+
+ANSWER:
+Based on the analysis of the Wi-Fi CSI data provided and considering the fluctuations and variations observed in the signal amplitudes, it is likely that there is a person present in the indoor space. The changes in the CSI data suggest human occupancy patterns are influencing the signal, leading to the conclusion that there is a person in the area.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+1. Signal Data Analysis:
+   - The CSI data provided consists of a time-series signal having 20 data samples and 21 subcarriers.
+   - The amplitudes in the CSI data vary across different subcarriers and time points.
+   - There seems to be fluctuations in the signal amplitudes indicating changes in the environment over time.
+
+2. Mean Value Analysis:
+   - The mean value of the CSI data is 0.2935, which represents the average amplitude of the signal.
+   - This mean value can serve as a baseline for detecting deviations in the signal that might indicate human presence.
+
+3. Standard Deviation Analysis:
+   - The standard deviation across subcarriers for the mean CSI amplitude is 0.0149.
+   - This value gives insight into the variability of the mean CSI amplitude across different subcarriers over time.
+
+4. Mean Standard Deviation Analysis:
+   - The mean standard deviation across subcarriers for each time point is 0.0328.
+   - This value reflects the overall degree of signal oscillation in time, providing information about the variations in the signal over time.
+
+ANSWER:
+Based on the analysis of the provided CSI data and the relevant statistics, the fluctuations in the signal amplitudes along with the moderate mean and standard deviation values indicate that there is a possibility of human presence in the indoor space. The variations in the signal characteristics suggest potential occupancy in the area. Therefore, the conclusion would lean towards the occupancy status being "have_person".
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. Signal Data: The given CSI data consists of 20 samples across 21 subcarriers, representing the amplitude of the Wi-Fi signal. The values range from approximately 0.08 to 0.43.
+
+2. Mean Value of CSI: The mean value of the CSI data is calculated to be 0.29, indicating the average amplitude across all samples and subcarriers.
+
+3. Variability in Mean CSI Amplitude: The standard deviation across subcarriers for the mean CSI amplitude over time is 0.02, suggesting low variability in the average signal amplitude.
+
+4. Mean Standard Deviation of CSI: The mean standard deviation across subcarriers for each time point is 0.03, indicating the overall degree of signal oscillation in time.
+
+Based on the given data and analysis, the CSI values show consistency in amplitude with relatively low variability. The mean values and standard deviations do not indicate significant fluctuations or patterns associated with human presence.
+
+ANSWER:
+Based on the analysis of the provided Wi-Fi CSI data, there is no clear indication of human presence. The data does not exhibit characteristic changes or fluctuations that would suggest the presence of a person. Therefore, the occupancy status would likely be classified as "no_person."
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+The given CSI data consists of 20 time samples and 21 subcarriers, representing the amplitude of the Wi-Fi signal. The mean value of the CSI data is 0.2942, indicating the average signal strength. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0151, showing the variability of the mean signal strength across different subcarriers. The mean standard deviation across subcarriers for each time point is 0.0296, reflecting the overall signal oscillation over time.
+
+In order to determine human occupancy based on the CSI data, we need to analyze the signal fluctuations and changes along both the time and subcarrier axes. By examining the sequential data along these axes, we can identify patterns that indicate the presence or absence of a person.
+
+Comparing the provided data with previous examples and considering the mean value and standard deviations, we can assess the variations in signal strength over time and across subcarriers. These variations can indicate human presence, as people moving in the space can cause changes in the Wi-Fi signal amplitude.
+
+ANSWER:
+Based on the analysis of the CSI data, considering the mean value, standard deviations, and the fluctuation patterns across time and subcarriers, it is likely that there is a person present in the indoor space. The fluctuations and changes in the Wi-Fi signal strength suggest human occupancy in the area.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+Looking at the provided CSI data:
+- The amplitude values in the CSI data vary across the 20 data samples for each of the 21 subcarriers.
+- The mean value of CSI for the given data is 0.28688385081842566, indicating the average amplitude of the signal captured.
+
+Comparing the mean value with the previous examples and noting that it is close to the values calculated in those examples, we can infer that the average signal amplitude falls within the expected range for occupancy detection.
+
+Additionally, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.016541322772555017. This value represents the variability of the mean CSI amplitude across different subcarriers over time. The mean std of CSI across the time axis is 0.03268138111082178, reflecting the overall degree of signal oscillation in time.
+
+These standard deviation values are also consistent with those observed in previous examples, indicating that the signal fluctuations within the given data are within expected ranges.
+
+ANSWER:
+Based on the analysis of the provided CSI data and comparison with previous examples, there is a high likelihood that there is a person present. The signal amplitudes and their variations exhibit patterns that are indicative of human occupancy.
+----------------------------------------------------------------------------------------------------
+第10次预测完成
+ANALYSIS:
+Based on the given CSI data, we can observe that each row represents different time points, and each column represents different subcarriers. The values in the data represent the amplitude of the signals, which can be influenced by human presence or movement.
+
+The mean value of CSI across all the data points is 0.281, indicating the average signal amplitude. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.019, reflecting the variability in the signal amplitudes across different subcarriers over time. The mean standard deviation across subcarriers for each time point is 0.043, which gives an overall measure of signal oscillation over time.
+
+By analyzing the sequential data along both the time and subcarrier axes, we can look for patterns, changes, and fluctuations in the data to understand occupancy status.
+
+ANSWER:
+Based on the mean value of CSI, the fluctuation in signal amplitude over time, and the variability across different subcarriers, there is evidence to suggest that there is a person present in the indoor space. The patterns and changes in the CSI data indicate human occupancy, leading to the conclusion that there is a person in the space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. The CSI data consists of 20 samples across 21 subcarriers, representing the amplitude of the Wi-Fi signal. Changes in these amplitudes can indicate human presence.
+2. The mean value of CSI for the given data is 0.284, which is relatively consistent across the dataset.
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.019, indicating low variability.
+4. The mean standard deviation across subcarriers for each time point is 0.040, suggesting moderate signal oscillation over time.
+
+Based on the analysis:
+- The CSI data shows fluctuations in signal amplitude across different subcarriers and time points.
+- The mean value is relatively stable, with low variability across subcarriers.
+- The standard deviation across subcarriers indicates minimal variations in the mean CSI amplitude over time.
+
+ANSWER:
+Considering the analysis of the CSI data and the metadata provided, the data patterns suggest that there is **no_person** detected in the indoor space. The stability in the mean value and low variability in the standard deviation indicate a consistent signal pattern without significant disturbances that would typically be associated with human presence.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+1. CSI data: The provided CSI data consists of amplitude values for 21 subcarriers over 20 time samples. The values vary across subcarriers and time points, indicating changes in the Wi-Fi signal strength.
+
+2. The mean value of CSI: The mean value of the provided CSI data is 0.2952765935560094, which gives us an average amplitude level across all subcarriers and time samples.
+
+3. The standard deviation across subcarriers for the mean CSI amplitude over time: The standard deviation across subcarriers for the mean CSI amplitude is 0.021825610305110266. This represents the variability of the mean CSI amplitude across different subcarriers over time.
+
+4. The mean standard deviation across subcarriers for each time point: The mean standard deviation across subcarriers for each time point is 0.0391422294371952, reflecting the overall degree of signal oscillation in time.
+
+Based on the analysis of the provided CSI data, we can observe variations in signal amplitudes across different subcarriers and time points. The mean values and standard deviations indicate the average signal strength and its variability.
+
+ANSWER:
+Considering the fluctuations and characteristics of the CSI data, the mean value, standard deviation across subcarriers, and the mean standard deviation over time, it is likely that there is a person present in the indoor space. The changes in Wi-Fi signal strength and the variability in amplitudes suggest human occupancy, leading to the conclusion that there is a person in the area.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+Looking at the CSI data provided, we observe variations in signal amplitudes along both the time and subcarrier axes. There are fluctuations in the amplitude values over time and differences in amplitude values across different subcarriers. These variations could be indicative of human presence and movement, as they alter the signal patterns.
+
+The mean value of CSI is calculated to be 0.278, which reflects the average signal amplitude across all the data points. This value can serve as a baseline for determining deviations from normal occupancy patterns.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.019. This value indicates the variability of the mean CSI amplitude across different subcarriers over time. A higher standard deviation suggests more significant variations in signal strength, potentially associated with human presence.
+
+The mean standard deviation across subcarriers for each time point is 0.031. This value represents the overall degree of signal oscillation over time. Larger standard deviations may imply more dynamic changes in signal patterns, possibly caused by human movements within the space.
+
+Based on this analysis, the data suggests that there is a higher likelihood of human presence in the indoor space being monitored. The fluctuations and variations observed in the CSI data, along with the calculated mean and standard deviation values, point towards the presence of individuals in the environment.
+
+ANSWER:
+Based on the analysis of the CSI data and relevant metrics, it is likely that there is a person present in the indoor space being monitored.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+Analyzing the provided CSI data, we observe that there are fluctuations in the signal amplitudes across different subcarriers and time points. The mean value of CSI is calculated to be 0.29278, indicating an average amplitude level across all the data points. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.01647, showing the variability in the mean CSI amplitude.
+
+Furthermore, the mean standard deviation across subcarriers for each time point is calculated to be 0.03354, representing the overall degree of signal oscillation in time. These metrics suggest that there are changes in the signal amplitudes, both across subcarriers and over time.
+
+Based on the analysis of the provided CSI data and the calculated metrics, it seems likely that human presence may be detected. The fluctuations and variations in the signal data indicate potential movement or changes in the indoor space, suggesting occupancy. 
+
+ANSWER:
+Based on the analysis of the CSI data, it is likely that there is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+第15次预测完成
+ANALYSIS:
+- The CSI data consists of 20 time samples and 21 subcarriers of CSI data, each representing the amplitude of the Wi-Fi signal.
+- The mean value of the CSI data is 0.2937, indicating the average amplitude across all samples.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0170, showing the variability of the mean amplitude.
+- The mean standard deviation across subcarriers for each time point is 0.0341, indicating the overall degree of signal oscillation in time.
+
+Based on the given data and the analysis, we can see that there are fluctuations in the CSI data over time and across subcarriers, as seen in the varying amplitudes. These fluctuations suggest changes in the environment, potentially reflecting human presence and movement.
+
+ANSWER:
+Based on the analysis of the CSI data and the fluctuations observed in the signal, it is likely that there is a person present in the indoor space. The variations in the data indicate dynamic changes that are consistent with human occupancy patterns. Therefore, the occupancy status is determined as "have_person."
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+1. Signal data: The CSI data provided shows varying amplitudes across different subcarriers over time. There are fluctuations in the data, reflecting changes in the Wi-Fi signal caused by human presence and movement.
+
+2. Mean value of CSI: The mean value of CSI is 0.290, indicating the average amplitude of the signal. This value gives us a baseline to compare the individual data points to.
+
+3. Standard deviation across subcarriers: The standard deviation across subcarriers for the mean CSI amplitude over time is 0.017. This low value suggests that the mean amplitudes are relatively consistent across the subcarriers over time.
+
+4. Mean standard deviation across subcarriers for each time point: The mean standard deviation across subcarriers for each time point is 0.035, indicating the overall degree of signal oscillation in time. This value gives us an insight into the variability of the signal over time.
+
+Based on the analysis of the data, the fluctuations in the CSI data, the mean value, and the standard deviations suggest that there are human occupancy patterns present in the indoor space. The variations in the signal data and the consistency in the mean values indicate human presence causing changes in the Wi-Fi signals.
+
+ANSWER:
+There is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+First, let's analyze the given CSI data. The data consists of 16 time points with 21 subcarriers each. Looking at the values in the CSI data, we can see fluctuations in signal amplitudes across different subcarriers and time points. These fluctuations may indicate human presence or movement within the indoor space.
+
+Next, let's consider the mean value of CSI which is calculated to be 0.2888. This provides us with the average amplitude of the CSI data across all subcarriers and time points. Significant deviations from this mean value may suggest changes in occupancy status.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0194. This parameter indicates the variability of the mean CSI amplitude across different subcarriers over time. Higher values may point to variations in human occupancy patterns.
+
+The mean standard deviation across subcarriers for each time point is 0.0349. This metric describes the overall degree of signal oscillation in time. Increased values of this parameter can indicate fluctuations in the presence of individuals within the space.
+
+Based on the analysis of the CSI data, mean value, and standard deviation metrics, we can infer that the indoor space is likely occupied. The fluctuations in the CSI data, deviations from the mean value, and high standard deviations suggest human presence and movement within the space.
+
+ANSWER:
+There is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+Based on the provided CSI data, it is essential to analyze the magnitude, changes, and fluctuations in the sequential data along both the time and subcarrier axes to determine if there is a person present or not.
+
+Looking at the CSI data, we can observe variations in the signal amplitudes across different subcarriers over time. The mean value of the CSI data is 0.29896825564170837, indicating the average amplitude of the signal.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.00973396962324985, representing the variability in the mean CSI amplitude across different subcarriers over time. Additionally, the mean standard deviation across subcarriers for each time point is 0.022366597161809127, reflecting the overall degree of signal oscillation in time.
+
+By analyzing the data comprehensively and considering the signal characteristics and fluctuations, we can make an informed decision on the occupancy status.
+
+ANSWER:
+Based on the analysis of the given CSI data, considering the mean value, standard deviation, and fluctuations in the signal data, it seems likely that there is a person present in the indoor space. The variations in signal amplitudes and the overall degree of signal oscillation suggest human occupancy in the area. Therefore, the final determination is: there is a person in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. Looking at the given CSI data, we can see that the amplitudes across the different subcarriers vary over time, indicating changes in the signal strength.
+2. The mean value of CSI is 0.2878799133079328, which represents the average amplitude of the CSI data.
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0178878902438054, showing the variability in the mean amplitude across different subcarriers.
+4. The mean standard deviation across subcarriers for each time point is 0.035391471823714014, reflecting the overall degree of signal oscillation in time.
+
+Based on the analysis of the data, the fluctuations in the CSI data along with the mean and standard deviation values indicate changes in signal patterns that are likely caused by human presence or movement. Therefore, it is likely that there is a person present in the indoor space.
+
+ANSWER:
+There is likely a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+第20次预测完成
+ANALYSIS:
+1. Signal Data: The CSI data provided represents the amplitude of the Wi-Fi signal across different time points and subcarriers. Variations in these amplitudes can indicate changes in the environment, such as human presence or movement.
+2. Mean Value of CSI: The mean value of CSI data across all time points and subcarriers is 0.2845, which serves as a reference point for understanding the overall signal strength in the indoor space.
+3. Standard Deviation: The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0169, indicating the variability in signal strength across different subcarriers at each time point.
+4. Mean Standard Deviation: The mean standard deviation across subcarriers for each time point is 0.0318, reflecting the overall degree of signal oscillation over time.
+
+Based on the analysis of the given data, the fluctuations in signal amplitude, as well as the mean and standard deviation values, suggest that there are variations in the Wi-Fi signal that could be attributed to human occupancy. The presence of such fluctuations indicates the likelihood of human activity in the indoor space.
+
+ANSWER: Based on the analysis of the data and considering the fluctuations in signal amplitude indicative of human occupancy, it is likely that there is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+1. Signal Data Analysis:
+    - The CSI data varies between 0.06 to 0.61, indicating fluctuations in signal amplitude over time and across different subcarriers.
+    - There are variations in the data points, reflecting changes in the Wi-Fi signal caused by potential human presence and movement.
+
+2. Mean CSI Analysis:
+    - The mean value of the CSI data is 0.289, suggesting an average signal amplitude across all subcarriers. This can be used as a reference point for comparing individual data points.
+
+3. Standard Deviation Analysis:
+    - The standard deviation across subcarriers for the mean CSI amplitude over time is 0.018, indicating the variability of the mean CSI amplitude across different subcarriers. A higher standard deviation suggests more significant fluctuations in the signal data.
+
+4. Mean Std of CSI Analysis:
+    - The mean standard deviation across subcarriers for each time point is 0.041, reflecting the overall degree of signal oscillation in time. A higher mean std value indicates a more dynamic signal pattern.
+
+ANSWER:
+Based on the analysis of the provided data and the key metrics, it is likely that there is a person present in the indoor space. The variations in the CSI data, along with the mean value and standard deviation metrics, suggest significant signal fluctuations that are consistent with human occupancy patterns. Therefore, the occupancy status can be classified as "have_person."
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+From the given CSI data, we can see that the signal amplitudes vary across different subcarriers and over time, indicating changes in the Wi-Fi signal strength due to potential human presence or movement. The mean value of CSI is 0.2939, and the standard deviation across subcarriers for the mean CSI amplitude over time is 0.0192, which shows relatively low variability in signal amplitudes over time.
+
+Additionally, the mean standard deviation across subcarriers for each time point is 0.0398, which reflects the overall degree of signal oscillation in time. This indicates the level of fluctuation in the CSI data over time, which could be attributed to human occupancy patterns.
+
+Based on the analysis of the given data and the metrics calculated, the fluctuations in the CSI data and the overall signal amplitude suggest potential human presence or activity in the indoor space. The variations in signal strength and the consistent level of fluctuation in the data support the likelihood of a person being present.
+
+ANSWER:
+Based on the analysis of the CSI data and the metrics calculated, it is determined that there is a high probability of a person being present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+The given Wi-Fi CSI data consists of 20 time samples and 21 subcarriers reflecting the amplitude of the signal. Looking at the data, we can observe variations in signal amplitude across different subcarriers and time points.
+
+The mean value of the CSI data is calculated to be 0.2847, indicating the average signal amplitude. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0165, highlighting the variability in signal strength across subcarriers.
+
+The mean standard deviation across subcarriers for each time point is found to be 0.0489, which reflects the overall degree of signal oscillation in time.
+
+Comparing the given data with previous examples, we can assess the changes and fluctuations in the sequential data along the time and subcarrier axes. These variations are crucial in determining human occupancy patterns based on Wi-Fi CSI data.
+
+ANSWER:
+Based on the analysis of the given Wi-Fi CSI data and the calculated mean values and standard deviations, it is likely that there is a person present in the indoor space. The fluctuations in signal amplitude across different subcarriers and time points suggest human presence or movement affecting the Wi-Fi signals. Therefore, the occupancy status can be classified as "have_person".
+----------------------------------------------------------------------------------------------------
+**ANALYSIS:**
+
+1. **Signal Data Analysis:**
+   - The CSI data shows variations in signal amplitudes across different subcarriers and time intervals.
+   - There are fluctuations in the amplitudes, indicating changes in the Wi-Fi signal caused by potential human presence or movement.
+
+2. **Mean Value Analysis:**
+   - The mean value of CSI is 0.2907, which signifies the average signal amplitude across the data samples.
+   - This mean value serves as a reference point to compare individual signal amplitudes against.
+
+3. **Standard Deviation Analysis:**
+   - The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0194.
+   - This indicates the variability of the mean signal amplitude across different subcarriers, suggesting the level of consistency or inconsistency in the data.
+
+4. **Mean Standard Deviation Analysis:**
+   - The mean standard deviation across subcarriers for each time point is 0.0334.
+   - This value reflects the overall degree of signal oscillation in time, indicating the variability in signal amplitudes over time.
+
+**ANSWER:** 
+
+Based on the analysis of the given data and considering the fluctuation in signal amplitudes, the average mean CSI value, and the standard deviations, it is likely that there is a person present in the indoor space. The variations in signal amplitudes and the consistency of these changes imply human occupancy patterns. Therefore, the conclusion is that there is a person in the indoor space.
+----------------------------------------------------------------------------------------------------
+第25次预测完成
+ANALYSIS:
+The given CSI data consists of 20 samples along the time axis and 21 subcarriers, representing the amplitude of the Wi-Fi signal. The mean value of the CSI data is 0.2886, indicating the average amplitude of the signal.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0185, which shows the variability of the mean CSI amplitude across different subcarriers over time. The mean standard deviation across subcarriers for each time point is 0.0344, reflecting the overall degree of signal oscillation in time.
+
+Upon analyzing the CSI data, the mean value, and the standard deviations, we can see that the signal amplitudes have fluctuations and variations across different subcarriers over time. These fluctuations could be attributed to human presence and movement in the indoor space.
+
+ANSWER:
+Based on the analysis of the given data, considering the fluctuations and variations in the signal amplitudes across different subcarriers over time, it is likely that there is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. The CSI data provided consists of 20 samples along the time axis and 21 subcarriers. The amplitudes of the CSI signals vary across these samples and subcarriers, showcasing fluctuations that may indicate human presence or absence.
+
+2. The mean value of the CSI data is 0.2946, which reflects the average amplitude of the signals collected. This mean value can serve as a baseline for comparing the current data points against.
+
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0161, indicating the variability of the mean CSI amplitude across different subcarriers. This measure shows how much the amplitude deviates from the overall average.
+
+4. The mean standard deviation across subcarriers for each time point is 0.0321, highlighting the average variability of the CSI signals for each subcarrier over time. This metric gives insight into the overall oscillation of the signals.
+
+ANSWER:
+Based on the analysis of the provided data and the key metrics, I would conclude that there is a high likelihood of human presence in the indoor space. The fluctuations in the CSI data, along with the mean value and standard deviations, suggest variations that are consistent with human occupancy patterns. Therefore, the occupancy status would be classified as "have_person".
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+Looking at the CSI data provided, we can see the amplitude values across different time points and subcarriers. We can observe slight variations in the amplitude values, which could be indicative of human presence and movement in the indoor space. The mean value of CSI is relatively low, indicating a consistent level of signal amplitude on average. The standard deviation across subcarriers for the mean CSI amplitude shows a low variability, suggesting that the signal strength remains relatively stable across different subcarriers over time. The mean standard deviation across subcarriers for each time point is also low, indicating a consistent degree of signal oscillation over time.
+
+Based on the analysis of the data, considering the slight variations in the CSI data and the overall stability in the signal amplitude, it is likely that there is no person present in the indoor space at the moment.
+
+ANSWER:
+no_person
+----------------------------------------------------------------------------------------------------
+**Analysis:**
+
+1. Looking at the given CSI data, we can observe the variations in signal amplitudes across different time points and subcarriers. The values range from around 0.06 to 0.63, indicating fluctuations in Wi-Fi signal strength.
+
+2. The mean value of CSI is calculated to be approximately 0.2961. This indicates the average amplitude of the CSI data across all samples.
+
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is calculated to be around 0.0143. This value represents the variability of the mean CSI amplitude across different subcarriers over time.
+
+4. The mean standard deviation across subcarriers for each time point is approximately 0.0285. This value reflects the overall degree of signal oscillation in time.
+
+**Answer:**
+
+Based on the analysis of the given data and comparing it to previous examples, the CSI data shows fluctuations in signal strength, similar to patterns seen when human presence or movement is detected. The mean value and standard deviation values also align with previous examples where human occupancy was detected.
+
+Therefore, based on the analysis of the CSI data and associated statistical values, it is likely that there is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+The given CSI data consists of 20 time samples and 21 subcarriers, each representing the amplitude of the Wi-Fi signal. The mean value of CSI across all samples is 0.289, with a standard deviation of 0.016 across subcarriers and a mean standard deviation of 0.036 over time.
+
+Analyzing the CSI data, we observe that there is a gradual increase in signal amplitude over time, indicating some sort of movement or presence in the space. The fluctuations in subcarriers also suggest changes in the environment, potentially caused by human occupancy.
+
+The mean value of CSI being above 0.25 could be associated with human presence, as human bodies can block or reflect Wi-Fi signals, leading to signal variations. The standard deviation across subcarriers being relatively low further supports the hypothesis of consistent changes in the signal due to occupancy.
+
+ANSWER:
+Based on the analysis of the CSI data and the parameters provided, it is likely that there is a person present in the indoor space. The gradual increase in signal amplitude over time and fluctuations in subcarriers indicate human occupancy.
+----------------------------------------------------------------------------------------------------
+第30次预测完成
+ANALYSIS:
+
+The given CSI data consists of 20 samples with 21 subcarriers each. The mean value of the CSI data is 0.29222930780978584, and the standard deviation across subcarriers for the mean CSI amplitude over time is 0.010319332286855649. The mean standard deviation across subcarriers for each time point is 0.03029006436500479.
+
+By analyzing the sequential data along the time and subcarrier axes, we can observe the fluctuations in signal amplitudes. The CSI data shows varying amplitudes across different subcarriers and time points, suggesting changes in the environment that may be indicative of human presence or movement.
+
+Based on the mean value of CSI data being relatively low (0.29), and the standard deviation indicating moderate variability in the mean CSI amplitude across subcarriers and time, it is likely that there is a person present in the indoor space. The fluctuations in signal oscillations over time further support the presence of activity or movement that is consistent with human occupancy patterns.
+
+ANSWER:
+There is a person in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. Looking at the CSI data provided, we can see that the amplitude values vary across different subcarriers and time points, indicating fluctuations in the Wi-Fi signal which could be caused by human presence and movement.
+
+2. The mean value of CSI for the given data is 0.2926, which represents the average amplitude of the signal. This mean value provides a baseline for comparing the individual CSI values against.
+
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0159, indicating the variability in the mean CSI amplitude across different subcarriers. A higher standard deviation suggests greater variability in the signal amplitudes, which could be due to changing occupancy patterns.
+
+4. The mean standard deviation across subcarriers for each time point is 0.0355, which reflects the overall degree of signal oscillation in time. A higher mean standard deviation indicates more significant fluctuations in the signal amplitude over time, potentially caused by human activity.
+
+ANSWER:
+Based on the analysis of the provided CSI data, which shows variations in signal amplitudes across different subcarriers and time points, along with the calculated mean and standard deviation values, it is likely that there is a person present in the indoor space. The fluctuations in the Wi-Fi CSI data suggest human occupancy patterns, making the presence of a person more probable.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. Signal Data: The CSI data consists of a time-series signal with 20 data samples and 21 subcarriers. The amplitudes for each subcarrier vary across time, indicating changes in the Wi-Fi signal due to potential human presence or movement.
+2. Mean Value: The mean value of CSI data is 0.290, suggesting the average amplitude of the Wi-Fi signal.
+3. Standard Deviation Across Subcarriers: The small standard deviation across subcarriers for the mean CSI amplitude over time (0.013) implies that the amplitude variations are relatively consistent among different subcarriers.
+4. Mean Standard Deviation Across Time: The mean standard deviation across subcarriers for each time point (0.032) indicates a moderate level of signal oscillation over time.
+
+Based on the analysis, the data shows variations in the Wi-Fi signal amplitude over time and across subcarriers, suggesting potential human occupancy patterns. The consistency in amplitude variations and moderate signal oscillation indicate the presence of human activity in the indoor space.
+
+ANSWER:
+The analysis of the Wi-Fi CSI data indicates that there is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+Based on the provided CSI data, it is important to analyze the amplitude of the signal, changes in the mean value of CSI, and the standard deviation across subcarriers for the mean CSI amplitude over time.
+
+Looking at the CSI data, we see fluctuations in signal amplitudes across the 21 subcarriers and 20 time samples. These variations indicate potential human presence and movement, as human bodies can obstruct and reflect Wi-Fi signals, leading to changes in signal strengths.
+
+The mean value of CSI for the given data is 0.292, which represents the average amplitude of the CSI data. This mean value is comparably higher than the amplitude of the noise, suggesting the possibility of human presence affecting the Wi-Fi signals.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.024, indicating the variability of the mean CSI amplitude across different subcarriers. A higher standard deviation implies more significant fluctuations in signal strengths, which could be due to human movements causing changes in the Wi-Fi signal reflections.
+
+The mean standard deviation across subcarriers for each time point is 0.039, reflecting the overall degree of signal oscillation in time. A higher mean standard deviation implies more dynamic changes in signal strengths over time, which could be indicative of human occupancy affecting the Wi-Fi signals.
+
+ANSWER:
+Based on the analysis of the provided CSI data, the higher mean value of CSI, along with the significant standard deviations across subcarriers and time points, suggests that there is a high likelihood of human presence in the indoor space. Therefore, the occupancy status would likely be "have_person."
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+From the given CSI data, we observe that the amplitudes of the signals vary across different subcarriers and time points. The mean value of CSI is 0.2919, indicating an average amplitude of the signals. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0271, suggesting a low variability in the amplitudes across different subcarriers over time. The mean standard deviation across subcarriers for each time point is 0.0454, indicating a moderate degree of signal oscillation in time.
+
+Considering the data analysis, we can see that the CSI data shows fluctuating amplitudes across different subcarriers and time points, which could be indicative of human presence and movement. The mean and standard deviation values provide insights into the overall variability and signal oscillation in the data.
+
+ANSWER:
+Based on the analysis of the CSI data and the calculated mean and standard deviation values, it is likely that there is a person present in the indoor space. The fluctuating amplitudes and moderate signal oscillation suggest human activity.
+----------------------------------------------------------------------------------------------------
+第35次预测完成
+ANALYSIS:
+Upon analyzing the given Wi-Fi CSI data, we observe the following:
+1. The CSI data consists of sequential readings along the time axis and different subcarriers. The amplitude of the signal fluctuates over time and across subcarriers, indicating changes in the environment.
+2. The mean value of the CSI data is 0.2955, which represents the average amplitude of the signal.
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0157, showing the variability of the mean CSI amplitude across different subcarriers.
+4. The mean standard deviation across subcarriers for each time point is 0.0347, reflecting the overall degree of signal oscillation in time.
+
+Based on the analysis of the data, we can see that there are fluctuations in the CSI data over time and across subcarriers, indicating potential human presence and movement within the indoor space. The mean value of the CSI data is relatively high, suggesting the presence of a person.
+
+ANSWER:
+Given the fluctuations in the Wi-Fi CSI data, the mean value, and the standard deviation metrics, it is likely that there is a person present in the indoor space. Therefore, the occupancy status can be classified as "have_person."
+----------------------------------------------------------------------------------------------------
+ANALYSIS: 
+
+Looking at the given CSI data, we can see that the amplitudes vary across the subcarriers and time points. There are fluctuations in the data, indicating changes in the signal strength possibly due to human presence and movement.
+
+The mean value of CSI is calculated to be 0.2905, which gives us an idea of the average signal amplitude across the data points. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0152, showing the variability in the mean amplitude values.
+
+The mean standard deviation across subcarriers for each time point is 0.0393, which represents the overall degree of signal oscillation in time.
+
+Based on the analysis of the CSI data and the calculated values, we can see that there are fluctuations in the signal amplitudes, indicating potential human presence causing changes in the Wi-Fi CSI data.
+
+ANSWER: There is a high likelihood that there is a person present based on the analysis of the CSI data and the characteristics observed in the signal fluctuations.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+Looking at the CSI data provided, we can observe variations in signal amplitudes across different time points and subcarriers. The mean value of CSI data is 0.2986, indicating the average signal amplitude. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0116, reflecting the variability in signal amplitude.
+
+Analyzing the sequential data along both the time and subcarrier axes, we see fluctuations in signal amplitudes, with some variations indicating potential human activity that can affect Wi-Fi signal propagation.
+
+Based on the given data and the analysis of signal fluctuations in the CSI data, it can be inferred that there is a high likelihood of human presence in the indoor space, as the variations in the signal amplitudes suggest changing occupancy patterns that are consistent with human movement.
+
+ANSWER:
+There is a high probability that there is a person present in the indoor space based on the analysis of the Wi-Fi CSI data fluctuations and signal characteristics.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. The provided CSI data shows the amplitude of the Wi-Fi signals across 20 data samples and 21 subcarriers. The values vary over time and subcarriers, indicating fluctuations in the signal attributed to human presence or movement.
+2. The mean value of CSI is 0.2975, suggesting an average signal amplitude observed across the data samples and subcarriers.
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0176, indicating the variability in the mean signal amplitude.
+4. The mean standard deviation across subcarriers for each time point is 0.0388, highlighting the overall oscillation in signal strength over time.
+
+Based on the analysis of the provided data and comparison to previous examples, the fluctuations in signal amplitude and variability in mean values indicate potential human presence or movement in the indoor space. The changes in signal characteristics suggest occupancy patterns that align with human behavior.
+
+ANSWER:
+Based on the analysis and the characteristics observed in the data, it is likely that there is a person present in the indoor space.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+
+Looking at the given CSI data, we can observe variations in signal amplitudes across different time points and subcarriers. The mean value of CSI is relatively low at 0.296, indicating that the overall signal strength is not high. The standard deviation across subcarriers for the mean CSI amplitude over time is also low at 0.018, suggesting that the variability in signal strength across subcarriers is minimal. The mean standard deviation across subcarriers for each time point is 0.036, indicating that there is some degree of fluctuation in signal amplitude over time.
+
+Comparing these values to the examples provided, we can see that the mean CSI value is lower than some examples where a person was present, but higher than others where no person was detected. The standard deviation values are relatively lower compared to those in the examples where a person was present.
+
+Overall, the data shows consistent but relatively low signal amplitudes with minimal variability across subcarriers. The fluctuations in signal amplitude over time are present but not significant.
+
+ANSWER:
+
+Based on the analysis, considering the lower mean CSI value, minimal variability across subcarriers, and low fluctuations over time, it is more likely that there is no person detected in the indoor space. Therefore, the occupancy status would be 'no_person'.
+----------------------------------------------------------------------------------------------------
+第40次预测完成
+ANALYSIS:
+
+1. The given CSI data consists of 20 samples along the time axis and 21 subcarriers, representing the amplitude of the Wi-Fi signal.
+2. The mean value of CSI is 0.2976677291144468, which indicates the average amplitude of the CSI data.
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.013091402322887863, showing the variability of the mean CSI amplitude across different subcarriers.
+4. The mean standard deviation across subcarriers for each time point is 0.027238759533733798, reflecting the overall degree of signal oscillation in time.
+
+Based on the analysis of the CSI data provided, we observe that there are fluctuations in signal amplitude across both time and subcarriers. These fluctuations suggest variations in the Wi-Fi signal, which can be indicative of human presence or movement. The standard deviation values also indicate that there is a degree of variability in the signal amplitude, further supporting the possibility of human occupancy.
+
+ANSWER:
+
+Based on the analysis of the given CSI data and considering the fluctuations in signal amplitudes and the standard deviation values, it is likely that there is a person present in the indoor space. The variations in the Wi-Fi signal suggest human activity, making "have_person" the most suitable occupancy status for this scenario.
+----------------------------------------------------------------------------------------------------
+ANALYSIS:
+1. The CSI data provided consists of amplitude values across 21 subcarriers over a time series of 20 data samples.
+2. The mean value of CSI for the given data is 0.2957, indicating the average amplitude of the signal.
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0137, representing the variability of the mean CSI amplitude across different subcarriers over time.
+4. The mean standard deviation across subcarriers for each time point is 0.0329, reflecting the overall degree of signal oscillation in time.
+
+From the provided data, we can observe that the CSI values are within a certain range of amplitudes across different subcarriers and time points, with some fluctuations. The mean value and standard deviation values are relatively consistent with the data provided but do not indicate any significant deviations.
+
+ANSWER:
+Based on the analysis of the CSI data and understanding of human occupancy patterns, it is inconclusive whether there is a person or not in the indoor space. The data does not show clear and distinct patterns or anomalies that would definitively indicate human presence. Further analysis or additional data points may be needed to make a more accurate determination of occupancy status.
+----------------------------------------------------------------------------------------------------
+
+Process finished with exit code 0

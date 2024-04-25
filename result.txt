@@ -1,0 +1,58 @@
+***our:
+TP = 26 FP = 8 TN = 37 FN = 5
+ACCURACY: 82.89%
+precision: 76.47%
+recall: 83.87%
+F1: 80.00%
+
+按比例放缩：
+TP = 32 FP = 10 TN = 37 FN = 5
+ACCURACY: 82.14%
+precision: 76.19%
+recall: 86.49%
+F1: 81.01%
+
+
+***domain:
+TP = 25 NP = 9 TN = 29 NP = 13
+
+ACCURACY: 71.05%
+precision: 73.53%
+recall: 65.79%
+F1: 69.45%
+
+按比例放缩：
+TP = 31 FP = 11 TN = 29  FN = 13
+ACCURACY: 71.43%
+precision: 73.81%
+recall: 70.45%
+F1: 72.09%
+
+***demo:
+TP = 17 FP = 17 TN = 31 FN = 11
+ACCURACY: 63.16%
+precision: 50%
+recall: 60.71%
+F1: 54.84%
+
+按比例放缩：
+TP = 21 FP = 21 TN = 31 FN = 11
+ACCURACY: 61.90%
+precision: 50%
+recall: 65.63%
+F1: 56.76%
+
+
+***baseline:
+TP = 26 FP = 8 TN = 4 FN = 38
+ACCURACY: 35.71%
+precision: 76.47%
+recall: 40.63%
+F1: 53.07%
+
+按比例放缩：
+TP = 32 FP = 10 TN = 4 FN = 38
+ACCURACY: 42.85%
+precision: 76.19%
+recall: 45.71%
+F1: 57.14%

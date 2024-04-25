@@ -1,0 +1,629 @@
+/home/ntu/anaconda3/envs/zyj310/bin/python /data1/msc/zyj/iot-agent/occupancy/main.py 
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.90it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 25.33it/s]
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.78it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 33.29it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.41it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 91846.07 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+ANALYSIS:
+Looking at the given CSI data, we can observe the amplitudes of the signals along the different subcarriers over time. The mean value of CSI is calculated to be 0.281, indicating a moderate signal strength. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.021, suggesting a relatively low variability in the mean CSI amplitude. The mean standard deviation across subcarriers for each time point is 0.032, indicating a moderate level of signal oscillation over time.
+
+Comparing this data to the characteristics associated with human presence and absence, we note that the signals exhibit fluctuations and weaker amplitude, which is more indicative of human movements. The values align more closely with the 'have_person' class, where the mean value of CSI is smaller, and the standard deviations across subcarriers for the mean CSI amplitude over time and for each time point are larger.
+
+ANSWER:
+Based on the analysis of the CSI data provided, it is more likely that there is a person present in the indoor space. Therefore, the occupancy status would be classified as 'have_person'.
+第0次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.16it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.89it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.85it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 60913.13 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+The given CSI data consists of a 2D array representing the signal amplitude across 20 data samples and 21 subcarriers. The mean value of the CSI data is 0.2846, which is relatively higher than the average value for the no_person class (0.291). This suggests that there might be a person present as the mean value is lower for scenarios without human occupancy.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0235, which is higher than the average value for the no_person class (0). This indicates that there are fluctuations and changes in the signal amplitude over time, which is consistent with human movement patterns.
+
+The mean standard deviation across subcarriers for each time point is 0.0444, which is higher than the average value for the no_person class (0). This further supports the presence of human occupancy, as the increased variability in signal amplitude across subcarriers suggests dynamic movements typical of human behavior.
+
+ANSWER:
+Based on the analysis of the CSI data provided, it is likely that there is a person present in the indoor space. The higher mean value, increased standard deviation across subcarriers over time, and elevated mean standard deviation across subcarriers for each time point indicate characteristics associated with human occupancy patterns.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.38it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.88it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.16it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 88345.42 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+The given CSI data shows fluctuations in signal amplitudes across different subcarriers and time points. There is noticeable variability in the data, indicating potential human occupancy due to the changes in signal strength that correlate with human movement.
+
+The mean value of CSI in the given data (0.28656075917652224) falls within the range expected for scenarios with human occupancy, as it is not significantly higher, which may suggest a person is present.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time (0.020348223353635946) is relatively low, suggesting less variability in the signal amplitude compared to cases without human presence. This aligns with the characteristics of data associated with human occupancy.
+
+The mean standard deviation across subcarriers for each time point (0.0391426048489914) is slightly higher, indicating some oscillation in the signal over time, which may be attributed to human movements causing fluctuations in the data.
+
+ANSWER:
+Based on the analysis of the given data, it is likely that there is a person present in the indoor space. The fluctuations in signal amplitudes, along with the mean and standard deviation values, suggest human occupancy patterns in the environment.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.29it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.25it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.17it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 81707.22 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+- The CSI data provided consists of 20 samples for 21 subcarriers, representing the amplitude of the Wi-Fi signal.
+- The mean value of CSI is calculated to be 0.2557, indicating a moderate amplitude level.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0318, suggesting relatively low variability in the mean CSI values.
+- The mean standard deviation across subcarriers for each time point is 0.0695, indicating a moderate degree of signal oscillation over time.
+
+Based on the analysis of the provided data, we observe that the CSI data shows moderate amplitude with low variability in mean CSI values and moderate signal oscillation over time. This pattern is more indicative of a scenario with no person present, as per the characteristics associated with the "no_person" class, where the mean value of CSI is larger, and the standard deviations are smaller. 
+
+ANSWER:
+Based on the analysis of the CSI data provided, it is likely that there is no person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.13it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.69it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.26it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 85848.33 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+- The given CSI data consists of 15 samples, each containing 21 subcarriers with varying amplitudes.
+- The mean value of CSI is calculated to be 0.24697, which falls between the average values for `no_person` (0.291) and `have_person` (0.267), indicating a likely presence of a person.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0206, which is closer to the value for `no_person` (0.0) than `have_person` (0.023), suggesting a lower fluctuation in amplitude.
+- The mean standard deviation across subcarriers for each time point is calculated to be 0.0655, which is higher than the respective values for both `no_person` and `have_person`, indicating some level of signal oscillation.
+
+ANSWER:
+Based on the analysis of the provided CSI data, the patterns observed suggest that there is likely a person present in the indoor space. The amplitude variations and mean values align more closely with the characteristics associated with human occupancy patterns. Therefore, the final determination is that there is a person present.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.47it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.71it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.74it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87904.57 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Based on the provided CSI data, the mean value of the CSI is 0.27183171661910854. This value falls in between the average mean value of 0.291 for the 'no_person' class and the average mean value of 0.267 for the 'have_person' class. This suggests that the amplitude of the signal is moderate and does not strongly indicate the presence or absence of a person.
+
+Furthermore, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.02912185368012542. This value falls within the range of the standard deviation value for both 'no_person' and 'have_person' classes. This means that the variability in the mean CSI amplitude across different subcarriers over time is not significant to determine occupancy status.
+
+Similarly, the mean standard deviation across subcarriers for each time point is 0.04512766694302367, which also falls within the range for both classes. This implies that the overall degree of signal oscillation in time is not distinct enough to conclusively ascertain the presence of a person.
+
+ANSWER:
+Based on the analysis of the given CSI data, it is inconclusive whether there is a person or not in the indoor space. The data does not exhibit clear indicators of human occupancy based on the mean value, standard deviation across subcarriers, and mean standard deviation across time points.
+第5次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.42it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.63it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.75it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 88523.00 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+- The CSI data in the given example shows varying amplitudes across different subcarriers over time, indicating fluctuations in the signal.
+- The mean value of CSI is 0.2756, which is relatively lower compared to the average mean value for the "no_person" class (0.291), suggesting the presence of a person.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0242, which is within the range of the standard deviation for the "have_person" class, indicating fluctuations associated with human movement.
+- The mean standard deviation across subcarriers for each time point is 0.0600, also falling within the higher range associated with human occupancy.
+
+ANSWER:
+Based on the analysis of the given data and comparing it to the characteristics of occupancy classes, it can be concluded that there is a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.30it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.63it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.11it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87294.73 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+From the provided CSI data, we can observe that the signal amplitudes across the time samples and subcarriers fluctuate, indicating potential human movements within the indoor space. The mean value of CSI is 0.2615, which is closer to the value associated with the "have_person" class, suggesting the presence of a person.
+
+Furthermore, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.0207, which is smaller than the value for the "have_person" class, implying less variability in the signal amplitude fluctuations. Additionally, the mean standard deviation across subcarriers for each time point is 0.0642, which is also smaller than the corresponding value for the "have_person" class, indicating lower overall signal oscillation.
+
+Based on the analysis of the CSI data and the associated mean and standard deviation values, it is likely that there is a person present in the indoor space.
+
+ANSWER:
+have_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.32it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.55it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.47it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87122.04 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+From the provided CSI data, we can observe that the signal data is consistent with the characteristics of human occupancy. The fluctuations in the signal amplitudes are relatively weak, indicating a stable presence in the space. Furthermore, the mean value of CSI is 0.2649, which aligns with the characteristics of the "no_person" class where the mean value tends to be larger.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0177, which is smaller than the corresponding value for the "have_person" class, again supporting the hypothesis of no human occupancy.
+
+Lastly, the mean standard deviation across subcarriers for each time point is 0.0453, which is relatively small, indicating minimal variability in the signal oscillation over time.
+
+ANSWER:
+Based on the analysis of the provided CSI data, it can be concluded that there is no person present in the indoor space. The characteristics of the signal data align with the "no_person" class, as evidenced by the mean value of CSI, the standard deviation across subcarriers for the mean CSI amplitude over time, and the mean standard deviation across subcarriers for each time point.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.24it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.27it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.29it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 86950.03 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Based on the given CSI data, the mean value of CSI is 0.2758, which falls between the average values for 'no_person' (0.291) and 'have_person' (0.267), indicating ambiguity about human occupancy.
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0298, which is closer to the 'have_person' value of 0.023 rather than the 'no_person' value of 0.017, suggesting the presence of human occupancy.
+The mean standard deviation across subcarriers for each time point is 0.0574, which is higher than both the 'no_person' value (0.034) and the 'have_person' value (0.017), indicating potential human activity causing signal fluctuations.
+
+ANSWER:
+Based on the analysis, it is more likely that there is a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.12it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.73it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.52it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87122.04 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Based on the given CSI data, we can observe that the signal amplitudes fluctuate and are of weaker strength overall. The mean value of CSI is 0.228, which is comparable to the values associated with human occupancy patterns. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.026, indicating moderate variability in the signal amplitude across different subcarriers over time. The mean standard deviation across subcarriers for each time point is 0.093, suggesting a reasonable level of signal oscillation in time.
+
+Comparing this data to the characteristics of both "have_person" and "no_person" classes, the signal fluctuations and weaker amplitudes align more closely with the "have_person" class. The mean value, though not identical, falls within the range associated with human occupancy.
+
+Therefore, based on the analysis of the given CSI data, it is likely that there is a person present in the indoor space.
+
+ANSWER:
+have_person
+第10次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.17it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.39it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.18it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 88080.38 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Upon analyzing the given CSI data, we can observe that the signal data contains fluctuations and weaker amplitudes, indicating potential human movements. The mean value of CSI is 0.2685, falling within the range of values associated with "have_person" class, which suggests human presence.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0226, which is consistent with the behavior typically exhibited in scenarios with human occupancy. Additionally, the mean standard deviation across subcarriers for each time point is 0.0641, further supporting the likelihood of human presence due to the increased variability and unpredictability in the signal.
+
+Therefore, based on the analysis of the CSI data and the associated metrics, it is highly probable that there is a person present in the indoor space.
+
+ANSWER:
+have_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 54.97it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.48it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.61it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87555.05 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+By analyzing the given CSI data, we can observe that the signal data has fluctuations and weaker amplitudes, indicating potential human movements within the indoor space. The mean value of CSI is 0.27925488606829885, which falls within the range associated with human occupancy based on the provided expert information. 
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is 0.02182410845170775, which is higher than the threshold for human occupancy. This suggests increased variability in signal strength across subcarriers over time, further supporting the presence of a person.
+
+Additionally, the mean standard deviation across subcarriers for each time point is 0.05525948987261051, which is also above the threshold for human occupancy. This higher standard deviation implies greater signal oscillation in time, characteristic of human movement.
+
+Based on the analysis of the CSI data, mean value, and standard deviations, it is likely that there is a person present in the indoor space.
+
+ANSWER:
+have_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.16it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.32it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.70it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 89240.51 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Based on the given CSI data, the signal amplitudes exhibit fluctuations and weaker amplitudes across the time axis, indicating potential human movements. The mean value of CSI is 0.270, falling within the range associated with human occupancy. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.021, which is higher than the threshold for no_person, suggesting human presence. Additionally, the mean standard deviation across subcarriers for each time point is 0.045, also higher than the threshold for no_person.
+
+ANSWER:
+Based on the analysis of the data and comparison with the provided thresholds for occupancy detection, it can be concluded that there is a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.21it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.52it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 94.02it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 62646.08 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Based on the given CSI data, we can observe that the signal amplitudes are fluctuating across different subcarriers and time points. The mean value of CSI is 0.277, which is closer to the class label "have_person" mean value of 0.267. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.024, which is closer to the "have_person" class standard deviation of 0.023. Additionally, the mean standard deviation across subcarriers for each time point is 0.049, which is in line with the "have_person" class value of 0.034.
+
+This indicates that the CSI data exhibits characteristics more closely associated with human occupancy, such as fluctuation and weaker amplitude, as seen in the "have_person" class.
+
+ANSWER:
+Based on the analysis of the given data, it is likely that there is a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.20it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.56it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.19it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87035.95 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+1. Looking at the CSI data provided, we can see fluctuations in the signal amplitudes across different subcarriers over time. The values are not constant, indicating potential human movement within the space.
+
+2. The mean value of CSI is determined to be 0.255, which is within the range that suggests human occupancy based on the previous examples. This lower mean value points towards the presence of a person in the indoor space.
+
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is calculated to be 0.025, which is also within the range that indicates human occupancy. This higher standard deviation suggests variability in the signal caused by human movement.
+
+4. The mean standard deviation across subcarriers for each time point is 0.046, reflecting the overall degree of signal oscillation in time. This value aligns with what is expected in a scenario with human occupancy.
+
+ANSWER:
+Based on the analysis of the CSI data provided, the fluctuations in signal amplitudes, the lower mean CSI value, and the higher standard deviations indicate human occupancy in the indoor space. Therefore, the conclusion is that there is a person present.
+第15次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.17it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.63it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.77it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 84855.86 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS: 
+Based on the given data, the CSI values show fluctuations in amplitude and variability across subcarriers over time. The mean value of CSI is 0.264, indicating a moderate signal strength. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.013, suggesting relatively low variability in the mean CSI amplitude. The mean standard deviation across subcarriers for each time point is 0.029, indicating a moderate level of signal oscillation over time.
+
+Considering the characteristics of the CSI data for class `no_person`, where the signals have stronger amplitudes and lower variability compared to scenarios with human occupancy, it is likely that there is no person present based on the given data.
+
+ANSWER: no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.27it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.42it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.48it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87555.05 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+- The given CSI data shows fluctuating amplitudes along both the time and subcarrier axes, which indicates potential human movements affecting the Wi-Fi signal.
+- The mean value of CSI is 0.2755, which falls within the range of values associated with scenarios where there is a person present.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0164, which is relatively small, suggesting less variability in the amplitude over time compared to scenarios with no person.
+- The mean standard deviation across subcarriers for each time point is 0.0398, indicating some degree of signal oscillation, which could be attributed to human presence and movement.
+
+ANSWER:
+Based on the analysis of the given data, it is likely that there is a person present in the indoor space being monitored. The fluctuating amplitudes and the specific values of the mean CSI, standard deviation across subcarriers, and mean standard deviation all point towards human occupancy being the reason for these signal variations.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.08it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.35it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.44it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 84046.17 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Looking at the CSI data provided for the given scenario, the amplitudes seem to fluctuate across the subcarriers over time. The mean value of CSI is calculated to be 0.2659, which is lower than the average mean value for the class 'no_person' (0.291). This suggests that the amplitude of the signal is weaker, indicating potential human presence.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is calculated to be 0.0157, which is also lower than the corresponding value for the 'no_person' class, indicating less stability in the signal amplitude over time. This variability could be a result of human movement.
+
+The mean standard deviation across subcarriers for each time point is calculated to be 0.0448, which is higher than the corresponding value for the 'no_person' class. This indicates more signal oscillation over time, which could be attributed to human activity.
+
+Based on the analysis of the CSI data and the calculated mean and standard deviation values, it appears that the characteristics of the signal align more closely with the class 'have_person' due to the weaker amplitude, increased fluctuation, and higher signal oscillation. These features suggest the potential presence of a person in the indoor space.
+
+ANSWER:
+Based on the analysis of the provided CSI data, it is determined that there is a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.05it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.56it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.39it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 85266.59 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+From the given data, we can see that the CSI data consists of amplitude values across different subcarriers over time. The mean value of CSI is 0.255, which is relatively lower than the average value for the "no_person" class (0.291). The standard deviation across subcarriers for the mean CSI amplitude over time is 0.023, which is similar to the value for the "no_person" class. The mean standard deviation across subcarriers for each time point is 0.039, which is also closer to the value for the "no_person" class.
+
+Comparing the characteristics of the CSI data provided with the descriptions for "have_person" and "no_person" classes:
+- The CSI data shows fluctuation and weaker amplitude, which aligns with the characteristics of the "have_person" class.
+- The mean value of CSI is smaller, which is a characteristic of the "have_person" class.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is larger, indicating increased variability, which is consistent with the "have_person" class.
+- The mean standard deviation across subcarriers for each time point is also larger, reflecting the unpredictability of the signal due to human movement, as expected in the "have_person" class.
+
+ANSWER:
+Based on the analysis of the provided CSI data and comparison with the characteristics of the "have_person" and "no_person" classes, it can be concluded that the data reflects the presence of a person. Therefore, the final answer is: have_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.19it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.53it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.60it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 88345.42 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+The given CSI data consists of 20 samples with 21 subcarriers each. The mean value of CSI is 0.27167098075881274. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.024144020709413048, and the mean standard deviation across subcarriers for each time point is 0.050475968991458044.
+
+To determine human occupancy based on the given data, we need to compare the characteristics of the CSI data mentioned in the expert knowledge section. In scenarios with human occupancy, the CSI data tends to show fluctuations and weaker amplitudes compared to scenarios without human occupancy, which have regular and stronger amplitude signals.
+
+Upon analyzing the data, we can observe that the mean value of CSI is lower than the average value for the 'no_person' class. The standard deviation across subcarriers for the mean CSI amplitude over time and the mean standard deviation across subcarriers for each time point are also higher than the average values for the 'no_person' class.
+
+ANSWER:
+Based on the analysis of the given data, it is likely that there is a person present in the indoor space.
+第20次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.15it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 30.79it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.96it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 58681.14 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+From the given CSI data, we can observe that the amplitudes fluctuate consistently across different subcarriers and time points. The mean value of CSI is relatively high (0.278) compared to the average values for no_person (0.291) and have_person (0.267), indicating a stronger signal amplitude. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.024, which is close to the corresponding values for both classes, suggesting moderate variability in signal amplitudes.
+
+The mean standard deviation across subcarriers for each time point is 0.061, which is higher than the average values for both no_person (0.017) and have_person (0.034), indicating greater signal oscillation in time. Overall, the data shows consistent fluctuations in signal amplitude over time and across subcarriers, pointing towards human occupancy patterns.
+
+ANSWER:
+Based on the analysis of the given CSI data, the characteristics observed align more closely with the have_person class. Therefore, the conclusion is that there is likely a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.19it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.76it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.52it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 86778.70 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Analyzing the given CSI data, we observe fluctuations in the sequential data along both the time and subcarrier axes. The data shows changes in signal magnitude with varying amplitudes and standard deviations. The mean value of CSI is 0.275, indicating a moderate amplitude. However, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.025, suggesting some variability in signal strength. Additionally, the mean standard deviation across subcarriers for each time point is 0.056, reflecting oscillations in the signal over time.
+
+Comparing the data with the characteristics of "have_person" and "no_person" classes, we note that the CSI data in the given example does not exhibit strong fluctuations or very weak amplitudes typically associated with human presence. The mean value and standard deviations fall within a moderate range, indicating a relatively stable signal pattern.
+
+ANSWER:
+Based on the analysis of the provided CSI data, it is more likely that there is no person present in the indoor space. The characteristics of the data align more closely with the "no_person" class, as the signal does not show strong fluctuations or weak amplitudes typically associated with human occupancy patterns.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.15it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.43it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.54it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 85598.04 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+
+The given CSI data shows a mix of amplitudes and fluctuations in the Wi-Fi signal across different subcarriers and time points. The mean value of CSI is 0.2594, which falls between the average values for `have_person` and `no_person` classes. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0309, also falling in between the average values for the two classes. The mean standard deviation across subcarriers for each time point is 0.0607, which is higher than the average for the `no_person` class but lower than the average for the `have_person` class.
+
+The data reflects some fluctuations in the signal amplitude, but the mean values and standard deviations do not fully align with either class average values.
+
+ANSWER:
+
+Based on the analysis of the given CSI data and comparison with the average values for `have_person` and `no_person` classes, it is inconclusive whether there is a person present or not. The data does not clearly exhibit the characteristics associated with either class, suggesting a mixed or uncertain occupancy status.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.20it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.66it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.09it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 86100.08 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+
+Based on the given CSI data, we observe that the signal data shows fluctuations in amplitude and changes in magnitude across different subcarriers and time points. The mean value of CSI is calculated to be 0.2736, indicating an intermediate value compared to the values associated with "have_person" and "no_person" classes. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0271, which is relatively lower than the value for the "have_person" class. The mean standard deviation across subcarriers for each time point is 0.0753, suggesting a moderate level of variability in signal oscillation over time.
+
+Considering the characteristics of the CSI data provided, the fluctuations in amplitude and the intermediate mean value of CSI indicate some level of signal disturbance and variability. However, the overall values do not clearly align with either the "have_person" or "no_person" classes. Therefore, based on this analysis, it is inconclusive to determine whether there is a person present or not.
+
+ANSWER:
+Inconclusive - it is unclear whether there is a person present based on the provided CSI data.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.00it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.45it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.01it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 91941.95 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Based on the given CSI data, we can observe that the signal amplitudes fluctuate and are not consistently strong. The mean value of CSI is 0.2803712984262004, which falls within the range associated with the presence of a person. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.018670668688360724, indicating a moderate variability in signal strength. Additionally, the mean standard deviation across subcarriers for each time point is 0.05770189067208894, suggesting a relatively low level of signal oscillation over time.
+
+Considering the characteristics of the CSI data and the comparison with the examples provided, the fluctuations in signal amplitude and the moderate standard deviation values are consistent with patterns associated with human occupancy. Therefore, based on the analysis of the CSI data, it is likely that there is a person present in the indoor space.
+
+ANSWER:
+have_person
+第25次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.13it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.39it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.39it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 88345.42 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+From the given CSI data, we can observe that the signal amplitudes fluctuate between 0.057 and 0.446, indicating both variations and stronger amplitudes in the data. The mean value of CSI is calculated to be 0.2669, falling within the range of values typically associated with human occupancy.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is measured to be 0.0168, suggesting relatively low variability across different subcarriers over time. This may indicate a more stable signal pattern.
+
+Furthermore, the mean standard deviation across subcarriers for each time point is 0.0425, indicating a moderate level of signal oscillation in time. This could be due to human movement causing some fluctuations in the signal.
+
+Overall, the data exhibits characteristics that are consistent with human occupancy, such as fluctuations in the signal amplitude and moderate variability in signal oscillation over time.
+
+ANSWER:
+Based on the analysis of the given data, the presence of a person is likely as indicated by the fluctuating and stronger amplitude signals, along with the calculated mean and standard deviation values that align with human occupancy patterns. Therefore, the classification would be "have_person."
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.14it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.47it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.24it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 88434.12 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Analyzing the given CSI data, we can observe that the signal amplitudes are fluctuating across different subcarriers and time points. The mean value of CSI is 0.263, which is closer to the class "no_person" mean value of 0.291. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.022, which is smaller than the "have_person" class. The mean standard deviation across subcarriers for each time point is 0.052, which is larger than the "no_person" class.
+
+This indicates that the signal data shows stronger amplitudes and less fluctuation, which aligns more with the characteristics of the "no_person" class based on the previous examples.
+
+ANSWER:
+Based on the analysis of the given data, it is more likely that there is no person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.04it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.59it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.92it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87208.30 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+**ANALYSIS:**
+
+1. **Signal Data Analysis:**
+
+   By analyzing the given CSI data, we can observe fluctuations in the amplitudes of the signal across different subcarriers and time samples. The amplitudes vary within a range, indicating changes in the signal strength over time.
+
+2. **Mean Value Analysis:**
+
+   The mean value of CSI data is calculated to be 0.2576, which falls within the range observed in the signal data. This mean value represents the average amplitude of the CSI data across all subcarriers and time samples.
+
+3. **Standard Deviation Analysis:**
+
+   - The standard deviation across subcarriers for the mean CSI amplitude over time is calculated to be 0.0259. This value indicates the variability of the mean CSI amplitude across different subcarriers over time.
+   - The mean standard deviation across subcarriers for each time point is calculated to be 0.0607. This value represents the overall degree of signal oscillation in time.
+
+4. **Comparison with Given Criteria:**
+
+   - In scenarios with human occupancy (have_person class), the CSI data usually shows fluctuations and weaker amplitudes.
+   - For no_person class, the CSI data tends to be regular with stronger amplitudes.
+
+**ANSWER:**
+
+Based on the analysis of the given data and comparing it with the criteria provided, the CSI data in the example shows fluctuations and variations in amplitude, which align more closely with the characteristics associated with the have_person class. Therefore, the analysis suggests that there is a person present in this scenario.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.27it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.53it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.71it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 84126.44 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+- The CSI data provided shows fluctuations and weaker amplitudes, indicating potential human movements.
+- The mean value of CSI is 0.26454713999452073, which is lower than the average value for the no_person class (0.291), suggesting the presence of a person.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.03694852181027022, which is higher than the average value for the no_person class (0.0).
+- The mean standard deviation across subcarriers for each time point is 0.08912010674037109, which is also higher than the average value for the no_person class (0.0).
+
+ANSWER:
+Based on the analysis of the given data, it is likely that there is a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.15it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.09it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.32it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 87122.04 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+- The CSI data provided shows fluctuations in the amplitudes across different subcarriers over time, indicating potential human movements.
+- The mean value of CSI is 0.258, which is lower than the average value for "no_person" class, suggesting the possibility of human occupancy.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.022, which is lower than the average value for "no_person" class, further supporting the presence of a person.
+- The mean standard deviation across subcarriers for each time point is 0.049, indicating some level of signal oscillation, possibly due to human activity.
+
+ANSWER:
+Based on the analysis of the CSI data provided, it is likely that there is a person present in the indoor space. The fluctuations in the signal amplitudes, along with the lower mean value of CSI compared to the "no_person" class averages, suggest human occupancy. Therefore, the occupancy status of the indoor space is "have_person."
+第30次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.08it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.99it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.25it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 86693.29 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+Upon analyzing the provided CSI data, we observe that the signal data shows fluctuations and weaker amplitudes, indicating potential human movements in the indoor space. The mean value of CSI is calculated to be 0.25784557312278217, which falls within the range associated with scenarios where a person is present. Additionally, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.020405492215518607, and the mean standard deviation across subcarriers for each time point is 0.05800566385012482, both of which are consistent with the characteristics observed in scenarios with human occupancy.
+
+ANSWER:
+Based on the analysis of the CSI data, it is highly likely that there is a person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 54.98it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.12it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.61it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 59634.65 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+ANALYSIS:
+From the given CSI data, we can observe that the amplitudes of the signal fluctuate across different subcarriers and time points. The mean value of CSI is calculated to be 0.26046788791402337, which is higher than the average mean value for the "no_person" class (0.291) and lower than the average mean value for the "have_person" class. This indicates that the amplitude of the signal in the provided data is not as strong as typical for scenarios with no person present.
+
+The standard deviation across subcarriers for the mean CSI amplitude over time is calculated to be 0.022594051089464422, which is smaller than the average standard deviation for the "no_person" class and larger than the average for the "have_person" class. This suggests that there is less variability in the amplitude of the signal across different subcarriers over time compared to scenarios where a person is present.
+
+The mean standard deviation across subcarriers for each time point is calculated to be 0.05774714600155078, which is smaller than the average for the "no_person" class and larger than the average for the "have_person" class. This indicates that there is less overall signal oscillation in the provided data compared to scenarios with human occupancy.
+
+ANSWER:
+Based on the analysis of the given data, the characteristics of the CSI data, mean values, and standard deviations suggest that there is likely no person present in the indoor space being monitored. Therefore, the final answer is "no_person."
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.15it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.85it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.39it/s]
+Ranking by BM25...: 100%|██████████| 21/21 [00:00<00:00, 81631.50 docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+
+ANALYSIS:
+By examining the provided CSI data, the mean value of CSI, the standard deviation across subcarriers for the mean CSI amplitude over time, and the mean standard deviation across subcarriers for each time point, we can gain insights into the occupancy status of the indoor space.
+
+1. The CSI data shows a fluctuation in signal amplitudes across the time-series samples and subcarriers. This variation can indicate the presence of human movement within the space, as human activity tends to cause changes in signal strength.
+
+2. The mean value of CSI is 0.278, which falls within the range observed for scenarios with human occupancy. This suggests that there is likely a person present in the indoor space.
+
+3. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.024, which is slightly higher than the average value for scenarios with no person. This higher variability can be attributed to the fluctuations in signal amplitudes caused by human movements.
+
+4. The mean standard deviation across subcarriers for each time point is 0.050, indicating a moderate degree of signal oscillation in time. This aligns with the expected behavior in the presence of human activity.
+
+ANSWER:
+Based on the analysis of the CSI data and the calculated metrics, it is likely that there is a person present in the indoor space. The fluctuation in signal amplitudes, along with the mean CSI value falling within the range associated with human occupancy, suggests the presence of human movement. The higher standard deviation across subcarriers for the mean CSI amplitude over time further supports this conclusion.
+
+Process finished with exit code 1
