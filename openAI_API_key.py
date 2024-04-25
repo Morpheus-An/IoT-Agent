@@ -1,0 +1,1 @@
+TEACHER_API = "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"

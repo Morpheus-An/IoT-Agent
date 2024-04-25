@@ -1,0 +1,909 @@
+/home/ntu/anaconda3/envs/zyj310/bin/python /data1/msc/zyj/iot-agent/occupancy/main.py 
+Batches: 0it [00:00, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  2.24it/s]
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.34it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.51it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.92it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78545.02 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+ANALYSIS:
+- The mean value of CSI in the given data is 0.28217287663951485, which falls between the mean values of the two examples provided (0.29464217312574953 and 0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is 0.01581656235712694, which is closer to the first example (0.013818446470635239) than the second example (0.03694852181027022).
+- The mean standard deviation across subcarriers for each time point in the given data is 0.04446593535538511, which is closest to the second example (0.08912010674037109).
+
+Based on the analysis:
+- The mean CSI value is slightly closer to the example indicating "no_person."
+- The standard deviation across subcarriers for the mean CSI amplitude over time is closer to the example indicating "no_person."
+- The mean std of CSI across the time axis is closer to the example indicating "have_person."
+
+ANSWER: have_person
+
+The final determination based on the analysis is that there is a person present.
+第0次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.99it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.89it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.63it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 82891.38 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 88487.43 docs/s]
+ANALYSIS:
+Based on the given data:
+- The mean value of CSI (0.2916398439341546) is close to the mean values in both the examples (0.29464217312574953 and 0.26454713999452073). This indicates a relatively similar level of signal amplitude on average.
+- The standard deviation across subcarriers for the mean CSI amplitude over time (0.015538880742408896) is slightly lower than the values in the previous examples (0.013818446470635239 and 0.03694852181027022). This suggests less variability in the mean CSI amplitude across different subcarriers over time.
+- The mean standard deviation across subcarriers for each time point (0.03386956016458916) is comparable to the values in the previous examples (0.03324765125117169 and 0.08912010674037109).
+
+Based on the analysis, the data shows consistent mean CSI values with lower variability across subcarriers over time. The standard deviation values are also relatively stable. Therefore, the data suggests that there is likely no person present.
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.15it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.67it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.61it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79739.62 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 88487.43 docs/s]
+ANALYSIS:
+
+1. Mean value of CSI: The mean value of CSI in the given data is 0.28550346597605847, which falls between the mean values of the two examples provided (0.29464217312574953 and 0.26454713999452073).
+
+2. Standard deviation across subcarriers for the mean CSI amplitude over time: The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is 0.016878471422748623, which is closer to the standard deviation in example 1 (0.013818446470635239) indicating low variability.
+
+3. Mean standard deviation across subcarriers for each time point: The mean standard deviation across subcarriers for each time point in the given data is 0.027533007380941384, which is closer to the mean standard deviation in example 1 (0.03324765125117169) indicating a lower degree of signal oscillation in time.
+
+Based on the analysis, considering the mean value of CSI, the standard deviation across subcarriers for the mean CSI amplitude over time, and the mean standard deviation across subcarriers for each time point, the data suggests a pattern more similar to example 1, indicating "no_person".
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.11it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.79it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.73it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78840.30 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87381.33 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.2898657720611903, which is close to the mean values in both Example 1 (0.29464217312574953) and Example 2 (0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.01679886733649227, which is slightly higher than in Example 1 (0.013818446470635239) and similar to Example 2 (0.03694852181027022).
+- The mean standard deviation across subcarriers for each time point is 0.035043839703833665, which is also comparable to the values in both examples.
+
+Based on the analysis, it seems that the given data falls between the values observed in the two examples, indicating a moderate level of fluctuation in the CSI data over time. Considering the similarities in mean values and standard deviations to both examples, it is likely that there is a person present.
+
+ANSWER:
+have_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.48it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.36it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.71it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78840.30 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+In the first example where the answer was "no_person", the mean value of CSI was 0.2946, the standard deviation across subcarriers for the mean CSI amplitude over time was 0.0138, and the mean standard deviation across subcarriers for each time point was 0.0332. The values indicated low variability in the CSI data.
+
+In the second example where the answer was "have_person", the mean value of CSI was 0.2645, the standard deviation across subcarriers for the mean CSI amplitude over time was 0.0369, and the mean standard deviation across subcarriers for each time point was 0.0891. The values indicated higher variability in the CSI data.
+
+Comparing the given data to the examples, we see that the mean value of CSI in the given data is 0.3001, which is higher than the mean values in both examples. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0206, which is closer to the first example. The mean standard deviation across subcarriers for each time point is 0.0360, which is also closer to the first example.
+
+ANSWER:
+Based on the analysis, the given data shows relatively low variability in the CSI data similar to the first example where the answer was "no_person". Therefore, the final answer is: no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.20it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.36it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.38it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80659.69 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86659.17 docs/s]
+ANALYSIS:
+1. The mean value of CSI: 0.3009721068920618
+   - This indicates the average amplitude of the CSI data.
+2. The standard deviation across subcarriers for the mean CSI amplitude over time: 0.011738253685212325
+   - This represents the variability of the mean CSI amplitude across different subcarriers over time.
+3. The mean standard deviation across subcarriers for each time point: 0.027528406192838948
+   - This describes the average std of CSI signals for each subcarrier over time, reflecting the overall degree of signal oscillation in time.
+
+Based on the given data:
+- The mean value of CSI is higher compared to the example where no person was present.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is lower compared to the example with no person.
+- The mean standard deviation across subcarriers for each time point is also lower compared to the example with no person.
+
+Therefore, considering the lower variability across subcarriers in mean CSI amplitude and lower overall signal oscillation, it is likely that there is no person present.
+
+ANSWER: no_person
+第5次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.43it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.53it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.92it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78545.02 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86659.17 docs/s]
+ANALYSIS:
+
+In the provided data:
+
+1. The mean value of CSI: 0.29352902430263056
+2. The standard deviation across subcarriers for the mean CSI amplitude over time: 0.014952180917383175
+3. The mean standard deviation across subcarriers for each time point: 0.032821838208247
+
+Comparing with EXAMPLE1:
+- The mean value of CSI is slightly higher in the given data (0.2935 > 0.2946).
+- The standard deviation across subcarriers for the mean CSI amplitude over time is slightly higher in the given data (0.01495 > 0.01382).
+- The mean standard deviation across subcarriers for each time point is slightly lower in the given data (0.03282 < 0.03325).
+
+Comparing with EXAMPLE2:
+- The mean value of CSI is slightly lower in the given data (0.2935 < 0.2645).
+- The standard deviation across subcarriers for the mean CSI amplitude over time is lower in the given data (0.01495 < 0.03694).
+- The mean standard deviation across subcarriers for each time point is lower in the given data (0.03282 < 0.08912).
+
+Based on the analysis, the mean value of CSI is closer to the example indicating "no_person", and the standard deviation metrics show similarities with the no_person example as well. Therefore, considering the overall comparison, the data suggests that there is likely no person present.
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.95it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.56it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.90it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 82891.38 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 88487.43 docs/s]
+ANALYSIS:
+Based on the provided data:
+1. The mean value of CSI: 0.290266305821003
+2. The standard deviation across subcarriers for the mean CSI amplitude over time: 0.017026871439181305
+3. The mean standard deviation across subcarriers for each time point: 0.032976617861315324
+
+Comparing this data with the examples given:
+- The mean value of CSI in the given data is close to the mean values in both examples.
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is closer to the first example.
+- The mean standard deviation across subcarriers for each time point in the given data is closer to the first example as well.
+
+Based on the analysis, the data in the given example falls more in line with the "no_person" category, as it has similarities with the first example where no person was detected. 
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.09it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.76it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.58it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80350.65 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87381.33 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.2942395473349425, which is close to the mean values in both examples (0.29464217312574953 in Example 1 and 0.26454713999452073 in Example 2).
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.015080715937120667, which is comparable to the values seen in the examples (0.013818446470635239 in Example 1 and 0.03694852181027022 in Example 2).
+- The mean standard deviation across subcarriers for each time point is 0.029566359510960344, which is closer to the value in Example 1 (0.03324765125117169) but lower than the value in Example 2 (0.08912010674037109).
+
+Based on the analysis:
+- The mean value of CSI and the standard deviation across subcarriers for the mean CSI amplitude over time are consistent with both examples.
+- The mean std of CSI across the time axis is lower than that in Example 2 but closer to Example 1.
+
+ANSWER:
+Based on the provided data and the comparison with the examples, the occupancy status is likely to be **no_person.**
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.12it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.07it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.77it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80350.65 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87018.76 docs/s]
+ANALYSIS:
+Comparing the given data with the examples provided:
+- The mean value of CSI in the given data is 0.28688385081842566, which falls within the range of the mean values in both examples (0.26454713999452073 and 0.29464217312574953).
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is 0.016541322772555017, which is slightly higher than the values in both examples (0.013818446470635239 and 0.03694852181027022).
+- The mean standard deviation across subcarriers for each time point in the given data is 0.03268138111082178, which is lower than the values in both examples (0.03324765125117169 and 0.08912010674037109).
+
+Based on the analysis, the mean CSI value is similar to the examples, but the standard deviation across subcarriers over time is slightly higher and the mean standard deviation across subcarriers is lower. This could indicate a less fluctuation in the signal amplitudes, suggesting a more stable environment.
+
+ANSWER:
+Based on the analysis, considering the relatively stable nature of the CSI data in the given data, with a slightly higher standard deviation across subcarriers for the mean CSI amplitude over time and a lower mean standard deviation across subcarriers, it is likely that there is no person present in the indoor space. Therefore, the answer is: no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.21it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.19it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.71it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80350.65 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87381.33 docs/s]
+ANALYSIS:
+- The mean value of CSI: 0.2814723162560771
+- The standard deviation across subcarriers for the mean CSI amplitude over time: 0.01986769631863905
+- The mean standard deviation across subcarriers for each time point: 0.043797818873608715
+
+Comparing the data with the examples given:
+- In Example 1, the mean value of CSI was 0.29073189749148304. In the current data, the mean value is slightly lower.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.01783772451994059 in Example 1, and in the current data, it is slightly higher at 0.01986769631863905.
+- The mean standard deviation across subcarriers for each time point in Example 1 was 0.029130544771879586, while in the current data it is higher at 0.043797818873608715.
+
+Based on this analysis, the mean value of CSI is relatively close to Example 1, but the higher values of standard deviation across subcarriers for the mean CSI amplitude over time and the mean standard deviation across subcarriers for each time point indicate more variability in the data.
+
+ANSWER: have_person
+
+Therefore, based on the analysis of the given data, it is likely that there is a person present in the indoor space.
+第10次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.23it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.78it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.04it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79437.58 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 77101.18 docs/s]
+ANALYSIS:
+Based on the given data, the mean value of CSI is 0.2841385172478864, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.01908598986502571, and the mean standard deviation across subcarriers for each time point is 0.04016852541323686.
+
+Comparing these values with the examples provided:
+- In Example 1, the mean value of CSI was 0.29464217312574953, which is slightly higher than the given data.
+- In Example 1, the standard deviation across subcarriers for the mean CSI amplitude over time was 0.013818446470635239, which is lower than the given data.
+- In Example 1, the mean standard deviation across subcarriers for each time point was 0.03324765125117169, which is lower than the given data.
+
+- In Example 2, the mean value of CSI was 0.26454713999452073, which is lower than the given data.
+- In Example 2, the standard deviation across subcarriers for the mean CSI amplitude over time was 0.03694852181027022, which is higher than the given data.
+- In Example 2, the mean standard deviation across subcarriers for each time point was 0.08912010674037109, which is higher than the given data.
+
+ANSWER:
+Based on the analysis, the mean value of CSI in the given data is closer to Example 1 than Example 2, indicating a lower likelihood of human presence. Additionally, the standard deviation values are closer to those in Example 1, further suggesting a no_person scenario. Therefore, the final answer based on the data analysis is: no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.62it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.26it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.85it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78840.30 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87018.76 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data (0.2952765935560094) is slightly higher than the mean value in the "no_person" example (0.29464217312574953) but lower than the mean value in the "have_person" example (0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data (0.021825610305110266) is higher than the "no_person" example (0.013818446470635239) but lower than the "have_person" example (0.03694852181027022).
+- The mean standard deviation across subcarriers for each time point in the given data (0.0391422294371952) is higher than the "no_person" example (0.03324765125117169) and lower than the "have_person" example (0.08912010674037109).
+
+Based on the analysis:
+- The mean value of CSI is slightly higher than the "no_person" example but lower than the "have_person" example.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is higher than the "no_person" example but lower than the "have_person" example.
+- The mean standard deviation across subcarriers for each time point is higher than the "no_person" example and lower than the "have_person" example.
+
+Therefore, considering the higher mean value of CSI and standard deviation across subcarriers, but lower mean standard deviation compared to the "have_person" example, the analysis suggests that there is potentially a person present.
+
+ANSWER:
+have_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.18it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.69it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.11it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80043.97 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87018.76 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.2782812988047553, which is closer to the mean value in Example 1 (0.29464217312574953) than Example 2 (0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.019271659900969778, which is between the values in Example 1 (0.013818446470635239) and Example 2 (0.03694852181027022).
+- The mean standard deviation across subcarriers for each time point in the given data is 0.03136250278342053, which is again closer to the value in Example 1 (0.03324765125117169) than Example 2 (0.08912010674037109).
+
+Based on the analysis:
+- The mean value of CSI is slightly lower than Example 1 but higher than Example 2.
+- The standard deviation across subcarriers is moderate, indicating some fluctuations.
+- The mean std of CSI across the time axis is closer to Example 1, indicating less overall signal oscillation over time.
+
+Therefore, considering the similarities with Example 1 in terms of mean CSI value and standard deviation metrics, and the lower signal oscillation, it is likely that there is no person in the indoor space.
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.80it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.79it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.08it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78545.02 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87381.33 docs/s]
+ANALYSIS:
+1. The mean value of CSI: 0.29278478537735514 - This represents the average amplitude of the CSI data.
+2. The standard deviation across subcarriers for the mean CSI amplitude over time: 0.01647351195143502 - This measures the variability of the mean CSI amplitude across different subcarriers over time.
+3. The mean standard deviation across subcarriers for each time point: 0.033544148492334905 - This describes the average standard deviation of CSI signals for each subcarrier over time, reflecting the overall degree of signal oscillation.
+
+Comparing the given data with the examples:
+- Example 1 had a mean value of CSI of 0.29464217312574953, similar to the given data of 0.29278478537735514.
+- Example 1 had a standard deviation across subcarriers for the mean CSI amplitude over time of 0.013818446470635239, lower than the value in the given data of 0.01647351195143502.
+- Example 1 had a mean standard deviation across subcarriers for each time point of 0.03324765125117169, slightly lower than the value in the given data of 0.033544148492334905.
+
+Based on the analysis, considering the mean value of CSI is close, but the slight increase in standard deviation across subcarriers for the mean CSI amplitude over time compared to Example 1 may indicate some fluctuation or variability in the data. However, the mean standard deviation across subcarriers for each time point remains in a similar range.
+
+ANSWER: no_person
+
+Therefore, based on the analysis and comparison with the examples, the occupancy status is likely to be no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.00it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.99it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.37it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79137.81 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 88115.63 docs/s]
+ANALYSIS:
+
+In the given data:
+- The mean value of CSI: 0.29371718903424143
+- The standard deviation across subcarriers for the mean CSI amplitude over time: 0.017030116341625434
+- The mean standard deviation across subcarriers for each time point: 0.03407284542305587
+
+Comparing the data with the examples provided:
+- Example 1:
+  Mean value of CSI: 0.29464217312574953
+  Standard deviation across subcarriers for the mean CSI amplitude over time: 0.013818446470635239
+  Mean standard deviation across subcarriers for each time point: 0.03324765125117169
+  Result: no_person
+
+- Example 2:
+  Mean value of CSI: 0.26454713999452073
+  Standard deviation across subcarriers for the mean CSI amplitude over time: 0.03694852181027022
+  Mean standard deviation across subcarriers for each time point: 0.08912010674037109
+  Result: have_person
+
+From the analysis:
+- The mean value of CSI in the given data is close to that of Example 1, which suggests no person.
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is slightly higher than that of Example 1.
+- The mean standard deviation across subcarriers for each time point in the given data is similar to that of Example 1.
+
+ANSWER:
+Based on the comparison and analysis, the data indicates that there is likely no person present in the indoor space.
+第15次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.05it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.10it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.23it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78840.30 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87018.76 docs/s]
+Based on the given data and comparing it to the examples provided:
+
+1. The mean value of CSI in the given data (0.290) is close to the mean values in the examples (0.294 and 0.264), indicating a similar level of signal amplitude in the CSI data.
+2. The standard deviation across subcarriers for the mean CSI amplitude over time in the given data (0.017) is lower than in the examples (0.013 and 0.036), suggesting less variability in the mean CSI amplitude across different subcarriers over time.
+3. The mean standard deviation across subcarriers for each time point in the given data (0.035) falls within the range of the examples (0.033 and 0.089), showing a moderate level of signal oscillation over time.
+
+Based on this analysis, considering the similarities in mean value and standard deviations, it is likely that there is **no_person** present in the indoor space at the time of data collection. The relatively stable mean values and lower standard deviations indicate a consistent and less variable CSI data, which typically aligns with an empty or unoccupied space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.01it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.44it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.20it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79437.58 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86659.17 docs/s]
+ANALYSIS:
+- The mean value of CSI: 0.288826078016865
+- The standard deviation across subcarriers for the mean CSI amplitude over time: 0.01938752633787508
+- The mean standard deviation across subcarriers for each time point: 0.03489634791039612
+
+In comparison to the examples provided:
+- The mean value of CSI in the given data (0.288826078016865) falls within the range of values from the examples (0.26454713999452073 to 0.29464217312574953), indicating a moderate signal amplitude.
+- The standard deviation across subcarriers for the mean CSI amplitude over time (0.01938752633787508) is also within a similar range to the examples (0.013818446470635239 to 0.03694852181027022), suggesting some variability in the mean CSI amplitude over time.
+- The mean standard deviation across subcarriers for each time point (0.03489634791039612) falls in line with the examples (0.03324765125117169 to 0.08912010674037109), reflecting a moderate degree of signal oscillation in time.
+
+Based on the analysis, the data does not deviate significantly from the examples, and the values align with both no_person and have_person scenarios. However, considering the overall patterns and given the moderate signal characteristics, the final answer to the question "Is there a person or not?" would lean towards **no_person** due to the lack of distinct indicators suggesting human occupancy.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.32it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.07it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.35it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 81920.00 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+
+1. The mean value of CSI in the given data is 0.29896825564170837.
+2. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.00973396962324985.
+3. The mean standard deviation across subcarriers for each time point is 0.022366597161809127.
+
+Comparing these values with the previous examples:
+- In Example 1, the mean CSI value was 0.29464217312574953, standard deviation 0.013818446470635239, and mean std 0.03324765125117169, leading to a conclusion of "no_person".
+- In Example 2, the mean CSI value was 0.26454713999452073, standard deviation 0.03694852181027022, and mean std 0.08912010674037109, which resulted in a conclusion of "have_person".
+
+Based on the given data, the mean CSI value is slightly higher than in Example 1 and Example 2, and the standard deviation across subcarriers for the mean CSI amplitude over time is lower than both examples. However, the mean std of CSI across the time axis is also lower compared to the examples.
+
+ANSWER:
+Considering the slight increase in mean CSI value and lower standard deviation across subcarriers, along with a decrease in mean std of CSI across the time axis, it is likely that there is no person present in the indoor space. Therefore, the final answer is:
+no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.31it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.72it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.11it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79739.62 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.2878799133079328, which is closer to the mean value in the example of "no_person" (0.29073189749148304) than the example of "have_person" (0.26454713999452073). This suggests a lower average signal amplitude, indicating a potentially lower chance of human presence.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0178878902438054, which is similar to the example of "no_person" (0.01783772451994059). This means that the variation in signal amplitude across different subcarriers is comparable to the scenario without a person.
+- The mean standard deviation across subcarriers for each time point is 0.035391471823714014, which is higher than the example of "no_person" (0.029130544771879586). This implies a higher degree of signal oscillation over time, which can be indicative of human presence causing fluctuations in the CSI data.
+
+ANSWER:
+Based on the analysis of the given data, considering the lower mean value of CSI, similar standard deviation across subcarriers, and higher mean standard deviation across time points, it is likely that there is no person present in the indoor space. Therefore, the conclusion is:
+
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.18it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.73it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.69it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80659.69 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87018.76 docs/s]
+ANALYSIS:
+From the given data:
+- The mean value of CSI: 0.2845323747689637
+- The standard deviation across subcarriers for the mean CSI amplitude over time: 0.01692942421941503
+- The mean standard deviation across subcarriers for each time point: 0.03177995483483097
+
+Comparing to EXAMPLE1:
+- Mean value is higher compared to EXAMPLE1.
+- Standard deviation across subcarriers for the mean CSI amplitude over time is lower compared to EXAMPLE1.
+- Mean standard deviation across subcarriers for each time point is lower compared to EXAMPLE1.
+
+Comparing to EXAMPLE2:
+- Mean value is lower compared to EXAMPLE2.
+- Standard deviation across subcarriers for the mean CSI amplitude over time is lower compared to EXAMPLE2.
+- Mean standard deviation across subcarriers for each time point is lower compared to EXAMPLE2.
+
+Overall, the mean CSI value is closer to the value in EXAMPLE1, but the standard deviations are lower compared to both EXAMPLEs.
+This suggests that there may be no significant human presence causing major fluctuations in the Wi-Fi CSI data.
+
+ANSWER:
+Based on the analysis, the data indicates that there is likely no person present in the indoor space.
+第20次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.25it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.08it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.98it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 64527.75 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+Based on the previous examples provided, we can see that the mean value of CSI for both cases with a person present was lower than the mean value of CSI for the case with no person present. Additionally, the standard deviation across subcarriers for the mean CSI amplitude over time was higher in the cases with a person compared to the case with no person. Moreover, the mean standard deviation across subcarriers for each time point was also higher in the cases with a person present.
+
+Considering the given data:
+- The mean value of CSI: 0.28944502697941116
+- The standard deviation across subcarriers for the mean CSI amplitude over time: 0.01879286890221381
+- The mean standard deviation across subcarriers for each time point: 0.04060763915570285
+
+Comparing these values with the previous examples, it can be seen that the mean value of CSI is closer to the example with no person present. The standard deviation across subcarriers for the mean CSI amplitude over time is also lower compared to the examples with a person present. The mean standard deviation across subcarriers for each time point is also lower than the examples with a person.
+
+ANSWER:
+Based on the analysis of the given data, it is more likely that there is no person present in the indoor space.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.11it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.27it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.44it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 81284.96 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+Comparing the given data with the examples provided:
+- The mean value of CSI in the given data (0.2939) is slightly lower than Example 1 (0.2946) and Example 2 (0.2645), indicating a moderate amplitude of the signal.
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data (0.0192) falls between Example 1 (0.0138) and Example 2 (0.0369), suggesting a moderate variability in the mean CSI amplitude across time.
+- The mean std of CSI across the time axis in the given data (0.0398) is closer to Example 1 (0.0332) than Example 2 (0.0891), indicating a moderate degree of signal oscillation in time.
+
+Based on the analysis, the data shows a consistent pattern with moderate amplitude, variability, and signal oscillation. Therefore, the occupancy status based on the provided data is likely no_person.
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.27it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.76it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.00it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78840.30 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+1. The mean value of CSI in the given data is 0.28471914479807137, which falls between the mean values of the two examples provided (0.29464217312574953 and 0.26454713999452073). This suggests a moderate signal amplitude.
+2. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.016460831705850835, which is closer to the example where "no_person" was determined (0.013818446470635239). This indicates relatively stable signal amplitudes across subcarriers over time.
+3. The mean standard deviation across subcarriers for each time point is 0.0488608268968475, which is closer to the example where "no_person" was determined (0.03324765125117169). This implies a lower overall degree of signal oscillation in time.
+
+Based on the analysis, the data provided shows consistent and stable CSI values, indicating that there is no significant change or fluctuation in the signals that would suggest the presence of a person. Therefore, the final answer is:
+ANSWER: no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.17it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.09it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.80it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 82565.04 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86659.17 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.2906869504078967, which is slightly higher than the mean values in both example 1 (0.29464217312574953) and example 2 (0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is 0.0194309628353245, which falls within the range of the standard deviations in both examples.
+- The mean standard deviation across subcarriers for each time point in the given data is 0.033447105996698145, which is close to the mean std values in example 1 (0.03324765125117169) and example 2 (0.08912010674037109).
+
+Based on the analysis:
+- The mean value of CSI is slightly lower than in example 1.
+- The standard deviation across subcarriers is within the range of both examples.
+- The mean std of CSI is similar to example 1, but significantly lower than in example 2.
+
+ANSWER:
+Considering the lower mean value of CSI and the overall similarity with example 1, it is likely that there is no person present based on the given data. Therefore, the conclusion is: no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.29it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.58it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.92it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 77961.04 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86302.55 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.2885937887387223, which is in between the mean values of the two examples provided (0.29464217312574953 and 0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is 0.01845375819736731, which is closer to the first example (0.013818446470635239) compared to the second example (0.03694852181027022).
+- The mean standard deviation across subcarriers for each time point in the given data is 0.0343750384161193, which is closer to the first example (0.03324765125117169) than the second example (0.08912010674037109).
+
+Based on the analysis:
+- The mean value of CSI being closer to the first example suggests a lower amplitude of the signal compared to the second example, indicating a potential absence of a person.
+- The lower standard deviation across subcarriers for the mean CSI amplitude over time also suggests a consistent signal amplitude over time, potentially indicating no significant human presence variability.
+- The mean standard deviation across subcarriers for each time point being closer to the first example suggests less signal oscillation over time, further supporting the absence of a person.
+
+ANSWER:
+Based on the analysis of the given data, the conclusion is that there is likely no person present.
+第25次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.80it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.35it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.54it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78545.02 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79137.81 docs/s]
+ANALYSIS:
+1. The mean value of CSI: 0.2946330575539891
+- The mean value is slightly lower than the first example but very close to it.
+
+2. The standard deviation across subcarriers for the mean CSI amplitude over time: 0.016084362074086846
+- The standard deviation is higher than the first example, indicating higher variability in the mean CSI amplitude across different subcarriers over time.
+
+3. The mean standard deviation across subcarriers for each time point: 0.03208151707045871
+- The mean std across the time axis is lower than the first example, suggesting less overall signal oscillation over time.
+
+Based on the comparison with the previous examples, the data provided in this question shows a similar mean value but higher variability in the mean CSI amplitude and lower overall signal oscillation. 
+
+ANSWER:
+Based on the analysis, I would say there is a possibility of having a person present in the indoor space. The higher variability in the mean CSI amplitude across subcarriers over time could indicate human movement or presence causing signal fluctuations.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.23it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.10it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.01it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 81601.25 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87381.33 docs/s]
+ANALYSIS:
+From the given data:
+- The mean value of CSI: 0.2984524848391271
+- The standard deviation across subcarriers for the mean CSI amplitude over time: 0.01748282327033112
+- The mean standard deviation across subcarriers for each time point: 0.03140128361057392
+
+Comparing these values to the examples provided:
+- Example 1 had a mean CSI value of 0.29464217312574953, slightly lower than the given data.
+- Example 1 had a standard deviation across subcarriers for the mean CSI amplitude over time of 0.013818446470635239, smaller than the given data.
+- Example 1 had a mean standard deviation across subcarriers for each time point of 0.03324765125117169, larger than the given data.
+- Example 2 had a mean CSI value of 0.26454713999452073, lower than the given data.
+- Example 2 had a standard deviation across subcarriers for the mean CSI amplitude over time of 0.03694852181027022, slightly larger than the given data.
+- Example 2 had a mean standard deviation across subcarriers for each time point of 0.08912010674037109, much larger than the given data.
+
+The slight increase in the mean CSI value and the decrease in standard deviation across subcarriers over time compared to Example 1, along with a smaller mean standard deviation across subcarriers for each time point indicate less variability in the data. However, these values are still closer to Example 1 than Example 2. 
+
+ANSWER:
+Based on the analysis, the given data reflects a pattern more similar to Example 1, where no person was detected. Therefore, the final answer is: no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.29it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.53it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.77it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80659.69 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+1. The mean value of CSI: 0.2961073439054686
+   - The mean value of CSI in this case is slightly higher than the mean values in the provided examples (0.2946 and 0.2645).
+   - A higher mean value could indicate a stronger Wi-Fi signal, which might be attributed to the presence of a person causing signal reflection or absorption.
+   
+2. The standard deviation across subcarriers for the mean CSI amplitude over time: 0.014288034830004142
+   - The standard deviation in this case is comparable to the standard deviations in the provided examples (0.0138 and 0.0369).
+   - A relatively low standard deviation suggests minimal variation in the mean CSI amplitude over time, which could imply a consistent signal pattern.
+
+3. The mean standard deviation across subcarriers for each time point: 0.028525941274410875
+   - The mean standard deviation across subcarriers in this case is lower than the values in the provided examples (0.0332 and 0.0891).
+   - A lower mean standard deviation across subcarriers indicates less fluctuation in the signal oscillation over time, possibly indicating a stable environment without significant movement.
+
+Based on the analysis, the data suggests that there might not be a person present in the indoor space. The mean CSI value is slightly higher, but the standard deviations are relatively low, indicating a consistent signal pattern and minimal signal oscillation. Therefore, the final answer is: no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.35it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.17it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.47it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80659.69 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87746.95 docs/s]
+ANALYSIS:
+1. The mean value of CSI in the given data is 0.289. This value is closer to the mean values in both EXAMPLE1 (0.294) and EXAMPLE2 (0.265), indicating that there might be a person present.
+2. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.016. This value is closer to EXAMPLE1 (0.014) and lower than EXAMPLE2 (0.037), suggesting a more stable signal across different subcarriers compared to the example with no person.
+3. The mean standard deviation across subcarriers for each time point is 0.036. This value is closer to EXAMPLE1 (0.033) and lower than EXAMPLE2 (0.089), indicating less fluctuation in the signal over time compared to the example with a person.
+
+ANSWER:
+Based on the analysis of the given data, considering the mean value, standard deviation, and mean standard deviation across subcarriers, it is likely that there is a person present. Therefore, the answer is "have_person."
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.44it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.97it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.11it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79137.81 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87018.76 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.29222930780978584, which is close to the mean values in both previous examples (0.29464217312574953 and 0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.010319332286855649, which is lower than the values in both previous examples.
+- The mean standard deviation across subcarriers for each time point is 0.03029006436500479, which is lower than the value in the first example but higher than the value in the second example.
+
+Based on the analysis, the mean value of CSI is relatively similar to the previous examples, but the standard deviation across subcarriers for the mean CSI amplitude over time is lower in this case. However, the mean standard deviation across subcarriers for each time point is higher than in the first example but lower than in the second example.
+
+ANSWER:
+Based on the analysis, considering the mean CSI value and the standard deviations, it is likely that there is no person present in the indoor space. Therefore, the final answer would be: no_person.
+第30次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.28it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.08it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.90it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79137.81 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 88115.63 docs/s]
+ANALYSIS:
+In the previous examples:
+Example 1 had a mean value of CSI 0.29464217312574953, a standard deviation across subcarriers for the mean CSI amplitude over time of 0.013818446470635239, and a mean standard deviation across subcarriers for each time point of 0.03324765125117169. This combination of values led to the determination of "no_person."
+
+Example 2 had a mean value of CSI 0.26454713999452073, a standard deviation across subcarriers for the mean CSI amplitude over time of 0.03694852181027022, and a mean standard deviation across subcarriers for each time point of 0.08912010674037109. This set of values indicated the presence of a person, "have_person."
+
+Comparing the previous examples with the given data:
+The given data has a mean value of CSI: 0.2926235240692318, a standard deviation across subcarriers for the mean CSI amplitude over time of 0.015945272458619954, and a mean standard deviation across subcarriers for each time point of 0.035480515550623405.
+
+Based on the analysis, the mean value is closer to the one in Example 1, and the standard deviation across subcarriers for the mean CSI amplitude over time and the mean standard deviation across subcarriers for each time point are also closer to Example 1. Therefore, the data suggests that there is "no_person."
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.18it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.81it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.43it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80971.12 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86659.17 docs/s]
+ANALYSIS:
+- In EXAMPLE1, the mean value of CSI is 0.29464217312574953, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.013818446470635239, and the mean standard deviation across subcarriers for each time point is 0.03324765125117169 resulting in a classification of "no_person."
+- In EXAMPLE2, the mean value of CSI is 0.26454713999452073, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.03694852181027022, and the mean standard deviation across subcarriers for each time point is 0.08912010674037109 leading to a classification of "have_person."
+- Now, comparing the data from the given question, the mean value of CSI is 0.2901475735677334, the standard deviation across subcarriers for the mean CSI amplitude over time is 0.013016660097754821, and the mean standard deviation across subcarriers for each time point is 0.03220069512286731.
+
+ANSWER:
+Based on the analysis of the given data and comparison with the previous examples, the mean value of CSI in the current data falls between the mean values of EXAMPLE1 and EXAMPLE2. The standard deviation across subcarriers for the mean CSI amplitude over time and the mean standard deviation across subcarriers for each time point are also closer to the values in EXAMPLE1. Since the data in the question is more similar to the data in EXAMPLE1 which was classified as "no_person," the final answer would be: no_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.23it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.17it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.29it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 83551.87 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 92794.34 docs/s]
+ANALYSIS:
+1. The mean value of CSI in the given data is 0.29205257573235216, which is close to the mean values in both Example 1 (0.29464217312574953) and Example 2 (0.26454713999452073), indicating a similar level of signal amplitude.
+2. The standard deviation across subcarriers for the mean CSI amplitude over time in the given data is 0.02372057325717797, which falls within the range of the standard deviations in both Example 1 (0.013818446470635239) and Example 2 (0.03694852181027022).
+3. The mean standard deviation across subcarriers for each time point in the given data is 0.03931354011811685, which is also similar to the values in Example 1 (0.03324765125117169) and Example 2 (0.08912010674037109).
+
+Based on the analysis, the given data shows consistency with both examples in terms of mean value, standard deviation, and mean std of CSI. Therefore, the decision regarding occupancy status should be made by considering these factors comprehensively.
+
+ANSWER:
+Based on the given data and the comparison with the two examples, the occupancy status would likely be "no_person" as the signal characteristics align more closely with Example 1, which indicates no person present.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.18it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.98it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.11it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79739.62 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86302.55 docs/s]
+ANALYSIS:
+Comparing the given data with the examples provided:
+1. Mean value of CSI: 
+   - Given data: 0.29191826346382144
+   - Example 1: 0.29464217312574953
+   - Example 2: 0.26454713999452073
+   - Observation: The mean value of CSI in the given data falls between the mean values in Example 1 and Example 2, indicating a moderate amplitude of the signal.
+
+2. Standard deviation across subcarriers for the mean CSI amplitude over time:
+   - Given data: 0.027063979042654104
+   - Example 1: 0.013818446470635239
+   - Example 2: 0.03694852181027022
+   - Observation: The standard deviation across subcarriers in the given data is closer to the value in Example 2, indicating a higher variability in the mean CSI amplitude over time compared to Example 1.
+
+3. Mean standard deviation across subcarriers for each time point:
+   - Given data: 0.04535496346627379
+   - Example 1: 0.03324765125117169
+   - Example 2: 0.08912010674037109
+   - Observation: The mean standard deviation across subcarriers for each time point in the given data is closer to the value in Example 1, indicating a moderate level of signal oscillation in time.
+
+Based on the analysis, the given data shows moderate amplitude, higher variability in mean CSI amplitude over time, and moderate signal oscillation in time. Considering these factors, the data suggests that there is likely a person present.
+
+ANSWER:
+have_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.22it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.09it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.80it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 79437.58 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87381.33 docs/s]
+ANALYSIS:
+In the given data:
+- The mean value of CSI is 0.2955452056879741
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.015733358542492974
+- The mean standard deviation across subcarriers for each time point is 0.03471399916055109
+
+Comparing this with the examples provided:
+- Example 1 had a mean value of 0.29464217312574953, a standard deviation of 0.013818446470635239, and a mean std of 0.03324765125117169, resulting in "no_person."
+- Example 2 had a mean value of 0.26454713999452073, a standard deviation of 0.03694852181027022, and a mean std of 0.08912010674037109, leading to "have_person."
+
+Based on the given data, the mean value of CSI is close to the mean values in both examples. The standard deviation across subcarriers for the mean CSI amplitude over time is also within the range of the values in the examples. However, the mean standard deviation across subcarriers for each time point is closer to the "no_person" example, indicating less signal oscillation.
+
+ANSWER:
+Considering the analysis of the data and comparing it to the examples, as well as the lower standard deviation indicating less fluctuation in the signal, the data suggests no significant human presence. Therefore, the occupancy status is likely to be "no_person."
+第35次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.25it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.06it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.42it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78545.02 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 85948.85 docs/s]
+ANALYSIS:
+Based on the given data:
+- The mean value of CSI is 0.2905676716308805
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.01525481843618607
+- The mean standard deviation across subcarriers for each time point is 0.039320273589868615
+
+Comparing it to the examples provided:
+- Example 1 had a mean CSI value of 0.29464217312574953, a standard deviation of 0.013818446470635239 across subcarriers, and a mean std of 0.03324765125117169. It was determined to have no person.
+- Example 2 had a mean CSI value of 0.26454713999452073, a standard deviation of 0.03694852181027022 across subcarriers, and a mean std of 0.08912010674037109. It was determined to have a person.
+
+From the comparison, we can see that the mean CSI value for the given data is closer to the mean value in Example 1, where there was no person detected. Additionally, the standard deviation across subcarriers for the mean CSI amplitude over time is lower in the given data compared to Example 2, where a person was detected. The mean std across the time axis is also lower in the given data.
+
+Therefore, based on the analysis, the data suggests that there is no person present.
+
+ANSWER:
+no_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 58.82it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 89.62it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.04it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 77961.04 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86659.17 docs/s]
+ANALYSIS:
+- In EXAMPLE1, the mean value of CSI was 0.29464217312574953, the standard deviation across subcarriers for the mean CSI amplitude over time was 0.013818446470635239, and the mean standard deviation across subcarriers for each time point was 0.03324765125117169, resulting in a conclusion of no_person.
+- In EXAMPLE2, the mean value of CSI was 0.26454713999452073, the standard deviation across subcarriers for the mean CSI amplitude over time was 0.03694852181027022, and the mean standard deviation across subcarriers for each time point was 0.08912010674037109, leading to the conclusion of have_person.
+
+Based on the given data:
+- The mean value of CSI is 0.2986326464769669, which is slightly higher than in EXAMPLE1 and EXAMPLE2.
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.011561814815868314, which is lower than in EXAMPLE1 and similar to EXAMPLE2.
+- The mean standard deviation across subcarriers for each time point is 0.022096718796552707, which is also lower than in EXAMPLE1 and similar to EXAMPLE2.
+
+ANSWER:
+Considering the mean CSI value being higher and the standard deviations being relatively low, it is likely that there is a person present. Therefore, the final answer is have_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.11it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.84it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.11it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78251.94 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 85598.04 docs/s]
+ANALYSIS:
+- The mean value of CSI in the given data is 0.29756073295794033, which is slightly higher than the mean values in the previous examples (0.29464217312574953 and 0.26454713999452073).
+- The standard deviation across subcarriers for the mean CSI amplitude over time is 0.017590550302244164, which is also higher compared to the previous examples (0.013818446470635239 and 0.03694852181027022).
+- The mean standard deviation across subcarriers for each time point is 0.0387839047046273, which falls in between the values from the previous examples (0.03324765125117169 and 0.08912010674037109).
+
+Based on the analysis:
+- The mean CSI value being higher and the standard deviation across subcarriers being slightly elevated indicate potential fluctuations in the signal amplitude, which could be attributed to the presence of a person causing signal variations.
+- The mean standard deviation across subcarriers suggests moderate signal oscillations over time.
+
+ANSWER:
+Based on the analysis of the data provided, considering the slightly higher mean CSI value and standard deviation across subcarriers, as well as the moderate signal oscillations over time, it is likely that there is a person present. Therefore, the final answer is: have_person.
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.28it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.22it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.88it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 82241.25 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 87018.76 docs/s]
+ANALYSIS:
+1. The mean value of CSI in the given data is 0.29646878156335327, which is slightly higher than the mean values in the two examples provided (0.29464217312574953 and 0.26454713999452073).
+2. The standard deviation across subcarriers for the mean CSI amplitude over time is 0.0180614235932741, which is within the range of the previous examples (0.013818446470635239 and 0.03694852181027022).
+3. The mean standard deviation across subcarriers for each time point is 0.03579268545345605, which is also comparable to the values in the examples (0.03324765125117169 and 0.08912010674037109).
+
+Based on the analysis, the mean CSI value is slightly higher, but the standard deviation values are consistent with both examples. The overall pattern suggests that there may be a person present, similar to the "have_person" scenario in Example 2.
+
+ANSWER:
+have_person
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.04it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 90.93it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 92.91it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 80350.65 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86302.55 docs/s]
+ANALYSIS:
+Comparing the given data with the examples provided:
+1. The mean value of CSI:
+   - Given data: 0.2976677291144468
+   - Example 1: 0.29464217312574953
+   - Example 2: 0.26454713999452073
+   - The mean value in the given data is higher than Example 1 and Example 2, indicating a potential presence of a person.
+   
+2. The standard deviation across subcarriers for the mean CSI amplitude over time:
+   - Given data: 0.013091402322887863
+   - Example 1: 0.013818446470635239
+   - Example 2: 0.03694852181027022
+   - The standard deviation in the given data is lower than Example 1 and Example 2, suggesting a more consistent signal amplitude over time.
+   
+3. The mean std of CSI across the time axis:
+   - Given data: 0.027238759533733798
+   - Example1: 0.03324765125117169
+   - Example2: 0.08912010674037109
+   - The mean std of CSI in the given data is lower than Example 1 and Example 2, indicating less signal oscillation in time.
+
+Overall, based on the analysis, the mean CSI value higher than the examples, lower standard deviation across subcarriers, and lower mean std of CSI across the time axis suggest a higher likelihood of a person being present.
+
+ANSWER:
+have_person
+第40次预测完成
+set OPENAI by teacher's key
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.19it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 91.48it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 93.44it/s]
+No Documents found with embeddings. Returning empty list. To generate embeddings, use a DocumentEmbedder.
+Ranking by BM25...: 0 docs [00:00, ? docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 78545.02 docs/s]
+Ranking by BM25...: 100%|██████████| 5/5 [00:00<00:00, 86659.17 docs/s]
+ANALYSIS:
+Based on the previous examples, we can see that when there is a person present, the mean value of CSI tends to be lower and the standard deviation across subcarriers for the mean CSI amplitude over time is higher compared to when there is no person present. Additionally, the mean std of CSI across the time axis is also higher when a person is detected.
+
+In the given data:
+- The mean value of CSI: 0.2957043977376041 (slightly higher than the previous examples)
+- The standard deviation across subcarriers for the mean CSI amplitude over time: 0.013699233068888282 (similar to the previous examples)
+- The mean standard deviation across subcarriers for each time point: 0.032971980372683125 (slightly lower than the previous examples)
+
+Based on the analysis, it seems that the data aligns more with the characteristics of "no_person" as the mean CSI value is slightly higher and the mean std of CSI across the time axis is slightly lower compared to when a person is present.
+
+ANSWER:
+no_person
+总共耗时554.2189714040142秒
+
+Process finished with exit code 0

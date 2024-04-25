@@ -1,4 +1,9 @@
-from imports import * 
+from imports import *
+from dataset import *
+from collections import Counter
+import matplotlib.pyplot as plt
+import numpy as np
+import pywt
 
 def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
 
@@ -23,9 +28,9 @@ def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
 
     return indexing_pipeline
 
-def prepare_and_embed_documents(document_store, source_paths: list[str], metadata_fields_to_embed=None, meta_data: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]=None, splitter_kwards: dict=None, draw: str=None, device: str="cuda:0"):
+def prepare_and_embed_documents(document_store, source_paths: List[str], metadata_fields_to_embed=None, meta_data: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]=None, splitter_kwards: dict=None, draw: str=None, device: str="cuda:0"):
     """将指定路径下的领域知识文档emebedding成向量库（支持pdf,markdown,txt格式）"""
-    if type(meta_data) == list: 
+    if type(meta_data) == list:
         assert len(meta_data) == len(source_paths)
 
     file_type_router = FileTypeRouter(mime_types=["text/plain", "application/pdf", "text/markdown"])
@@ -38,8 +43,8 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
         document_splitter = DocumentSplitter(split_by="word", split_length=150, split_overlap=50)
     else:
         document_splitter = DocumentSplitter(**splitter_kwards)
-    
-    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device)) 
+
+    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device))
 
     document_writer = DocumentWriter(document_store, policy=DuplicatePolicy.OVERWRITE)
 
@@ -75,7 +80,7 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
                 "meta": meta_data
             },
             "pdf_converter": {
-                "meta": meta_data 
+                "meta": meta_data
             },
             "markdown_converter": {
                 "meta": meta_data
@@ -84,68 +89,51 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
     )
     return document_store
 
-def gen_prompt_template_with_rag(data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0):
-    acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
-    acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
-    acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
-    gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i][0]
-    gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i][1]
-    gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2] 
-    acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-    acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-    acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-    gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-    gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-    gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
-    data_des = f"""1. Triaxial acceleration signal: 
-X-axis: {acc_x_str} 
-Y-axis: {acc_y_str} 
-Z-axis: {acc_z_str} 
-X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {gyr_x_str} 
-Y-axis: {gyr_y_str} 
-Z-axis: {gyr_z_str} 
-X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
-    
+def gen_prompt_template_with_rag(data_dict, ground_ans: str="no_person", contract_ans: str="have_person", i: int=0):
+    csi = data_dict[ground_ans][i,:,:]
+    data_des = f"""
+    The mean value of CSI: {np.mean(csi)}
+    The standard deviation across subcarriers for the mean CSI amplitude over time: {np.std(np.mean(csi, axis=1), axis=0)}
+    The mean standard deviation across subcarriers for each time point: {np.mean(np.std(csi, axis=0))}
+    """
+
     prompt = f"""{Role_Definition()}
-
-EXPERT:
-1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
-3. Other domain knowledge:
-"""
+    EXPERT:
+    1. CSI data: 
+    The structure of CSI data is {csi.shape}, where the first dimension means a time-series signal consisting of {csi.shape[0]} data samples and the second dimension means {csi.shape[1]} subcarriers of CSI data. It represents the amplitude of the signal, which can be reflected by the human presence.
+    2. The mean value of CSI: 
+    The mean value of CSI is a scalar that describe the average amplitude of the CSI data.
+    3. The standard deviation across subcarriers for the mean CSI amplitude over time:
+    It is a scalar which represents the variability of the mean CSI amplitude across different subcarriers over time.
+    4. The mean std of CSI across the time axis:
+    It is a scalar that describes the average std of CSI signals for each subcarrier over time. It reflects the overall degree of signal oscillation in time.
+    5. Other domain knowledge:
+    """
     prompt += """
-{% for domain_doc in documents_domain %}
+    {% for domain_doc in documents_domain %}
     {{ domain_doc.content }}
-{% endfor %}
+    {% endfor %}
 
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.
+    You need to comprehensively analyze the CSI data along the two axis(time and subcarrier). For each axis, you should analyze not only the magnitude but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the presence of human.
 
-EXAMPLE1:
-{% for d in grd_demo %}{{ d.content }}{% endfor %}
+    EXAMPLE1:
+    {% for d in grd_demo %}{{ d.content }}{% endfor %}
 
-EXAMPLE2:
-{% for d in con_demo %}{{ d.content }}{% endfor %}
+    EXAMPLE2:
+    {% for d in con_demo %}{{ d.content }}{% endfor %}
 
-QUESTION: {{ query }}
-"""
+    QUESTION: {{ query }}
+    """
     prompt += f"""
-{ground_ans}
-{contract_ans}
-Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice.
-​Please think step by step, you should analysis first and then give your answer.
-​
-THE GIVEN DATA: 
-{data_des}
-ANALYSIS:
-ANSWER:""" 
+    {ground_ans}
+    {contract_ans}
+    THE GIVEN DATA: 
+    {data_des}
+    Before answering your question, you must refer to the provided knowledge and the previous examples and compare the mean data, the standard deviation across subcarriers for the mean CSI amplitude over time and the mean std of CSI across the time axis in the examples with those in the question comprehensively, in order to help you make a clear choice.
+    Please analyze the data step by step to explain what it reflects,.and then provide your final answer based on your analysis:"Is there is a person or not?"
+    ANALYSIS:
+    ANSWER:
+    """
     return prompt, data_des
 
 #  demo_path, device, splitter_kwargs_domain = {}
@@ -154,7 +142,7 @@ def generate_with_rag(
         contrast_ans,
         KB_path,
         data_dict,
-        demo_dir_path = "/home/ant/RAG/IMU_knowledge/demo-knowledge",
+        demo_dir_path = "demo-knowledge/demo-knowledge",
         splitter_kwargs_domain = {
             "split_by": "sentence",
             "split_length": 2,
@@ -163,9 +151,10 @@ def generate_with_rag(
             "split_by": "passage",
             "split_length": 1,
         },
-        num_samples = 50,
+        num_samples = 20,
         use_my_key = False,
-        device="cuda:0"
+        device="cuda:0",
+
 ):
     Demo_paths = write_demo_knowledge(
         demo_dir_path,
@@ -173,11 +162,11 @@ def generate_with_rag(
     )
     meta_data = [
         {
-            "label": file_path.split('/')[-1][len("demo-knowledge"):-len("_i.txt")]
+            "label": file_path.split('/')[-1][len("demo-knowledge_"):-len("_i.txt")]
         }
         for file_path in Demo_paths
     ]
-    print(meta_data)
+    # print(meta_data)
     document_store_domain = InMemoryDocumentStore()
     embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_path, draw=None, device=device, splitter_kwards=splitter_kwargs_domain)
 
@@ -187,7 +176,7 @@ def generate_with_rag(
     ans = []
     for i in range(num_samples):
         text_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
-        grd_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device)) 
+        grd_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
         con_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
 
         embedding_retriever_domain = InMemoryEmbeddingRetriever(embedded_document_store_KB)
@@ -249,13 +238,18 @@ def generate_with_rag(
         rag_pipeline.connect("con_embedding_retriever_demo", "con_document_joiner_demo")
         rag_pipeline.connect("con_keyword_retriever_demo", "con_document_joiner_demo")
         rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
-        query = """Based on the given data, choose the activity that the subject is most likely to be performing from the following two options:"""
-        content4retrieval_domain = """1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+        query = """Based on the given data and the provided knowledge, determine whether there is a person or not from the following two options:"""
+        content4retrieval_domain = """1. CSI data: 
+    The structure of CSI data is {csi.shape}, where the first dimension means a time-series signal consisting of {csi.shape[0]} data samples and the second dimension means {csi.shape[1]} subcarriers of CSI data. It represents the amplitude of the signal, which can be reflected by the human presence.
+    2. The mean value of CSI: 
+    The mean value of CSI is a scalar that describe the average amplitude of the CSI data.
+    3. The standard deviation across subcarriers for the mean CSI amplitude over time:
+    It is a scalar which represents the variability of the mean CSI amplitude across different subcarriers over time.
+    4. The mean std of CSI across the time axis:
+    It is a scalar that describes the average std of CSI signals for each subcarrier over time. It reflects the overall degree of signal oscillation in time.
+    You need to comprehensively analyze the CSI data along the two axis(time and subcarrier). For each axis, you should analyze not only the magnitude but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status.
 
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING."""
+"""
         content4retrieval_grd_demo = data_des 
         content4retrieval_con_demo = f"ANSWER: {contrast_ans}"
 
@@ -263,7 +257,7 @@ You need to comprehensively analyze the acceleration and angular velocity data o
         rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
         rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
         rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
-
+        #
         rag_pipeline.add_component("llm", generator)
         rag_pipeline.connect("prompt_builder", "llm")
 
@@ -318,6 +312,7 @@ You need to comprehensively analyze the acceleration and angular velocity data o
                 "prompt_builder": {"query": query},
             }
         )
+
         an = result["llm"]["replies"][0]
         print(an)
         ans.append(an)
@@ -335,37 +330,17 @@ def pretty_print_res_of_ranker(res):
 # 写入demo-knowledge：
 def write_demo_knowledge(tgt_dir_path: str, data_dict, sample_num: int=5):
     file_paths = []
-    # 为了不与test使用的demo重复，选用data_dict中的后面的数据作为范例知识
-    for label_id in label2ids.values():
+    classes = ['no_person', 'have_person']
+    for label in classes:
         for i in range(1, sample_num+1):
-            acc_x = data_dict[label_id]["total_acc"][-i][0]
-            acc_y = data_dict[label_id]["total_acc"][-i][1]
-            acc_z = data_dict[label_id]["total_acc"][-i][2]
-            gyr_x = data_dict[label_id]["body_gyro"][-i][0]
-            gyr_y = data_dict[label_id]["body_gyro"][-i][1]
-            gyr_z = data_dict[label_id]["body_gyro"][-i][2]
-            acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-            acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-            acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-            gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-            gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-            gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
-            written_content = f"""1. Triaxial acceleration signal:
-X-axis: {acc_x_str}
-Y-axis: {acc_y_str}
-Z-axis: {acc_z_str}
-X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)}
-Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)}
-Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)}
-2. Triaxial angular velocity signal:
-X-axis: {gyr_x_str}
-Y-axis: {gyr_y_str}
-Z-axis: {gyr_z_str}
-X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)}
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)}
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}
-ANSWER: {id2labels[label_id]}"""
-            file_path = tgt_dir_path + f"{id2labels[label_id]}_{i}.txt"
+            csi = data_dict[label][-i]
+            written_content = f"""
+            The mean value of CSI: {np.mean(csi)}
+            The standard deviation across subcarriers for the mean CSI amplitude over time: {np.std(np.mean(csi, axis=1), axis=0)}
+            The mean standard deviation across subcarriers for each time point: {np.mean(np.std(csi, axis=0))}
+            ANSWER: {label}
+            """
+            file_path = tgt_dir_path + f"_{label}_{i}.txt"
             file_paths.append(file_path)
             with open(file_path, 'w') as f:
                 f.write(written_content)
@@ -389,13 +364,14 @@ def wikipedia_indexing(some_titles = ["Inertial measurement unit", ]):
 def Role_Definition(Task_Description=None, Preprocessed_Data=None, model="chatgpt"):
     """input: Task_Descriping(str), Preprocessed_Data(str), model(str)
     output: role_definition(str)"""
-    return """You are an assistant sports scientist, specialized in analyzing sensor data to understand human movement and activity patterns. Your expertise in interpreting accelerometer sensor data makes you an expert in human activity recognition tasks. Your role is to assist users in determining the status of human activities by analyzing accelerometer data.
-Your training enables you to interpret and analyze the data collected by accelerometer sensors, thereby identifying different motion patterns. You understand the acceleration patterns generated by the human body in various activities and can determine the current activity status based on changes in the data.
+    return """You are a signal analysis scientist, specializing in analyzing Wi-Fi Channel State Information (CSI) data to understand human occupancy patterns. Your expertise in interpreting CSI data makes you proficient in human occupancy detection tasks. Your role is to assist users in determining the occupancy status of indoor spaces by analyzing Wi-Fi CSI data.
+Your training enables you to interpret and analyze the data collected by Wi-Fi CSI sensors, thereby identifying different occupancy patterns. You understand the variations in Wi-Fi signal amplitude caused by human presence and movement, and can determine the current occupancy status based on changes in the data.
 Your professional knowledge includes, but is not limited to:
-1. Human Biomechanics: You understand the acceleration patterns generated by the human body in different activity modes and their relationship with specific activities.
-2. Data Analysis and Pattern Recognition: You can utilize machine learning and pattern recognition techniques to analyze and process sensor data, accurately identifying human activities.
-3. Exercise Physiology: You understand the physiological changes that occur in the human body during exercise, which can assist in activity recognition.
-As an assistant sports scientist, your task is to classify human activities based on the acceleration data you receive, helping users better understand and monitor their exercise activities."""
+1. Signal Processing: You understand how to preprocess and analyze Wi-Fi CSI data, extracting relevant features for occupancy detection.
+2. Machine Learning and Pattern Recognition: You can utilize machine learning algorithms and pattern recognition techniques to classify occupancy status based on Wi-Fi CSI data.
+3. Environmental Sensing: You are familiar with environmental factors that can affect Wi-Fi signal propagation and can account for these factors in occupancy detection.
+4. Occupancy Behavior Analysis: You understand the patterns of human behavior in indoor environments and can incorporate this knowledge into occupancy detection algorithms.
+As a signal analysis scientist, your task is to determine whether there is a person or not based on the Wi-Fi CSI data you receive, helping users better understand and manage indoor space utilization."""
 
 def prompt_template_generation(Task_Description, Preprocessed_Data):
     """template中的变量为：domain_ks, demonstrations, question"""
@@ -413,44 +389,64 @@ def prompt_template_generation(Task_Description, Preprocessed_Data):
     prompt_template = base_template + domain_knowledge + demonstrations + question 
     return prompt_template
 
-def read_raw_data_and_preprocess(sample_step: int=5, raw_data_dir: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/", y_train_path: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt"):
-    """return :
-    data_dict: dict[dict[list, list, list]]
 
-    >>> data_dict[label_id]["body_acc"] = [[body_acc_x, body_acc_y, body_acc_z], ...]
-    """
-    signal_data_paths = {
-        "body_acc_x_train_path" : raw_data_dir + "body_acc_x_train.txt",
-        "body_acc_y_train_path" :  raw_data_dir + "body_acc_y_train.txt",
-        "body_acc_z_train_path" :  raw_data_dir + "body_acc_z_train.txt",
-        "body_gyro_x_train_path" :  raw_data_dir + "body_gyro_x_train.txt",
-        "body_gyro_y_train_path" :  raw_data_dir + "body_gyro_y_train.txt",
-        "body_gyro_z_train_path" :  raw_data_dir +  "body_gyro_z_train.txt",
-        "total_acc_x_train_path" :  raw_data_dir + "total_acc_x_train.txt",
-        "total_acc_y_train_path" :  raw_data_dir + "total_acc_y_train.txt", 
-        "total_acc_z_train_path" :  raw_data_dir + "total_acc_z_train.txt",
-    }
-    signal_data = {}
-    for signal_data_path in signal_data_paths.keys():
-        with open(signal_data_paths[signal_data_path], "r") as f:
-            signal_data[signal_data_path[:-5]] = np.array([list(map(float, line.split())) for line in f])
-    with open(y_train_path, "r") as f:
-        y_train = np.array([int(line) for line in f])
-    print(Counter(y_train))
-    data_dict: dict[dict[list, list, list]] = {}
-    # 其中有6个key，分别代表六个活动类别，每个key中有三个list，分别代表三个传感器的数据
+def time_downsample(data, time_length, time_downsample):
+    # 初始化存储序列的列表
+    sequences = []
 
-    for label_id in label2ids.values():
-        data_dict[label_id] = {"body_acc": [], "body_gyro": [], "total_acc": []}
+    # 获取数据的长度
+    data_length = data.shape[0]
 
-    for i in range(len(y_train)):
-        data_dict[y_train[i]]["body_acc"].append([np.around(signal_data["body_acc_x_train"][i][::sample_step], 3), np.around(signal_data["body_acc_y_train"][i][::sample_step], 3), np.around(signal_data["body_acc_z_train"][i][::sample_step], 3)])
+    # 计算数据可以划分成多少个序列
+    num_sequences = data_length // time_downsample // time_length
 
-        data_dict[y_train[i]]["body_gyro"].append([np.around(signal_data["body_gyro_x_train"][i][::sample_step], 3), np.around(signal_data["body_gyro_y_train"][i][::sample_step], 3), np.around(signal_data["body_gyro_z_train"][i][::sample_step], 3)])
+    # 循环生成每个序列
+    for i in range(num_sequences):
+        start_index = i * time_downsample * time_length
+        end_index = start_index + time_length * time_downsample
+        sequence = data[start_index:end_index:time_downsample, :]
+        sequences.append(sequence)
 
-        data_dict[y_train[i]]["total_acc"].append([np.around(signal_data["total_acc_x_train"][i][::sample_step], 3), np.around(signal_data["total_acc_y_train"][i][::sample_step], 3), np.around(signal_data["total_acc_z_train"][i][::sample_step], 3)])
-    return data_dict
-        
+    return np.array(sequences)
+
+def read_raw_csi(root="wifi_csi_har_dataset/room_2/1", subcarrier_dim=40, frames_num=10, frame_downsample=2):
+    val_dataset = CSIDataset([
+        root,
+    ])
+    no_person1 = val_dataset.amplitudes[5220:6179, :] #1000
+    # no_person2= val_dataset.amplitudes[12265:12564, :] #300
+    walking1 = val_dataset.amplitudes[2505: 3204, :]  #740
+    # walking2 = val_dataset.amplitudes[40: 589, :] #540
+    # getting_down = val_dataset.amplitudes[7170: 7289, :]  #120
+    # getting_up = val_dataset.amplitudes[7650:7709, :]  #60
+    # sitting = val_dataset.amplitudes[3800:4319, :]  #520
+    # no_person = np.concatenate((no_person1, no_person2), axis=0)
+    # walking = np.concatenate((walking1, walking2), axis=0)
+
+    no_person_data = time_downsample(no_person1, frames_num, frame_downsample)
+    walking_data = time_downsample(walking1, frames_num, frame_downsample)
+    # getting_up_data = time_downsample(getting_up, frames_num, frame_downsample)
+    # getting_down_data = time_downsample(getting_down, frames_num, frame_downsample)
+    # sitting_data = time_downsample(sitting, frames_num, frame_downsample)
+    # yes_person_data = np.concatenate((walking_data, getting_up_data, getting_down_data, sitting_data), axis=0)
+    yes_person_data = walking_data
+
+    downsample_interval = no_person_data.shape[2] // subcarrier_dim
+
+    # 降采样数据
+    no_person_data = no_person_data[:, :, ::downsample_interval]
+    yes_person_data = yes_person_data[:, :, ::downsample_interval]
+
+    # no_person_labels = np.zeros((no_person_data.shape[0],), dtype=int)
+    # yes_person_labels = np.ones((yes_person_data.shape[0],), dtype=int)
+    #
+    # # 合并数据和标签
+    # combined_data = np.concatenate((no_person_data, yes_person_data), axis=0)
+    # combined_labels = np.concatenate((no_person_labels, yes_person_labels), axis=0)
+
+    return {'no_person': no_person_data, 'have_person': yes_person_data}
+
+
 def set_openAI_key_and_base(set_base=True):
     if set_base:
         os.environ["OPENAI_API_KEY"] = MY_API
@@ -525,109 +521,35 @@ def filter_data_dict_with_var(data_dict, thred: float=0.5, filter_by: str="body_
 
 
 def gen_prompt_template_without_rag(data_dict, ground_ans: str="WALKING", contrast_ans: str="STANDING", i: int=0):
-    acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
-    acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
-    acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
-    gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i][0]
-    gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i][1]
-    gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2] 
-    demo_grd_acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i+1][0]
-    demo_grd_acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i+1][1]
-    demo_grd_acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i+1][2]
-    demo_grd_gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][0]
-    demo_grd_gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][1]
-    demo_grd_gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][2]
-    demo_con_acc_x = data_dict[label2ids[contrast_ans]]["total_acc"][i][0]
-    demo_con_acc_y = data_dict[label2ids[contrast_ans]]["total_acc"][i][1]
-    demo_con_acc_z = data_dict[label2ids[contrast_ans]]["total_acc"][i][2]
-    demo_con_gyr_x = data_dict[label2ids[contrast_ans]]["body_gyro"][i][0]
-    demo_con_gyr_y = data_dict[label2ids[contrast_ans]]["body_gyro"][i][1]
-    demo_con_gyr_z = data_dict[label2ids[contrast_ans]]["body_gyro"][i][2]
-    acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-    acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-    acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-    gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-    gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-    gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
-    demo_grd_acc_x_str = ", ".join([f"{x}g" for x in demo_grd_acc_x])
-    demo_grd_acc_y_str = ", ".join([f"{x}g" for x in demo_grd_acc_y])
-    demo_grd_acc_z_str = ", ".join([f"{x}g" for x in demo_grd_acc_z])
-    demo_grd_gyr_x_str = ", ".join([f"{x}rad/s" for x in demo_grd_gyr_x])
-    demo_grd_gyr_y_str = ", ".join([f"{x}rad/s" for x in demo_grd_gyr_y])
-    demo_grd_gyr_z_str = ", ".join([f"{x}rad/s" for x in demo_grd_gyr_z])
-    demo_con_acc_x_str = ", ".join([f"{x}g" for x in demo_con_acc_x])
-    demo_con_acc_y_str = ", ".join([f"{x}g" for x in demo_con_acc_y])
-    demo_con_acc_z_str = ", ".join([f"{x}g" for x in demo_con_acc_z])
-    demo_con_gyr_x_str = ", ".join([f"{x}rad/s" for x in demo_con_gyr_x])
-    demo_con_gyr_y_str = ", ".join([f"{x}rad/s" for x in demo_con_gyr_y])
-    demo_con_gyr_z_str = ", ".join([f"{x}rad/s" for x in demo_con_gyr_z])
+    csi = data_dict[ground_ans][i]
     prompt = f"""{Role_Definition()}
+    EXPERT:
+    1. CSI data: 
+    The structure of CSI data is {csi.shape}, where the first dimension means a time-series signal consisting of {csi.shape[0]} data samples and the second dimension means {csi.shape[1]} subcarriers of CSI data. It represents the amplitude of the signal, which can be reflected by the human presence.
+    2. The mean value of CSI: 
+    The mean value of CSI is a scalar that describe the average amplitude of the CSI data.
+    3. The standard deviation across subcarriers for the mean CSI amplitude over time:
+    It is a scalar which represents the variability of the mean CSI amplitude across different subcarriers over time.
+    4. The mean std of CSI across the time axis:
+    It is a scalar that describes the average std of CSI signals for each subcarrier over time. It reflects the overall degree of signal oscillation in time.
+    
+    You need to comprehensively analyze the CSI data along the two axis(time and subcarrier). For each axis, you should analyze not only the magnitude but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding whether there is a person or not.
+    
+    QUESTION: Based on the given data, determine whether there is a person or not from the following two options: 
+    no_person, have_person
 
-EXPERT: 
-1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s). 
-​
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING. 
-​
-EXAMPLE1: 
-1. Triaxial acceleration signal: 
-X-axis: {demo_grd_acc_x_str} 
-Y-axis: {demo_grd_acc_y_str} 
-Z-axis: {demo_grd_acc_z_str} 
-X-axis-mean={np.around(np.mean(demo_grd_acc_x), 3)}, X-axis-var={np.around(np.var(demo_grd_acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_grd_acc_y), 3)}, Y-axis-var={np.around(np.var(demo_grd_acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_grd_acc_z), 3)}, Z-axis-var={np.around(np.var(demo_grd_acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {demo_grd_gyr_x_str} 
-Y-axis: {demo_grd_gyr_y_str} 
-Z-axis: {demo_grd_gyr_z_str} 
-X-axis-mean={np.around(np.mean(demo_grd_gyr_x), 3)}, X-axis-var={np.around(np.var(demo_grd_gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_grd_gyr_y), 3)}, Y-axis-var={np.around(np.var(demo_grd_gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_grd_gyr_z), 3)}, Z-axis-var={np.around(np.var(demo_grd_gyr_z), 3)} 
-ANSWER: {ground_ans} 
-​
-EXAMPLE2: 
-1. Triaxial acceleration signal: 
-X-axis: {demo_con_acc_x_str} 
-Y-axis: {demo_con_acc_y_str} 
-Z-axis: {demo_con_acc_z_str} 
-X-axis-mean={np.around(np.mean(demo_con_acc_x), 3)}, X-axis-var={np.around(np.var(demo_con_acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_con_acc_y), 3)}, Y-axis-var={np.around(np.var(demo_con_acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_con_acc_z), 3)}, Z-axis-var={np.around(np.var(demo_con_acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {demo_con_gyr_x_str} 
-Y-axis: {demo_con_gyr_y_str} 
-Z-axis: {demo_con_gyr_z_str} 
-X-axis-mean={np.around(np.mean(demo_con_gyr_x), 3)}, X-axis-var={np.around(np.var(demo_con_gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_con_gyr_y), 3)}, Y-axis-var={np.around(np.var(demo_con_gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_con_gyr_z), 3)}, Z-axis-var={np.around(np.var(demo_con_gyr_z), 3)} 
-ANSWER: {contrast_ans} 
-​
-​
-QUESTION: Based on the given data, choose the activity that the subject is most likely to be performing from the following two options: 
-{ground_ans} 
-{contrast_ans} 
-Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice. 
-​
-​
-THE GIVEN DATA: 
-1. Triaxial acceleration signal: 
-X-axis: {acc_x_str} 
-Y-axis: {acc_y_str} 
-Z-axis: {acc_z_str} 
-X-axis-mean={np.around(np.mean(acc_x), 3)}, X-axis-var={np.around(np.var(acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(acc_y), 3)}, Y-axis-var={np.around(np.var(acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(acc_z), 3)}, Z-axis-var={np.around(np.var(acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {gyr_x_str} 
-Y-axis: {gyr_y_str} 
-Z-axis: {gyr_z_str} 
-X-axis-mean={np.around(np.mean(gyr_x), 3)}, X-axis-var={np.around(np.var(gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}, Y-axis-var={np.around(np.var(gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}, Z-axis-var={np.around(np.var(gyr_z), 3)} 
-ANSWER:""" 
+    ​
+    THE GIVEN DATA: 
+    The CSI data: {csi}
+    The mean value of CSI: {np.mean(csi)}
+    The standard deviation across subcarriers for the mean CSI amplitude over time: {np.std(np.mean(csi, axis=1), axis=0)}
+    The mean standard deviation across subcarriers for each time point: {np.mean(np.std(csi, axis=0))}
+
+    Please analyze the data step by step to explain what it reflects,.and then provide your final answer based on your analysis:"Is there is a person or not?"
+    ANALYSIS:
+    ANSWER:
+    """
+
     return prompt
 
 def eval_generated_ans(ans, grd, contrs):
