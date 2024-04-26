@@ -42,26 +42,28 @@ def chat_with_openai(data_dict, ground_ans: str="WALKING", contrast_ans: str="ST
 
 
 if __name__ == "__main__":
-    data_dict, label_duct = read_machine_data()
+    # data_dict, label_duct = read_machine_data()
+    data_dict = read_ECG(draw_pictures=False)
     start_time = time.perf_counter()
-    config = "machine-domain-knowledge & handed demo-knowledge"
+    config = "ECG-domain-knowledge & handed demo-knowledge"
     # with rerieval:
     # 首先，准备好document_store并写入:
     # 得到指定文件夹下所有文件的路径
-    KB_paths = get_all_file_paths("/home/ant/RAG/Machine-knowledge/domain-knowledge")
+    KB_paths = get_all_file_paths("/home/ant/RAG/ECG_knowledge/domain-knowledge")
     device = "cuda:0"
     document_store_domain = InMemoryDocumentStore()
-    splitter_kwags_domain = {"split_by": "sentence", "split_length": 2}
+    splitter_kwags_domain = {"split_by": "sentence", "split_length": 3}
     embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_paths, draw=None, device=device, splitter_kwards=splitter_kwags_domain)
 
     # document_store_demo = InMemoryDocumentStore()
     # splitter_kwags_demo = {"split_by": "passage", "split_length": 1}
     # embedded_document_store_DM = prepare_and_embed_documents(document_store_demo, Demo_paths, draw=None, device=device, splitter_kwards=splitter_kwags_demo, meta_data=meta_data)
 
+    is_Pos = False
     
     ans = []
-    with open("output_details-machine.log", "a") as f:
-        for i in range(1, 51):
+    with open("output_details-ECG.log", "a") as f:
+        for i in range(1, 10):
             # 建立一个rag的pipeline，使用hybrid的retrieval方法进行检索
             # first, 定义components:
             text_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL_LOCAL, device=ComponentDevice.from_str(device))
@@ -84,8 +86,8 @@ if __name__ == "__main__":
             ranker_domain = TransformersSimilarityRanker(model=RANKER_MODEL_LOCAL)
             # grd_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL_LOCAL)
             # con_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL_LOCAL)
-            grd = "Pos"
-            template, data_des = gen_prompt_tamplate_with_rag_machine(data_dict, label_duct, "Cooler condition %", i, grd)
+            # template, data_des = gen_prompt_tamplate_with_rag_machine(data_dict, label_duct, "Cooler condition %", i, grd)
+            template, data_des = gen_prompt_with_rag_ECG(data_dict, is_Pos, i)
             prompt_builder = PromptBuilder(template=template)
             set_openAI_key_and_base(False, set_proxy=PROXY)
             generator = OpenAIGenerator(model=MODEL["gpt4"])
@@ -131,7 +133,7 @@ if __name__ == "__main__":
             # rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
             # rag_pipeline.draw("retriver_pipeline2.png")
             # print("draw1 done")
-            query = """Is the machine's cooling system functioning properly?"""
+            query = """Is the ECG heatbeat signal normal or abnormal?"""
             content4retrieval_domain = gen_content4retrive_domain(data_des)
         #     content4retrieval_grd_demo = None
             # content4retrieval_con_demo = None
@@ -179,9 +181,9 @@ if __name__ == "__main__":
             #     }
             # )
             # pretty_print_res_of_ranker(retrieved["ranker_domain"])
-            # print("___________________________________________________________")
-            # pretty_print_res_of_ranker(retrieved["grd_ranker_demo"])
-            # print("___________________________________________________________")
+            # # print("___________________________________________________________")
+            # # pretty_print_res_of_ranker(retrieved["grd_ranker_demo"])
+            # # print("___________________________________________________________")
             # assert(0)
             # pretty_print_res_of_ranker(retrieved["con_ranker_demo"])
             # assert(0)
@@ -192,9 +194,9 @@ if __name__ == "__main__":
             # 打印看看喂给llm的prompt长什么样子
             # final_prompt = rag_pipeline.run(
             #     {
-            #         # "text_embedder_domain": {"text": content4retrieval_domain},
-            #         # "keyword_retriever_domain": {"query": content4retrieval_domain},
-            #         # "ranker_domain": {"query": content4retrieval_domain},
+            #         "text_embedder_domain": {"text": content4retrieval_domain},
+            #         "keyword_retriever_domain": {"query": content4retrieval_domain},
+            #         "ranker_domain": {"query": content4retrieval_domain, "top_k": 5},
             #         # "grd_demo_embedder": {"text": content4retrieval_grd_demo},
             #         # "con_demo_embedder": {"text": content4retrieval_con_demo},
             #         # "grd_embedding_retriever_demo": {
@@ -251,7 +253,7 @@ if __name__ == "__main__":
                 {
                     "text_embedder_domain": {"text": content4retrieval_domain},
                     "keyword_retriever_domain": {"query": content4retrieval_domain},
-                    "ranker_domain": {"query": content4retrieval_domain},
+                    "ranker_domain": {"query": content4retrieval_domain, "top_k":5},
                     # "grd_demo_embedder": {"text": content4retrieval_grd_demo},
                     # "con_demo_embedder": {"text": content4retrieval_con_demo},
                     # "grd_embedding_retriever_demo": {
@@ -301,7 +303,7 @@ if __name__ == "__main__":
             an = result["llm"]["replies"][0]
             print(an)
             if i == 1:
-                f.write(f'\nconfig={config}\n=================BEGIN A NEW RUNz({grd})====================\n\n')
+                f.write(f'\nconfig={config}\n=================BEGIN A NEW RUNz(is_Pos:{is_Pos})====================\n\n')
             f.write(an)
             f.write(f'\n{i} done_____________________________\n')
             ans.append(an)

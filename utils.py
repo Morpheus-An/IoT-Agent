@@ -1,6 +1,114 @@
 from imports import * 
 
 
+
+def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/", length=600000, id=106, sampfrom=0, pysical=True, channels=[0,], interval=150, sample_step=5, draw_pictures=True):
+    record_path = base_dir + f"{id}"
+    record = wfdb.rdrecord(record_path, sampfrom=sampfrom, sampto=length, physical=pysical, channels=channels)
+    print(record.p_signal.shape)
+    import matplotlib.pyplot as plt 
+    # print(f"record frequency: {record.fs}")
+    ventricular_signal = record.p_signal[:]
+    signal_annotation = wfdb.rdann(record_path, 'atr', sampfrom=sampfrom, sampto=length)
+    # print(f"""
+    # symbol: {signal_annotation.symbol}, shape={len(signal_annotation.symbol)}
+    # aux_note: {signal_annotation.aux_note}, shape={len(signal_annotation.aux_note)}""")
+    data_dict = {
+        "N_pos": [],
+        "N_signals": [],
+        "V_pos": [],
+        "V_signals": [],   
+
+    }
+    for i, s in enumerate(signal_annotation.symbol):
+        if s == "V":
+            V_begin = i
+            if V_begin <= 1 or V_begin >= len(signal_annotation.symbol)-2:
+                continue
+            V_signals = ventricular_signal[signal_annotation.sample[V_begin]-interval:signal_annotation.sample[V_begin]+interval:sample_step]
+            data_dict["V_pos"].append([interval//sample_step, V_signals[interval//sample_step]])
+            data_dict["V_signals"].append(V_signals)
+        elif s == "N":
+            N_begin = i
+            if N_begin <= 1 or N_begin >= len(signal_annotation.symbol)-2:
+                continue
+            N_signals = ventricular_signal[signal_annotation.sample[N_begin]-interval:signal_annotation.sample[N_begin]+interval:sample_step]
+            data_dict["N_pos"].append([interval//sample_step, N_signals[interval//sample_step]])
+            data_dict["N_signals"].append(N_signals)
+
+    for k, v in data_dict.items():
+        print(f"{k}: {[len(v), len(v[0])]}")
+    if draw_pictures:
+        # 分别展示5张N和5张V的信号,将这10个信号展示在一个2行5列的大图上,注意，保持上下两行的的纵坐标相同:
+        plt.figure(figsize=(20,10))
+        # 开始话2*5的大图，保持每个子图的纵坐标相同
+        for i in range(1, 6):
+            plt.subplot(2, 5, i)
+            plt.plot(data_dict["N_signals"][i])
+            plt.scatter(data_dict["N_pos"][i][0], data_dict["N_pos"][i][1], marker="*")
+            plt.title(f"N_{i}")
+            plt.subplot(2, 5, i+5)
+            plt.plot(data_dict["V_signals"][i])
+            plt.scatter(data_dict["V_pos"][i][0], data_dict["V_pos"][i][1], marker="*")
+            plt.title(f"V_{i}")
+        plt.show()
+    return data_dict
+def gen_prompt_with_rag_ECG(data_dict, is_Pos=True, i: int=1):
+    N_signals = data_dict["N_signals"][-i]
+    V_signals = data_dict["V_signals"][-i]
+    N_signals_str = ", ".join([f"{x[0]}mV" for x in N_signals])
+    V_signals_str = ", ".join([f"{x[0]}mV" for x in V_signals])
+    N_signals_demo = data_dict["N_signals"][-i-1]
+    V_signals_demo = data_dict["V_signals"][-i-1]
+    N_signals_demo_str = ", ".join([f"{x[0]}mV" for x in N_signals_demo])
+    V_signals_demo_str = ", ".join([f"{x[0]}mV" for x in V_signals_demo])
+
+    # print(N_signals_str)
+    prompt = f"""{Role_Definition()}
+
+ECG DATA:
+The ECG data is collected from a patient's heart. The data consists of a series of electrical signals that represent the heart's electrical activity. The signals are measured in millivolts (mV) and are recorded over a period of time at the sampling frequency of 60Hz. This means there is an interval of 0.017 seconds between the two voltage values.  The data is divided into two categories: normal heartbeats (N) and ventricular ectopic beats (V). The normal heartbeats represent the regular electrical activity of the heart, while the ventricular ectopic beats represent abnormal electrical activity. The data is collected using a single-channel ECG device."""
+    prompt += """
+EXPERT:
+{% for domain_doc in documents_domain %}
+    {{ domain_doc.content }}
+{% endfor %}
+
+"You can analyze whether the heartbeat is normal by considering a combination of factors such as the amplitude of peaks or valleys appearing in the electrocardiogram (ECG) time series, the time intervals between adjacent peaks or valleys, and the fluctuations in voltage values within the ECG data."
+"""
+    prompt += f"""
+EXAMPLE1:
+THE GIVEN ECG DATA:
+{N_signals_str}
+ANSWER: Normal heartbeat (N)
+
+EXAMPLE2:
+THE GIVEN ECG DATA:
+{V_signals_str}
+ANSWER: Premature ventricular contraction (V)
+"""
+    prompt += """
+QUESTION: {{ query }}"""
+    if is_Pos:
+        data_des = f"""
+THE GIVEN ECG DATA:
+{N_signals_demo_str}
+"""
+        prompt += data_des
+    else:
+        data_des = f"""
+THE GIVEN ECG DATA:
+{V_signals_demo_str}
+"""
+        prompt += data_des
+    prompt += """
+Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is it a Normal heartbeat(N) or Premature ventricular contraction beat(V)?"
+ANALYSIS:
+ANSWER:
+"""
+    return prompt, data_des
+    
+
 def eval_by_gpt(ans, candidates, grd, con): 
     eval = []
     candidates_str = ", ".join(candidates)
@@ -259,24 +367,9 @@ def read_machine_data(sample_step=100):
     return data_dict, label_dict
 def gen_content4retrive_domain(data_des=""):
     return """
-The data set was experimentally obtained with a hydraulic test rig. This test rig consists of a primary working and a secondary cooling-filtration circuit which are connected via the oil tank [1], [2]. The system cyclically repeats constant load cycles (duration 60 seconds) and measures process values such as pressures, volume flows and temperatures while the condition of four hydraulic components (cooler, valve, pump and accumulator) is quantitatively varied.
-    
-Attributes are sensor data (all numeric and continuous) from measurements taken at the same point in time, respectively, of a hydraulic test rig's working cycle.
-
-Temepurature sensors (TS) measure the temperature of the oil at different points in the hydraulic system. The sensors are named TS1, TS2, TS3, and TS4. The temperature is measured in degrees Celsius.
-Efficiency factor sensors (SE) measure the efficiency of the cooler. The efficiency is calculated from the ratio of the actual cooling power to the ideal cooling power. The sensors are named SE. The efficiency factor is given in percentage.
-Cooling power sensors (CP) measure the cooling power in kilowatts. The sensors are named CP1 and CP2. The cooling power is measured in kilowatts.
-
-For each sensor, we collected 60 data points over a period of 60 seconds at a monitoring frequency of 1Hz (measuring sensor data once every second), forming a time series of length 60. We measured the following sequences using temperature sensors, Cooling power sensors, and Cooling efficiency sensors:
-
-1. **Temperature Change Sequence**: Reflects the machine's temperature variation over 60 seconds, in degrees Celsius. By analyzing this sequence, you can assess whether the cooling equipment is operating normally. Typically, when the cooling system is functioning well, the machine's temperature is relatively low and does not fluctuate too significantly. If the temperature consistently remains at a high degrees Celsius or fluctuates significantly, it may indicate an abnormal issue with the cooling equipment.
-
-2. **Cooling Power Change Sequence**: Reflects the variation in the cooling power of the machine's cooling equipment over 60 seconds, in kilowatts (KW). By analyzing this sequence, you can determine if the cooling equipment is operating normally. Generally, when the cooling system is functioning properly, the cooling power is relatively high and remains relatively stable throughout the period. If the power consistently stays low, it may suggest an abnormal issue with the cooling equipment.
-
-3. **Cooling Efficiency Change Sequence**: Reflects the variation in the efficiency of the machine's cooling equipment over 60 seconds, in percentage (%). By analyzing this sequence, you can judge if the cooling equipment is operating normally. Typically, when the cooling system is working well, the cooling efficiency is relatively high, otherwise, it indicates that there may be an abnormal issue with the cooling equipment.
-
-Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is the machine's cooling system functioning properly?"
-""" + data_des 
+The ECG data is collected from a patient's heart. The data consists of a series of electrical signals that represent the heart's electrical activity. The signals are measured in millivolts (mV) and are recorded over a period of time at the sampling frequency of 60Hz. This means there is an interval of 0.017 seconds between the two voltage values.  The data is divided into two categories: normal heartbeats (N) and ventricular ectopic beats (V). The normal heartbeats represent the regular electrical activity of the heart, while the ventricular ectopic beats represent abnormal electrical activity. The data is collected using a single-channel ECG device.  Normal heartbeat (N) signals are characterized by a consistent pattern of electrical activity, while premature ventricular contraction (V) signals exhibit irregular patterns that deviate from the normal rhythm. The ECG data provides valuable insights into the patient's cardiac health and can help in diagnosing various heart conditions.  
+Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is it a Normal heartbeat(N) or Premature ventricular contraction beat(V)?"
+""" + data_des
 
 def gen_prompt_tamplate_with_rag_machine(data_dict, label_dict, target, i: int=0, ground_truth="Pos"):
     assert target in label_dict.keys()
@@ -454,15 +547,31 @@ def Role_Definition(Task_Description=None, Preprocessed_Data=None, model="chatgp
 # 2. Data Analysis and Pattern Recognition: You can utilize machine learning and pattern recognition techniques to analyze and process sensor data, accurately identifying human activities.
 # 3. Exercise Physiology: You understand the physiological changes that occur in the human body during exercise, which can assist in activity recognition.
 # As an assistant sports scientist, your task is to classify human activities based on the acceleration data you receive, helping users better understand and monitor their exercise activities."""
-    return """As a seasoned machine evaluation expert with a profound understanding of hydraulic systems, you possess the following key abilities and knowledge:
+#     return """As a seasoned machine evaluation expert with a profound understanding of hydraulic systems, you possess the following key abilities and knowledge:
 
-- **System Comprehension**: You are well-versed in the inner workings of hydraulic systems, including the functions of key components such as coolers, pumps, valves, and accumulators, as well as their interplay.
-- **Data Analysis**: You are adept at handling and analyzing complex datasets, employing advanced techniques like time series analysis, signal processing, and pattern recognition to uncover the underlying stories in the data.
-- **Sensor Interpretation**: You have a deep understanding of various sensor data (e.g., pressure, temperature, flow, vibration) and can discern the operational status of machinery that these data represent.
-- **Fault Diagnosis**: You are familiar with the types of malfunctions that can occur in hydraulic systems and can recognize the signs of these faults in sensor data, enabling you to monitor the machine's operating condition and diagnose potential issues.
-- **System Synergy**: You understand how the different parts of a machine work together and how anomalies in one component can trigger a cascade effect throughout the system.
+# - **System Comprehension**: You are well-versed in the inner workings of hydraulic systems, including the functions of key components such as coolers, pumps, valves, and accumulators, as well as their interplay.
+# - **Data Analysis**: You are adept at handling and analyzing complex datasets, employing advanced techniques like time series analysis, signal processing, and pattern recognition to uncover the underlying stories in the data.
+# - **Sensor Interpretation**: You have a deep understanding of various sensor data (e.g., pressure, temperature, flow, vibration) and can discern the operational status of machinery that these data represent.
+# - **Fault Diagnosis**: You are familiar with the types of malfunctions that can occur in hydraulic systems and can recognize the signs of these faults in sensor data, enabling you to monitor the machine's operating condition and diagnose potential issues.
+# - **System Synergy**: You understand how the different parts of a machine work together and how anomalies in one component can trigger a cascade effect throughout the system.
 
-In the upcoming task of machine condition assessment, you will leverage your expertise and skills to conduct an in-depth analysis of the data collected by the hydraulic test rig. You will evaluate the operational status of the cooler and other critical components, providing professional insights and recommendations for machine performance optimization and preventive maintenance."""
+# In the upcoming task of machine condition assessment, you will leverage your expertise and skills to conduct an in-depth analysis of the data collected by the hydraulic test rig. You will evaluate the operational status of the cooler and other critical components, providing professional insights and recommendations for machine performance optimization and preventive maintenance."""
+    return """You are an experienced physician who is familiar with various types of electrocardiogram (ECG) data. You can easily make preliminary judgments on whether heartbeats are abnormal based on ECG data. You possess the following medical and domain knowledge:
+
+1. **ECG Interpretation:** You understand the basic principles of electrocardiography and know how to interpret ECG waveforms, including identifying different phases of the cardiac cycle and recognizing abnormalities.
+
+2. **Cardiac Physiology:** You are familiar with the physiological functions of the heart, the generation and propagation of cardiac electrical signals, and the characteristics and manifestations of various cardiac arrhythmias.
+
+3. **Recognition of ECG Abnormalities:** You are able to identify abnormal waveforms in ECG data, such as arrhythmias, myocardial ischemia, myocardial infarction, etc., and differentiate them from normal ECG patterns.
+
+4. **Medical Statistics:** You are proficient in statistical analysis of ECG data, identification of outliers, and quantitative assessment of abnormalities.
+
+5. **Clinical Experience:** You have extensive clinical experience to integrate ECG data with patient symptoms and medical history for accurate diagnosis and evaluation.
+
+6. **Medical Ethics and Legal Knowledge:** You understant medical ethics and legal regulations to ensure confidentiality and lawful use of patient data.
+
+The combined application of these domain knowledge and skills would enable you to accurately assess whether there are any abnormalities in the ECG data and provide relevant analysis and interpretation.
+"""
 
 def prompt_template_generation(Task_Description, Preprocessed_Data):
     """template中的变量为：domain_ks, demonstrations, question"""
