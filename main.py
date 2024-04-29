@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # data_dict, label_duct = read_machine_data()
     data_dict = read_ECG(draw_pictures=False)
     start_time = time.perf_counter()
-    config = "ECG-domain-knowledge & handed demo-knowledge"
+    config = "ECG-domain-knowledge & without demo"
     # with rerieval:
     # 首先，准备好document_store并写入:
     # 得到指定文件夹下所有文件的路径
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     
     ans = []
     with open("output_details-ECG.log", "a") as f:
-        for i in range(1, 10):
+        for i in range(1, 51):
             # 建立一个rag的pipeline，使用hybrid的retrieval方法进行检索
             # first, 定义components:
             text_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL_LOCAL, device=ComponentDevice.from_str(device))
@@ -95,11 +95,11 @@ if __name__ == "__main__":
             # seconde: 创建pipeline:
             rag_pipeline = Pipeline()
             # 1. for domain-knowledge:
-            rag_pipeline.add_component("text_embedder_domain", text_embedder)
-            rag_pipeline.add_component("embedding_retriever_domain", embedding_retriever_domain)
-            rag_pipeline.add_component("keyword_retriever_domain", keyword_retriever_domain)
-            rag_pipeline.add_component("document_joiner_domain", document_joiner_domain)
-            rag_pipeline.add_component("ranker_domain", ranker_domain)
+            # rag_pipeline.add_component("text_embedder_domain", text_embedder)
+            # rag_pipeline.add_component("embedding_retriever_domain", embedding_retriever_domain)
+            # rag_pipeline.add_component("keyword_retriever_domain", keyword_retriever_domain)
+            # rag_pipeline.add_component("document_joiner_domain", document_joiner_domain)
+            # rag_pipeline.add_component("ranker_domain", ranker_domain)
             # 2. for demo-knowledge:
             # 2.1 for ground-truth demo knowledge:
             # rag_pipeline.add_component("grd_demo_embedder", grd_demo_embedder)
@@ -116,10 +116,10 @@ if __name__ == "__main__":
             
             # third: 将components连接起来
             # 1. for domain-knowledge:
-            rag_pipeline.connect("text_embedder_domain", "embedding_retriever_domain")
-            rag_pipeline.connect("embedding_retriever_domain", "document_joiner_domain")
-            rag_pipeline.connect("keyword_retriever_domain", "document_joiner_domain")
-            rag_pipeline.connect("document_joiner_domain", "ranker_domain")
+            # rag_pipeline.connect("text_embedder_domain", "embedding_retriever_domain")
+            # rag_pipeline.connect("embedding_retriever_domain", "document_joiner_domain")
+            # rag_pipeline.connect("keyword_retriever_domain", "document_joiner_domain")
+            # rag_pipeline.connect("document_joiner_domain", "ranker_domain")
             # # 2. for demo-knowledge:
             # # 2.1. for ground-truth demo knowledge:
             # rag_pipeline.connect("grd_demo_embedder", "grd_embedding_retriever_demo")
@@ -134,7 +134,7 @@ if __name__ == "__main__":
             # rag_pipeline.draw("retriver_pipeline2.png")
             # print("draw1 done")
             query = """Is the ECG heatbeat signal normal or abnormal?"""
-            content4retrieval_domain = gen_content4retrive_domain(data_des)
+            # content4retrieval_domain = gen_content4retrive_domain(data_des)
         #     content4retrieval_grd_demo = None
             # content4retrieval_con_demo = None
             # retrieved = rag_pipeline.run(
@@ -188,7 +188,7 @@ if __name__ == "__main__":
             # pretty_print_res_of_ranker(retrieved["con_ranker_demo"])
             # assert(0)
             rag_pipeline.add_component("prompt_builder", prompt_builder)
-            rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
+            # rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
             # rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
             # rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
             # 打印看看喂给llm的prompt长什么样子
@@ -251,9 +251,9 @@ if __name__ == "__main__":
             # rag_pipeline.draw("rag_pipeline.png")
             result = rag_pipeline.run(
                 {
-                    "text_embedder_domain": {"text": content4retrieval_domain},
-                    "keyword_retriever_domain": {"query": content4retrieval_domain},
-                    "ranker_domain": {"query": content4retrieval_domain, "top_k":5},
+                    # "text_embedder_domain": {"text": content4retrieval_domain},
+                    # "keyword_retriever_domain": {"query": content4retrieval_domain},
+                    # "ranker_domain": {"query": content4retrieval_domain, "top_k":5},
                     # "grd_demo_embedder": {"text": content4retrieval_grd_demo},
                     # "con_demo_embedder": {"text": content4retrieval_con_demo},
                     # "grd_embedding_retriever_demo": {
