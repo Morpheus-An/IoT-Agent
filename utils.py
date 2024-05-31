@@ -1,4 +1,11 @@
-from imports import * 
+from imports import *
+from dataset import *
+from collections import Counter
+import matplotlib.pyplot as plt
+import numpy as np
+import pywt
+import re
+import random
 
 def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
 
@@ -23,9 +30,9 @@ def create_indexing_pipeline(document_store, metadata_fields_to_embed=None):
 
     return indexing_pipeline
 
-def prepare_and_embed_documents(document_store, source_paths: list[str], metadata_fields_to_embed=None, meta_data: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]=None, splitter_kwards: dict=None, draw: str=None, device: str="cuda:0"):
+def prepare_and_embed_documents(document_store, source_paths: List[str], metadata_fields_to_embed=None, meta_data: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]=None, splitter_kwards: dict=None, draw: str=None, device: str="cuda:0"):
     """将指定路径下的领域知识文档emebedding成向量库（支持pdf,markdown,txt格式）"""
-    if type(meta_data) == list: 
+    if type(meta_data) == list:
         assert len(meta_data) == len(source_paths)
 
     file_type_router = FileTypeRouter(mime_types=["text/plain", "application/pdf", "text/markdown"])
@@ -38,8 +45,8 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
         document_splitter = DocumentSplitter(split_by="word", split_length=150, split_overlap=50)
     else:
         document_splitter = DocumentSplitter(**splitter_kwards)
-    
-    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device)) 
+
+    document_embedder = SentenceTransformersDocumentEmbedder(model=EMBEDDER_MODEL, meta_fields_to_embed=metadata_fields_to_embed, device=ComponentDevice.from_str(device))
 
     document_writer = DocumentWriter(document_store, policy=DuplicatePolicy.OVERWRITE)
 
@@ -75,7 +82,7 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
                 "meta": meta_data
             },
             "pdf_converter": {
-                "meta": meta_data 
+                "meta": meta_data
             },
             "markdown_converter": {
                 "meta": meta_data
@@ -84,77 +91,67 @@ def prepare_and_embed_documents(document_store, source_paths: list[str], metadat
     )
     return document_store
 
-def gen_prompt_template_with_rag(data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0):
-    acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
-    acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
-    acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
-    gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i][0]
-    gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i][1]
-    gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2] 
-    acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-    acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-    acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-    gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-    gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-    gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
-    data_des = f"""1. Triaxial acceleration signal: 
-X-axis: {acc_x_str} 
-Y-axis: {acc_y_str} 
-Z-axis: {acc_z_str} 
-X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {gyr_x_str} 
-Y-axis: {gyr_y_str} 
-Z-axis: {gyr_z_str} 
-X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
-    
+def gen_prompt_template_with_rag(data_dict, K, i: int=0):
+    rssi = data_dict['val_rssi'][i,:]
+    len_base = len(data_dict['database_rssi'])
+    similarity = np.zeros(len_base)
+    for j in range(0, len_base):
+        similarity[j] = compute_similarity(rssi, data_dict['database_rssi'][j])
+    idx_similarity = np.argsort(similarity, axis=-1, kind='quicksort', order=None)[::-1]
+    similarity_ordered = similarity[idx_similarity]
+    neighbor_position = data_dict['database_position'][idx_similarity[:K], :]
+    neighbor_similarity = similarity[idx_similarity[:K]]
+
+    data_des = f"""
+    The rssi sample: {rssi}
+    Based on the neighbor searching tools, the top-{K} position of the neighbors are: {neighbor_position},
+            there corresponding similarities are : {neighbor_similarity}.
+    """
+
     prompt = f"""{Role_Definition()}
-
-EXPERT:
-1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
-3. Other domain knowledge:
-"""
+    EXPERT:
+    1. RSSI data: 
+    The structure of rssi data is {rssi.shape}, consisting of measurements from six different locations. The intensity of the signal can be influenced by the location of human.
+    2. The rssi database used for WKNN consists of position coordinates and corresponding rssi values for known locations, where the positions and the indices of the RSSI data correspond one-to-one.
+    3. K={K}, represents the number of nearest neighbors considered for estimating the target position.
+    4. Other domain knowledge:
+    """
     prompt += """
-{% for domain_doc in documents_domain %}
+    {% for domain_doc in documents_domain %}
     {{ domain_doc.content }}
-{% endfor %}
+    {% endfor %}
 
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.
+    You need to comprehensively analyze the rssi data and implement the WKNN algorithm to estimate the position of given rssi.
 
-EXAMPLE1:
-{% for d in grd_demo %}{{ d.content }}{% endfor %}
+    EXAMPLE:
+    {% for d in demo %}{{ d.content }}{% endfor %}
 
-EXAMPLE2:
-{% for d in con_demo %}{{ d.content }}{% endfor %}
-
-QUESTION: {{ query }}
-"""
+    QUESTION: {{ query }}
+    """
     prompt += f"""
-{ground_ans}
-{contract_ans}
-Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice.
-​Please think step by step, you should analysis first and then give your answer.
-​
-THE GIVEN DATA: 
-{data_des}
-ANALYSIS:
-ANSWER:""" 
+    THE GIVEN DATA: 
+    {data_des}
+    Before answering your question, you must refer to the provided knowledge and the previous examples to help you make a clear choice.
+    Please analyze the data and conduct the algorithm step by step, and then provide your final answer based on your analysis: "What is the estimated location?" The answer need to be the form of "[%d, %d]"
+    ANALYSIS:
+    ANSWER:
+    """
     return prompt, data_des
+
+def compute_similarity(point_query, point_support):
+    rssi_err = point_query - point_support
+    abs_err = np.linalg.norm(rssi_err)
+
+    abs_err += 1e-4 if abs_err == 0 else 0
+    similarity = 1 / abs_err
+    return similarity
 
 #  demo_path, device, splitter_kwargs_domain = {}
 def generate_with_rag(
-        ground_ans,
-        contrast_ans,
         KB_path,
         data_dict,
-        demo_dir_path = "/home/ant/RAG/IMU_knowledge/demo-knowledge",
+        K,
+        demo_dir_path = "demo-knowledge/demo-knowledge",
         splitter_kwargs_domain = {
             "split_by": "sentence",
             "split_length": 2,
@@ -163,21 +160,24 @@ def generate_with_rag(
             "split_by": "passage",
             "split_length": 1,
         },
-        num_samples = 50,
+        num_samples = 20,
         use_my_key = False,
-        device="cuda:0"
+        device="cuda:0",
+
 ):
+
     Demo_paths = write_demo_knowledge(
         demo_dir_path,
         data_dict,
+        K
     )
     meta_data = [
         {
-            "label": file_path.split('/')[-1][len("demo-knowledge"):-len("_i.txt")]
+            "label": file_path.split('/')[-1][len("demo-knowledge_"):-len("_i.txt")]
         }
         for file_path in Demo_paths
     ]
-    print(meta_data)
+    # print(meta_data)
     document_store_domain = InMemoryDocumentStore()
     embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_path, draw=None, device=device, splitter_kwards=splitter_kwargs_domain)
 
@@ -187,30 +187,25 @@ def generate_with_rag(
     ans = []
     for i in range(num_samples):
         text_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
-        grd_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device)) 
-        con_demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
+        demo_embedder = SentenceTransformersTextEmbedder(model=EMBEDDER_MODEL, device=ComponentDevice.from_str(device))
 
         embedding_retriever_domain = InMemoryEmbeddingRetriever(embedded_document_store_KB)
-        grd_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
-        con_embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
+        embedding_retriever_demo = InMemoryEmbeddingRetriever(embedded_document_store_DM)
 
         keyword_retriever_domain = InMemoryBM25Retriever(embedded_document_store_KB)
-        grd_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
-        con_keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
+        keyword_retriever_demo = InMemoryBM25Retriever(embedded_document_store_DM)
 
         document_joiner_domain = DocumentJoiner()
-        grd_document_joiner_demo = DocumentJoiner()
-        con_document_joiner_demo = DocumentJoiner()
+        document_joiner_demo = DocumentJoiner()
 
         ranker_domain = TransformersSimilarityRanker(model=RANKER_MODEL)
-        grd_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
-        con_ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
+        ranker_demo = TransformersSimilarityRanker(model=RANKER_MODEL)
 
-        template, data_des = gen_prompt_template_with_rag(data_dict, ground_ans, contrast_ans, i)
+        template, data_des = gen_prompt_template_with_rag(data_dict, K, i)
         prompt_builder = PromptBuilder(template=template)
 
         set_openAI_key_and_base(use_my_key)
-        generator = OpenAIGenerator(model=MODEL["gpt3.5"], api_base_url=os.environ["OPENAI_BASE_URL"] if use_my_key else None)
+        generator = OpenAIGenerator(model=MODEL["gpt4"], api_base_url=os.environ["OPENAI_BASE_URL"] if use_my_key else None)
 
         rag_pipeline = Pipeline()
         # 1. for domain-knowledge:
@@ -220,17 +215,11 @@ def generate_with_rag(
         rag_pipeline.add_component("document_joiner_domain", document_joiner_domain)
         rag_pipeline.add_component("ranker_domain", ranker_domain)
         # 2.1 for grd-demo knowledge:
-        rag_pipeline.add_component("grd_demo_embedder", grd_demo_embedder)
-        rag_pipeline.add_component("grd_embedding_retriever_demo", grd_embedding_retriever_demo)
-        rag_pipeline.add_component("grd_keyword_retriever_demo", grd_keyword_retriever_demo)
-        rag_pipeline.add_component("grd_document_joiner_demo", grd_document_joiner_demo)
-        rag_pipeline.add_component("grd_ranker_demo", grd_ranker_demo)
-        # 2.2 for con-demo knowledge:
-        rag_pipeline.add_component("con_demo_embedder", con_demo_embedder)
-        rag_pipeline.add_component("con_embedding_retriever_demo", con_embedding_retriever_demo)
-        rag_pipeline.add_component("con_keyword_retriever_demo", con_keyword_retriever_demo)
-        rag_pipeline.add_component("con_document_joiner_demo", con_document_joiner_demo)
-        rag_pipeline.add_component("con_ranker_demo", con_ranker_demo)
+        rag_pipeline.add_component("demo_embedder", demo_embedder)
+        rag_pipeline.add_component("embedding_retriever_demo", embedding_retriever_demo)
+        rag_pipeline.add_component("keyword_retriever_demo", keyword_retriever_demo)
+        rag_pipeline.add_component("document_joiner_demo", document_joiner_demo)
+        rag_pipeline.add_component("ranker_demo", ranker_demo)
 
         # 连接各个components
         # 1. for domain-knowledge:
@@ -240,30 +229,24 @@ def generate_with_rag(
         rag_pipeline.connect("document_joiner_domain", "ranker_domain")
         # # 2. for demo-knowledge:
         # # 2.1. for ground-truth demo knowledge:
-        rag_pipeline.connect("grd_demo_embedder", "grd_embedding_retriever_demo")
-        rag_pipeline.connect("grd_embedding_retriever_demo", "grd_document_joiner_demo")
-        rag_pipeline.connect("grd_keyword_retriever_demo", "grd_document_joiner_demo")
-        rag_pipeline.connect("grd_document_joiner_demo", "grd_ranker_demo")
-        # # 2.2. for contrast demo knowledge:
-        rag_pipeline.connect("con_demo_embedder", "con_embedding_retriever_demo")
-        rag_pipeline.connect("con_embedding_retriever_demo", "con_document_joiner_demo")
-        rag_pipeline.connect("con_keyword_retriever_demo", "con_document_joiner_demo")
-        rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
-        query = """Based on the given data, choose the activity that the subject is most likely to be performing from the following two options:"""
-        content4retrieval_domain = """1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+        rag_pipeline.connect("demo_embedder", "embedding_retriever_demo")
+        rag_pipeline.connect("embedding_retriever_demo", "document_joiner_demo")
+        rag_pipeline.connect("keyword_retriever_demo", "document_joiner_demo")
+        rag_pipeline.connect("document_joiner_demo", "ranker_demo")
 
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING."""
-        content4retrieval_grd_demo = data_des 
-        content4retrieval_con_demo = f"ANSWER: {contrast_ans}"
+        query = """Based on the given data and the provided knowledge, estimate the x-y position:"""
+        content4retrieval_domain = """1. RSSI data: 
+    The structure of rssi data is {rssi.shape}, consisting of measurements from six different locations. The intensity of the signal can be influenced by the location of human.
+    2. The rssi database used for WKNN consists of position coordinates and corresponding rssi values for known locations, where the positions and the indices of the RSSI data correspond one-to-one.
+    3. K={K}, represents the number of nearest neighbors considered for estimating the target position.
+    You need to comprehensively analyze the rssi data and implement the WKNN algorithm to estimate the position of given rssi.
+"""
+        content4retrieval_demo = data_des
 
         rag_pipeline.add_component("prompt_builder", prompt_builder)
         rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
-        rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
-        rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
-
+        rag_pipeline.connect("ranker_demo", "prompt_builder.demo")
+        #
         rag_pipeline.add_component("llm", generator)
         rag_pipeline.connect("prompt_builder", "llm")
 
@@ -272,52 +255,32 @@ You need to comprehensively analyze the acceleration and angular velocity data o
                 "text_embedder_domain": {"text": content4retrieval_domain},
                 "keyword_retriever_domain": {"query": content4retrieval_domain},
                 "ranker_domain": {"query": content4retrieval_domain},
-                "grd_demo_embedder": {"text": content4retrieval_grd_demo},
-                "con_demo_embedder": {"text": content4retrieval_con_demo},
-                "grd_embedding_retriever_demo": {
+                "demo_embedder": {"text": content4retrieval_demo},
+                "embedding_retriever_demo": {
                     "filters": {
                         "field": "meta.label",
                         "operator": "in",
-                        "value": [ground_ans],
+                        "value": ['position'],
                     },
                     "top_k": 1,
                 },
-                "con_embedding_retriever_demo": {
-                    "filters": {
-                        "field": "meta.label",
-                        "operator": "in",
-                        "value": [contrast_ans],
-                    }
-                },
-                "grd_keyword_retriever_demo": {
-                    "query": content4retrieval_grd_demo,
+                "keyword_retriever_demo": {
+                    "query": content4retrieval_demo,
                     "top_k": 1,
                     "filters": {
                         "field": "meta.label",
                         "operator": "in",
-                        "value": [ground_ans],
+                        "value": ['position'],
                     },
                 },
-                "con_keyword_retriever_demo": {
-                    "query": content4retrieval_con_demo,
-                    "top_k": 1,
-                    "filters": {
-                        "field": "meta.label",
-                        "operator": "in",
-                        "value": [contrast_ans],
-                    },
-                },
-                "grd_ranker_demo": {
-                    "query": content4retrieval_grd_demo,
+                "ranker_demo": {
+                    "query": content4retrieval_demo,
                     "top_k": 1,
                 },
-                "con_ranker_demo": {
-                    "query": content4retrieval_con_demo,
-                    "top_k": 1,
-                },             
                 "prompt_builder": {"query": query},
             }
         )
+
         an = result["llm"]["replies"][0]
         print(an)
         ans.append(an)
@@ -332,44 +295,49 @@ def pretty_print_res_of_ranker(res):
         print(doc.content)
         print("\n", "\n")
 
+
+def select_random_numbers(start, end, count):
+    random.seed(42)  # 设置种子以确保每次生成的随机数相同
+    return random.sample(range(start, end + 1), count)
+
 # 写入demo-knowledge：
-def write_demo_knowledge(tgt_dir_path: str, data_dict, sample_num: int=5):
+def write_demo_knowledge(tgt_dir_path: str, data_dict, K, sample_num: int=5):
     file_paths = []
-    # 为了不与test使用的demo重复，选用data_dict中的后面的数据作为范例知识
-    for label_id in label2ids.values():
-        for i in range(1, sample_num+1):
-            acc_x = data_dict[label_id]["total_acc"][-i][0]
-            acc_y = data_dict[label_id]["total_acc"][-i][1]
-            acc_z = data_dict[label_id]["total_acc"][-i][2]
-            gyr_x = data_dict[label_id]["body_gyro"][-i][0]
-            gyr_y = data_dict[label_id]["body_gyro"][-i][1]
-            gyr_z = data_dict[label_id]["body_gyro"][-i][2]
-            acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-            acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-            acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-            gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-            gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-            gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
-            written_content = f"""1. Triaxial acceleration signal:
-X-axis: {acc_x_str}
-Y-axis: {acc_y_str}
-Z-axis: {acc_z_str}
-X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)}
-Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)}
-Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)}
-2. Triaxial angular velocity signal:
-X-axis: {gyr_x_str}
-Y-axis: {gyr_y_str}
-Z-axis: {gyr_z_str}
-X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)}
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)}
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}
-ANSWER: {id2labels[label_id]}"""
-            file_path = tgt_dir_path + f"{id2labels[label_id]}_{i}.txt"
-            file_paths.append(file_path)
-            with open(file_path, 'w') as f:
-                f.write(written_content)
-                f.write("\n\n")
+    random.seed(42)
+    sample_index = select_random_numbers(0, len(data_dict['val_rssi']), sample_num)
+
+    for m in range(len(sample_index)):
+        i = sample_index[m]
+        rssi = data_dict['test_rssi'][i, :]
+
+        len_base = len(data_dict['database_rssi'])
+        similarity = np.zeros(len_base)
+        for j in range(0, len_base):
+            similarity[i] = compute_similarity(rssi, data_dict['database_rssi'][i])
+        idx_similarity = np.argsort(similarity, axis=-1, kind='quicksort', order=None)[::-1]
+        similarity_ordered = similarity[idx_similarity]
+        neighbor_position = data_dict['database_position'][idx_similarity[:K], :]
+        neighbor_similarity = similarity[idx_similarity[:K]]
+        label = data_dict['test_position'][i, :]
+
+        neighbor_weight = neighbor_similarity / sum(neighbor_similarity)
+        estimate_position = np.average(neighbor_position, weights=neighbor_weight, axis=0)
+        written_content = f"""
+        The rssi sample: {rssi}
+        Use WKNN to estimate the position with K = {K}.
+        Based on the neighbor searching tools, the top-{K} position of the neighbors are: {neighbor_position},
+        there corresponding similarities are : {neighbor_similarity}.
+        Then, for these {K} nearest neighbors' location information, perform a weighted averaging calculation based on their similarity. 
+        sum_similarity = sum({neighbor_similarity}) = {sum(similarity)}
+        The weight of these neighbors are: {neighbor_weight} = {neighbor_similarity} / sum_similarity
+        Estimate_position = Sum({neighbor_weight} * {neighbor_position})
+        The final prediction is: {estimate_position}.
+        """
+        file_path = tgt_dir_path + f"_position_{i}.txt"
+        file_paths.append(file_path)
+        with open(file_path, 'w') as f:
+            f.write(written_content)
+            f.write("\n\n")
     return file_paths
 
 
@@ -389,13 +357,12 @@ def wikipedia_indexing(some_titles = ["Inertial measurement unit", ]):
 def Role_Definition(Task_Description=None, Preprocessed_Data=None, model="chatgpt"):
     """input: Task_Descriping(str), Preprocessed_Data(str), model(str)
     output: role_definition(str)"""
-    return """You are an assistant sports scientist, specialized in analyzing sensor data to understand human movement and activity patterns. Your expertise in interpreting accelerometer sensor data makes you an expert in human activity recognition tasks. Your role is to assist users in determining the status of human activities by analyzing accelerometer data.
-Your training enables you to interpret and analyze the data collected by accelerometer sensors, thereby identifying different motion patterns. You understand the acceleration patterns generated by the human body in various activities and can determine the current activity status based on changes in the data.
-Your professional knowledge includes, but is not limited to:
-1. Human Biomechanics: You understand the acceleration patterns generated by the human body in different activity modes and their relationship with specific activities.
-2. Data Analysis and Pattern Recognition: You can utilize machine learning and pattern recognition techniques to analyze and process sensor data, accurately identifying human activities.
-3. Exercise Physiology: You understand the physiological changes that occur in the human body during exercise, which can assist in activity recognition.
-As an assistant sports scientist, your task is to classify human activities based on the acceleration data you receive, helping users better understand and monitor their exercise activities."""
+    return """You are tasked with estimating the position using the WKNN (Weighted k-Nearest Neighbors) algorithm, leveraging Wi-Fi Received Signal Strength Indicator (RSSI) data for indoor positioning. 
+    Your expertise lies in analyzing Wi-Fi RSSI data to accurately determine the location of individuals within indoor spaces. You understand the operation of RSSI signals.
+    Your professional knowledge includes, but is not limited to:
+    Algorithm Implementation: Develop and implement the WKNN algorithm to estimate the location of individuals based on Wi-Fi RSSI data.
+    Signal Processing: You understand how to preprocess and analyze Wi-Fi rssi data, extracting relevant features for localization.
+    As a signal analysis scientist, your task is to estimate the location based on the Wi-Fi CSI data you receive, helping users better understand and manage indoor space utilization."""
 
 def prompt_template_generation(Task_Description, Preprocessed_Data):
     """template中的变量为：domain_ks, demonstrations, question"""
@@ -410,47 +377,11 @@ def prompt_template_generation(Task_Description, Preprocessed_Data):
         {{ demonstration.content }}
     {% endfor %}"""
     question = """Question: {{ question }}\nAnswer:"""
-    prompt_template = base_template + domain_knowledge + demonstrations + question 
+    prompt_template = base_template + domain_knowledge + demonstrations + question
     return prompt_template
 
-def read_raw_data_and_preprocess(sample_step: int=5, raw_data_dir: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/", y_train_path: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt"):
-    """return :
-    data_dict: dict[dict[list, list, list]]
 
-    >>> data_dict[label_id]["body_acc"] = [[body_acc_x, body_acc_y, body_acc_z], ...]
-    """
-    signal_data_paths = {
-        "body_acc_x_train_path" : raw_data_dir + "body_acc_x_train.txt",
-        "body_acc_y_train_path" :  raw_data_dir + "body_acc_y_train.txt",
-        "body_acc_z_train_path" :  raw_data_dir + "body_acc_z_train.txt",
-        "body_gyro_x_train_path" :  raw_data_dir + "body_gyro_x_train.txt",
-        "body_gyro_y_train_path" :  raw_data_dir + "body_gyro_y_train.txt",
-        "body_gyro_z_train_path" :  raw_data_dir +  "body_gyro_z_train.txt",
-        "total_acc_x_train_path" :  raw_data_dir + "total_acc_x_train.txt",
-        "total_acc_y_train_path" :  raw_data_dir + "total_acc_y_train.txt", 
-        "total_acc_z_train_path" :  raw_data_dir + "total_acc_z_train.txt",
-    }
-    signal_data = {}
-    for signal_data_path in signal_data_paths.keys():
-        with open(signal_data_paths[signal_data_path], "r") as f:
-            signal_data[signal_data_path[:-5]] = np.array([list(map(float, line.split())) for line in f])
-    with open(y_train_path, "r") as f:
-        y_train = np.array([int(line) for line in f])
-    print(Counter(y_train))
-    data_dict: dict[dict[list, list, list]] = {}
-    # 其中有6个key，分别代表六个活动类别，每个key中有三个list，分别代表三个传感器的数据
 
-    for label_id in label2ids.values():
-        data_dict[label_id] = {"body_acc": [], "body_gyro": [], "total_acc": []}
-
-    for i in range(len(y_train)):
-        data_dict[y_train[i]]["body_acc"].append([np.around(signal_data["body_acc_x_train"][i][::sample_step], 3), np.around(signal_data["body_acc_y_train"][i][::sample_step], 3), np.around(signal_data["body_acc_z_train"][i][::sample_step], 3)])
-
-        data_dict[y_train[i]]["body_gyro"].append([np.around(signal_data["body_gyro_x_train"][i][::sample_step], 3), np.around(signal_data["body_gyro_y_train"][i][::sample_step], 3), np.around(signal_data["body_gyro_z_train"][i][::sample_step], 3)])
-
-        data_dict[y_train[i]]["total_acc"].append([np.around(signal_data["total_acc_x_train"][i][::sample_step], 3), np.around(signal_data["total_acc_y_train"][i][::sample_step], 3), np.around(signal_data["total_acc_z_train"][i][::sample_step], 3)])
-    return data_dict
-        
 def set_openAI_key_and_base(set_base=True):
     if set_base:
         os.environ["OPENAI_API_KEY"] = MY_API
@@ -470,164 +401,65 @@ def get_openAI_model(api_base: bool=True,
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     return client
 
-def filter_data_dict_with_var(data_dict, thred: float=0.5, filter_by: str="body_acc", print_log: bool=True):
-    """
-    param:
-    过滤掉方差百分数大于/小于thred的数据
-    return:
-    filtered_data_dict: dict[dict[list, list, list]]
-    """
-    var4cls = {
-        label_id: {
-            "x": [], 
-            "y": [], 
-            "z": []
-        } for label_id in label2ids.values()
-    }
-    for label_id in label2ids.values():
-        for i in range(len(data_dict[label_id][filter_by])):
-            var4cls[label_id]["x"].append(np.var(data_dict[label_id][filter_by][i][0]))
-            var4cls[label_id]["y"].append(np.var(data_dict[label_id][filter_by][i][1]))
-            var4cls[label_id]["z"].append(np.var(data_dict[label_id][filter_by][i][2]))
-    var4cls_sorted = {
-        label_id: {
-            "x": [], 
-            "y": [], 
-            "z": []
-        } for label_id in label2ids.values()
-    }
-    for label_id in label2ids.values():
-        var4cls_sorted[label_id]["x"] = sorted(var4cls[label_id]["x"])
-        var4cls_sorted[label_id]["y"] = sorted(var4cls[label_id]["y"])
-        var4cls_sorted[label_id]["z"] = sorted(var4cls[label_id]["z"])
-        if print_log:
-            print(f"{id2labels[label_id]} {filter_by}_x var {thred*100}% data is below {var4cls_sorted[label_id]['x'][int(len(var4cls_sorted[label_id]['x'])*thred)]}")
-            print(f"{id2labels[label_id]} {filter_by}_y var {thred*100}% data is below {var4cls_sorted[label_id]['y'][int(len(var4cls_sorted[label_id]['y'])*thred)]}")
-            print(f"{id2labels[label_id]} {filter_by}_z var {thred*100}% data is below {var4cls_sorted[label_id]['z'][int(len(var4cls_sorted[label_id]['z'])*thred)]}")
-    # 过滤掉方差百分数大于/小于thred的数据 
-    data_dict_filtered = {}
-    for label_id in label2ids.values():
-        data_dict_filtered[label_id] = {"body_acc": [], "body_gyro": [], "total_acc": []}
-        for i in range(len(data_dict[label_id][filter_by])):
-            if label_id >= 4:
-                if np.var(data_dict[label_id][filter_by][i][0]) < var4cls_sorted[label_id]["x"][int(len(var4cls_sorted[label_id]["x"])*thred)] and np.var(data_dict[label_id][filter_by][i][1]) < var4cls_sorted[label_id]["y"][int(len(var4cls_sorted[label_id]["y"])*thred)] and np.var(data_dict[label_id][filter_by][i][2]) < var4cls_sorted[label_id]["z"][int(len(var4cls_sorted[label_id]["z"])*thred)]:
-                    data_dict_filtered[label_id]["body_acc"].append(data_dict[label_id]["body_acc"][i])
-                    data_dict_filtered[label_id]["body_gyro"].append(data_dict[label_id]["body_gyro"][i])
-                    data_dict_filtered[label_id]["total_acc"].append(data_dict[label_id]["total_acc"][i])
-            else:
-                if np.var(data_dict[label_id][filter_by][i][0]) > var4cls_sorted[label_id]["x"][int(len(var4cls_sorted[label_id]["x"])*thred)] and np.var(data_dict[label_id][filter_by][i][1]) > var4cls_sorted[label_id]["y"][int(len(var4cls_sorted[label_id]["y"])*thred)] and np.var(data_dict[label_id][filter_by][i][2]) > var4cls_sorted[label_id]["z"][int(len(var4cls_sorted[label_id]["z"])*thred)]:
-                    data_dict_filtered[label_id]["body_acc"].append(data_dict[label_id]["body_acc"][i])
-                    data_dict_filtered[label_id]["body_gyro"].append(data_dict[label_id]["body_gyro"][i])
-                    data_dict_filtered[label_id]["total_acc"].append(data_dict[label_id]["total_acc"][i])
-        if print_log:
-            print(f"{id2labels[label_id]} filtered data shape: {len(data_dict_filtered[label_id][filter_by])}")
-    return data_dict_filtered
 
 
-def gen_prompt_template_without_rag(data_dict, ground_ans: str="WALKING", contrast_ans: str="STANDING", i: int=0):
-    acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i][0]
-    acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i][1]
-    acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i][2]
-    gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i][0]
-    gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i][1]
-    gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i][2] 
-    demo_grd_acc_x = data_dict[label2ids[ground_ans]]["total_acc"][i+1][0]
-    demo_grd_acc_y = data_dict[label2ids[ground_ans]]["total_acc"][i+1][1]
-    demo_grd_acc_z = data_dict[label2ids[ground_ans]]["total_acc"][i+1][2]
-    demo_grd_gyr_x = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][0]
-    demo_grd_gyr_y = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][1]
-    demo_grd_gyr_z = data_dict[label2ids[ground_ans]]["body_gyro"][i+1][2]
-    demo_con_acc_x = data_dict[label2ids[contrast_ans]]["total_acc"][i][0]
-    demo_con_acc_y = data_dict[label2ids[contrast_ans]]["total_acc"][i][1]
-    demo_con_acc_z = data_dict[label2ids[contrast_ans]]["total_acc"][i][2]
-    demo_con_gyr_x = data_dict[label2ids[contrast_ans]]["body_gyro"][i][0]
-    demo_con_gyr_y = data_dict[label2ids[contrast_ans]]["body_gyro"][i][1]
-    demo_con_gyr_z = data_dict[label2ids[contrast_ans]]["body_gyro"][i][2]
-    acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-    acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-    acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-    gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-    gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-    gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
-    demo_grd_acc_x_str = ", ".join([f"{x}g" for x in demo_grd_acc_x])
-    demo_grd_acc_y_str = ", ".join([f"{x}g" for x in demo_grd_acc_y])
-    demo_grd_acc_z_str = ", ".join([f"{x}g" for x in demo_grd_acc_z])
-    demo_grd_gyr_x_str = ", ".join([f"{x}rad/s" for x in demo_grd_gyr_x])
-    demo_grd_gyr_y_str = ", ".join([f"{x}rad/s" for x in demo_grd_gyr_y])
-    demo_grd_gyr_z_str = ", ".join([f"{x}rad/s" for x in demo_grd_gyr_z])
-    demo_con_acc_x_str = ", ".join([f"{x}g" for x in demo_con_acc_x])
-    demo_con_acc_y_str = ", ".join([f"{x}g" for x in demo_con_acc_y])
-    demo_con_acc_z_str = ", ".join([f"{x}g" for x in demo_con_acc_z])
-    demo_con_gyr_x_str = ", ".join([f"{x}rad/s" for x in demo_con_gyr_x])
-    demo_con_gyr_y_str = ", ".join([f"{x}rad/s" for x in demo_con_gyr_y])
-    demo_con_gyr_z_str = ", ".join([f"{x}rad/s" for x in demo_con_gyr_z])
+def gen_prompt_template_without_rag(data_dict, K, i: int=0):
+    rssi = data_dict['val_rssi'][i, :]
+    len_base = len(data_dict['database_rssi'])
+    similarity = np.zeros(len_base)
+    for j in range(0, len_base):
+        similarity[j] = compute_similarity(rssi, data_dict['database_rssi'][j])
+    idx_similarity = np.argsort(similarity, axis=-1, kind='quicksort', order=None)[::-1]
+    similarity_ordered = similarity[idx_similarity]
+    neighbor_position = data_dict['database_position'][idx_similarity[:K], :]
+    neighbor_similarity = similarity[idx_similarity[:K]]
+
+    data_des = f"""
+        The rssi sample: {rssi}
+        Based on the neighbor searching tools, the top-{K} position of the neighbors are: {neighbor_position},
+                there corresponding similarities are : {neighbor_similarity}.
+        """
+
+    # prompt = f"""{Role_Definition()}
+    #     EXPERT:
+    #     1. RSSI data:
+    #     The structure of rssi data is {rssi.shape}, consisting of measurements from six different locations. The intensity of the signal can be influenced by the location of human.
+    #     2. The rssi database used for WKNN consists of position coordinates and corresponding rssi values for known locations, where the positions and the indices of the RSSI data correspond one-to-one.
+    #     3. K={K}, represents the number of nearest neighbors considered for estimating the target position.
+    #     4. It provides the guidance to estimate the location of a new rssi sample. So when conducting WKNN, it is necessary to calculate the similarity between the input sample and the samples in database.
+    #        The description of using WKNN (Weighted k-Nearest Neighbors) algorithm for RSSI localization: Initialization: When creating an instance of the WKNN class, you need to provide a database containing the known positions\' location information (database_position) and their corresponding RSSI information (database_rssi). Compute Similarity: For the RSSI information to be localized (input_rssi), the first step is to compute its similarity with the RSSI information of each position point in the database.
+    #             As all the information provided (including database, input rssi and WKNN algorithm), you can implement the algorithm by code to calculate it more correctly.
+    #                database_position = database_position self.database_rssi = database_rssi def compute_similarity(self, point_query, point_support): rssi_err = point_query - point_support abs_err = np.
+    #                     Select Nearest Neighbors: Based on the computed similarities, select the K data points from the database that are most similar to the RSSI information being localized. These K nearest neighbors\' location information will be used for the subsequent weighted averaging calculation.
+    #                         The dataset contains 6-dimension rssi collected by 6 APs and the corresponding 2D positions. It is important to note that the database containing several samples for each position as reference.
+    #                           import numpy as np ###you can implement the code with the given database_position and database_rssi class WKNN: def __init__(self, database_position, database_rssi): super(WKNN, self).__init__() self.
+    #                           Return Estimated Position: The ultimate goal of the WKNN algorithm is to estimate the position of the RSSI information being localized. The position obtained through the weighted averaging calculation is returned as the estimated position.
+    #                            num_best = K len_base = len(self.database_rssi) similarity = np.\n    \n     Weighted Averaging: For these K nearest neighbors\' location information, perform a weighted averaging calculation based on their similarity to the RSSI information being localized. Generally, data points with higher similarity are assigned higher weights to improve the accuracy of the estimated position.
+    #                             You need to comprehensively analyze the rssi data and implement the WKNN algorithm to estimate the position of given rssi.\n\n
+    #
+    #     """
     prompt = f"""{Role_Definition()}
+            EXPERT:
+            1. RSSI data: 
+            The structure of rssi data is {rssi.shape}, consisting of measurements from six different locations. The intensity of the signal can be influenced by the location of human.
+            2. The rssi database used for WKNN consists of position coordinates and corresponding rssi values for known locations, where the positions and the indices of the RSSI data correspond one-to-one.
+            3. K={K}, represents the number of nearest neighbors considered for estimating the target position.
+            """
+    prompt += """
 
-EXPERT: 
-1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s). 
-​
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING. 
-​
-EXAMPLE1: 
-1. Triaxial acceleration signal: 
-X-axis: {demo_grd_acc_x_str} 
-Y-axis: {demo_grd_acc_y_str} 
-Z-axis: {demo_grd_acc_z_str} 
-X-axis-mean={np.around(np.mean(demo_grd_acc_x), 3)}, X-axis-var={np.around(np.var(demo_grd_acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_grd_acc_y), 3)}, Y-axis-var={np.around(np.var(demo_grd_acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_grd_acc_z), 3)}, Z-axis-var={np.around(np.var(demo_grd_acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {demo_grd_gyr_x_str} 
-Y-axis: {demo_grd_gyr_y_str} 
-Z-axis: {demo_grd_gyr_z_str} 
-X-axis-mean={np.around(np.mean(demo_grd_gyr_x), 3)}, X-axis-var={np.around(np.var(demo_grd_gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_grd_gyr_y), 3)}, Y-axis-var={np.around(np.var(demo_grd_gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_grd_gyr_z), 3)}, Z-axis-var={np.around(np.var(demo_grd_gyr_z), 3)} 
-ANSWER: {ground_ans} 
-​
-EXAMPLE2: 
-1. Triaxial acceleration signal: 
-X-axis: {demo_con_acc_x_str} 
-Y-axis: {demo_con_acc_y_str} 
-Z-axis: {demo_con_acc_z_str} 
-X-axis-mean={np.around(np.mean(demo_con_acc_x), 3)}, X-axis-var={np.around(np.var(demo_con_acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_con_acc_y), 3)}, Y-axis-var={np.around(np.var(demo_con_acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_con_acc_z), 3)}, Z-axis-var={np.around(np.var(demo_con_acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {demo_con_gyr_x_str} 
-Y-axis: {demo_con_gyr_y_str} 
-Z-axis: {demo_con_gyr_z_str} 
-X-axis-mean={np.around(np.mean(demo_con_gyr_x), 3)}, X-axis-var={np.around(np.var(demo_con_gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(demo_con_gyr_y), 3)}, Y-axis-var={np.around(np.var(demo_con_gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(demo_con_gyr_z), 3)}, Z-axis-var={np.around(np.var(demo_con_gyr_z), 3)} 
-ANSWER: {contrast_ans} 
-​
-​
-QUESTION: Based on the given data, choose the activity that the subject is most likely to be performing from the following two options: 
-{ground_ans} 
-{contrast_ans} 
-Before answering your question, you must refer to the previous examples and compare the signal data, the mean data, and the var data in the examples with those in the question, in order to help you make a clear choice. 
-​
-​
-THE GIVEN DATA: 
-1. Triaxial acceleration signal: 
-X-axis: {acc_x_str} 
-Y-axis: {acc_y_str} 
-Z-axis: {acc_z_str} 
-X-axis-mean={np.around(np.mean(acc_x), 3)}, X-axis-var={np.around(np.var(acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(acc_y), 3)}, Y-axis-var={np.around(np.var(acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(acc_z), 3)}, Z-axis-var={np.around(np.var(acc_z), 3)} 
-2. Triaxial angular velocity signal: 
-X-axis: {gyr_x_str} 
-Y-axis: {gyr_y_str} 
-Z-axis: {gyr_z_str} 
-X-axis-mean={np.around(np.mean(gyr_x), 3)}, X-axis-var={np.around(np.var(gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}, Y-axis-var={np.around(np.var(gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}, Z-axis-var={np.around(np.var(gyr_z), 3)} 
-ANSWER:""" 
+        You need to comprehensively analyze the rssi data and implement the WKNN algorithm to estimate the position of given rssi.
+
+        QUESTION: {{ query }}
+        """
+    prompt += f"""
+        THE GIVEN DATA: 
+        {data_des}
+        Before answering your question, you must refer to the provided knowledge and the previous examples to help you make a clear choice.
+        Please analyze the data and conduct the algorithm step by step, and then provide your final answer based on your analysis: "What is the estimated location?" The answer need to be the form of "[%d, %d]"
+        ANALYSIS:
+        ANSWER:
+        """
+
     return prompt
 
 def eval_generated_ans(ans, grd, contrs):
@@ -659,3 +491,15 @@ def eval_generated_ans(ans, grd, contrs):
             print(f"{grd}count: {count_grd}, {contrs}count: {count_contrs}")
             print(f"\033[1;31m fault: {an} \033[0m", end="\n__\n")
     return correct / len(ans)
+
+
+
+def extract_coordinates(text):
+    matches = re.findall(r"\s*[\[\(]\s*(-?\d+(\.\d*)?),\s*(-?\d+(\.\d*)?)\s*[\]\)]", text)
+    if matches:
+        last_match = matches[-1]
+        x = float(last_match[0]) if '.' in last_match[0] else int(last_match[0])
+        y = float(last_match[2]) if '.' in last_match[2] else int(last_match[2])
+        return [x, y]
+    else:
+        return None
