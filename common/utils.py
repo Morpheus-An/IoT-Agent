@@ -1,8 +1,36 @@
+from math import e
 from imports import *
 from common.read_data import *
 from common.generate_prompt import *
 from common.model import *
 
+
+
+def task_dependent_info(args, i, data_dict, label_dict):
+    if args.task_type == "machine_detection":
+        grd = "Pos"
+        con = "Neg"
+        template, data_des = generate_prompt_template(
+            args,
+            data_dict,
+            label_dict,
+            "Cooler condition %",
+            i,
+            grd
+        ) # type: ignore
+        query = """Is the machine's cooling system functioning properly?"""
+    elif args.task_type == "imu_HAR":
+        if args.cls_num == 2:
+            con = "WALKING"
+            grd = "STANDING"
+            template, data_des = gen_prompt_template_with_rag_imu_2cls(args,label_dict, data_dict, grd, con, i) # type: ignore
+            query = """
+Based on the given data,choose the activity that the subject is most likely to be performing from the following two options:"""
+        else:
+            pass # TODO
+    
+
+    return grd, con, template, data_des, query
     
 def eval_by_gpt(ans, candidates, grd, con): 
     eval = []

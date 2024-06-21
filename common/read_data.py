@@ -135,7 +135,7 @@ def read_IoT_data(task_type, sample_step=100, cls_num=2):
     if task_type == "imu_HAR":
         if cls_num == 2:
             data_dict, lable_dict =  read_raw_data_and_preprocess()
-            data_dict = filter_data_dict_with_var(data_dict, thred=0.5, filter_by="body_acc", print_log=False)
+            data_dict = filter_data_dict_with_var(data_dict, lable_dict, thred=0.5, filter_by="body_acc", print_log=False)
             return data_dict, lable_dict
         else:
             pass
@@ -180,13 +180,14 @@ def read_multicls_data_and_preprocess(labels, sample_step: int=50, raw_data_dir:
     return data_dict
 
 
-def filter_data_dict_with_var(data_dict, thred: float=0.5, filter_by: str="body_acc", print_log: bool=True):
+def filter_data_dict_with_var(data_dict, label2ids,thred: float=0.5, filter_by: str="body_acc", print_log: bool=True):
     """
     param:
     过滤掉方差百分数大于/小于thred的数据
     return:
     filtered_data_dict: dict[dict[list, list, list]]
     """
+    id2labels = {v:k for k, v in label2ids.items()}
     var4cls = {
         label_id: {
             "x": [], 

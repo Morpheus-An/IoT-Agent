@@ -34,31 +34,10 @@ generate results are saved in {args.output_file_path}"""
     ans = []
     with open(args.output_file_path, "a") as f:
         for i in range(1, args.sample_num+1):
+            
 
-
-            #### 这一段目前是task_dependent的，需要根据具体的task来修改
-            if args.task_type == "machine_detection":
-                grd = "Pos"
-                con = "Neg"
-                # template, data_des = gen_prompt_tamplate_with_rag_machine(data_dict, label_dict, "Cooler condition %", i, grd)
-                template, data_des = generate_prompt_template(
-                    args,
-                    data_dict,
-                    label_dict,
-                    "Cooler condition %",
-                    i,
-                    grd
-                ) # type: ignore
-                query = """Is the machine's cooling system functioning properly?"""
-            elif args.task_type == "imu_HAR":
-                if args.cls_num == 2:
-                    grd = "WALKING"
-                    con = "STANDING"
-                    template, data_des = gen_prompt_template_with_rag(data_dict, grd, con, i) # type: ignore
-                    query = """
-Based on the given data,choose the activity that the subject is most likely to be performing from the following two options:"""
-
-            ####
+            ### 在下面的函数中根据不同的task编辑相关的信息
+            grd, con, template, data_des, query = task_dependent_info(args, i, data_dict, label_dict)
 
             prompt_builder = PromptBuilder(template=template)
             generator = ChatModel(args.model, args.device)
