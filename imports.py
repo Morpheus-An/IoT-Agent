@@ -36,8 +36,48 @@ EMBEDDER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--thenlper--gte-l
 RANKER_MODEL = "BAAI/bge-reranker-base"
 RANKER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--BAAI--bge-reranker-base/snapshots/580465186bcc87f862a9b2f9003d720af2377980"
 MODEL = {"gpt3.5": "gpt-3.5-turbo", "gpt4": "gpt-4-turbo-preview"}
+# hoices=["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"],
+content4retrieve_domain = {
+    "machine_detection": """
+The data set was experimentally obtained with a hydraulic test rig. This test rig consists of a primary working and a secondary cooling-filtration circuit which are connected via the oil tank [1], [2]. The system cyclically repeats constant load cycles (duration 60 seconds) and measures process values such as pressures, volume flows and temperatures while the condition of four hydraulic components (cooler, valve, pump and accumulator) is quantitatively varied.
+    
+Attributes are sensor data (all numeric and continuous) from measurements taken at the same point in time, respectively, of a hydraulic test rig's working cycle.
 
+Temepurature sensors (TS) measure the temperature of the oil at different points in the hydraulic system. The sensors are named TS1, TS2, TS3, and TS4. The temperature is measured in degrees Celsius.
+Efficiency factor sensors (SE) measure the efficiency of the cooler. The efficiency is calculated from the ratio of the actual cooling power to the ideal cooling power. The sensors are named SE. The efficiency factor is given in percentage.
+Cooling power sensors (CP) measure the cooling power in kilowatts. The sensors are named CP1 and CP2. The cooling power is measured in kilowatts.
 
+For each sensor, we collected 60 data points over a period of 60 seconds at a monitoring frequency of 1Hz (measuring sensor data once every second), forming a time series of length 60. We measured the following sequences using temperature sensors, Cooling power sensors, and Cooling efficiency sensors:
+
+1. **Temperature Change Sequence**: Reflects the machine's temperature variation over 60 seconds, in degrees Celsius. By analyzing this sequence, you can assess whether the cooling equipment is operating normally. Typically, when the cooling system is functioning well, the machine's temperature is relatively low and does not fluctuate too significantly. If the temperature consistently remains at a high degrees Celsius or fluctuates significantly, it may indicate an abnormal issue with the cooling equipment.
+
+2. **Cooling Power Change Sequence**: Reflects the variation in the cooling power of the machine's cooling equipment over 60 seconds, in kilowatts (KW). By analyzing this sequence, you can determine if the cooling equipment is operating normally. Generally, when the cooling system is functioning properly, the cooling power is relatively high and remains relatively stable throughout the period. If the power consistently stays low, it may suggest an abnormal issue with the cooling equipment.
+
+3. **Cooling Efficiency Change Sequence**: Reflects the variation in the efficiency of the machine's cooling equipment over 60 seconds, in percentage (%). By analyzing this sequence, you can judge if the cooling equipment is operating normally. Typically, when the cooling system is working well, the cooling efficiency is relatively high, otherwise, it indicates that there may be an abnormal issue with the cooling equipment.
+
+Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is the machine's cooling system functioning properly?"
+""",
+    "imu_HAR": "",
+    "ecg_detection": "",
+    "wifi_localization": "",
+    "wifi_occupancy": ""
+}
+Role_des = {
+    "machine_detection": """
+As a seasoned machine evaluation expert with a profound understanding of hydraulic systems, you possess the following key abilities and knowledge:
+
+- **System Comprehension**: You are well-versed in the inner workings of hydraulic systems, including the functions of key components such as coolers, pumps, valves, and accumulators, as well as their interplay.
+- **Data Analysis**: You are adept at handling and analyzing complex datasets, employing advanced techniques like time series analysis, signal processing, and pattern recognition to uncover the underlying stories in the data.
+- **Sensor Interpretation**: You have a deep understanding of various sensor data (e.g., pressure, temperature, flow, vibration) and can discern the operational status of machinery that these data represent.
+- **Fault Diagnosis**: You are familiar with the types of malfunctions that can occur in hydraulic systems and can recognize the signs of these faults in sensor data, enabling you to monitor the machine's operating condition and diagnose potential issues.
+- **System Synergy**: You understand how the different parts of a machine work together and how anomalies in one component can trigger a cascade effect throughout the system.
+
+In the upcoming task of machine condition assessment, you will leverage your expertise and skills to conduct an in-depth analysis of the data collected by the hydraulic test rig. You will evaluate the operational status of the cooler and other critical components, providing professional insights and recommendations for machine performance optimization and preventive maintenance.""",
+    "imu_HAR":"",
+    "ecg_detection":"",
+    "wifi_localization":"",
+    "wifi_occupancy":""
+}
 # id2labels = {
 #     1: "WALKING",
 #     2: "WALKING_UPSTAIRS",
