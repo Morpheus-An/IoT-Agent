@@ -9,7 +9,12 @@ parser.add_argument(
     default="imu_HAR",
     help="Type of IoT task to run",
 )
-
+parser.add_argument(
+    "--cls_num",
+    type=int,
+    default=2,
+    help="Number of classes to classify (just used in imu_HAR task)",
+)
 parser.add_argument(
     "--sample_num",
     type=int,

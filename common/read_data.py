@@ -80,6 +80,22 @@ def read_raw_data_and_preprocess(sample_step: int=5, raw_data_dir: str="/home/an
 
     >>> data_dict[label_id]["body_acc"] = [[body_acc_x, body_acc_y, body_acc_z], ...]
     """
+    id2labels = {
+    1: "WALKING",
+    2: "WALKING_UPSTAIRS",
+    3: "WALKING_DOWNSTAIRS",
+    4: "SITTING",
+    5: "STANDING",
+    6: "LAYING"
+    }
+    label2ids = {
+        "WALKING": 1,
+        "WALKING_UPSTAIRS": 2,
+        "WALKING_DOWNSTAIRS": 3,
+        "SITTING": 4,
+        "STANDING": 5,
+        "LAYING": 6
+    }
     # TODO
     signal_data_paths = {
         "body_acc_x_train_path" : raw_data_dir + "body_acc_x_train.txt",
@@ -111,13 +127,18 @@ def read_raw_data_and_preprocess(sample_step: int=5, raw_data_dir: str="/home/an
         data_dict[y_train[i]]["body_gyro"].append([np.around(signal_data["body_gyro_x_train"][i][::sample_step], 3), np.around(signal_data["body_gyro_y_train"][i][::sample_step], 3), np.around(signal_data["body_gyro_z_train"][i][::sample_step], 3)])
 
         data_dict[y_train[i]]["total_acc"].append([np.around(signal_data["total_acc_x_train"][i][::sample_step], 3), np.around(signal_data["total_acc_y_train"][i][::sample_step], 3), np.around(signal_data["total_acc_z_train"][i][::sample_step], 3)])
-    return data_dict
+    return data_dict, label2ids
 
 
-def read_IoT_data(task_type, sample_step=100):
+def read_IoT_data(task_type, sample_step=100, cls_num=2):
     assert task_type in ["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"] and sample_step > 0
     if task_type == "imu_HAR":
-        pass 
+        if cls_num == 2:
+            data_dict, lable_dict =  read_raw_data_and_preprocess()
+            data_dict = filter_data_dict_with_var(data_dict, thred=0.5, filter_by="body_acc", print_log=False)
+            return data_dict, lable_dict
+        else:
+            pass
     elif task_type == "machine_detection":
         return read_machine_data(sample_step)
     elif task_type == "ecg_detection":

@@ -6,7 +6,7 @@ from common.args import args
 
 if __name__ == "__main__":
     # data_dict, label_dict = read_machine_data()
-    data_dict, label_dict = read_IoT_data(args.task_type) # type: ignore
+    data_dict, label_dict = read_IoT_data(args.task_type, args.cls_num) # type: ignore
     start_time = time.perf_counter()
     config = f"""
 task_type: {args.task_type}
@@ -37,18 +37,27 @@ generate results are saved in {args.output_file_path}"""
 
 
             #### 这一段目前是task_dependent的，需要根据具体的task来修改
-            grd = "Pos"
-            con = "Neg"
-            # template, data_des = gen_prompt_tamplate_with_rag_machine(data_dict, label_dict, "Cooler condition %", i, grd)
-            template, data_des = generate_prompt_template(
-                args,
-                data_dict,
-                label_dict,
-                "Cooler condition %",
-                i,
-                grd
-            ) # type: ignore
-            query = """Is the machine's cooling system functioning properly?"""
+            if args.task_type == "machine_detection":
+                grd = "Pos"
+                con = "Neg"
+                # template, data_des = gen_prompt_tamplate_with_rag_machine(data_dict, label_dict, "Cooler condition %", i, grd)
+                template, data_des = generate_prompt_template(
+                    args,
+                    data_dict,
+                    label_dict,
+                    "Cooler condition %",
+                    i,
+                    grd
+                ) # type: ignore
+                query = """Is the machine's cooling system functioning properly?"""
+            elif args.task_type == "imu_HAR":
+                if args.cls_num == 2:
+                    grd = "WALKING"
+                    con = "STANDING"
+                    template, data_des = gen_prompt_template_with_rag(data_dict, grd, con, i) # type: ignore
+                    query = """
+Based on the given data,choose the activity that the subject is most likely to be performing from the following two options:"""
+
             ####
 
             prompt_builder = PromptBuilder(template=template)
