@@ -6,7 +6,7 @@ def gen_content4retrive_domain(task_type, data_des=""):
 def Role_Definition(args):
     """input: Task_Descriping(str), Preprocessed_Data(str), model(str)
     output: role_definition(str)"""
-    return args.role_des
+    return Role_des[args.task_type]
 
 def gen_prompt_with_rag_ECG(args, data_dict, is_Pos=True, i: int=1):
     N_signals = data_dict["N_signals"][-i]

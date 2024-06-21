@@ -30,7 +30,8 @@ import time
 from openAI_API_key import *
 import pdb
 import wfdb
-# import 
+import datetime
+
 
 EMBEDDER_MODEL = "thenlper/gte-large"
 EMBEDDER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--thenlper--gte-large/snapshots/58578616559541da766b9b993734f63bcfcfc057"
@@ -65,7 +66,10 @@ The provided three-axis acceleration signals contain acceleration data for the X
 The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
 
 You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.""",
-    "ecg_detection": "",
+    "ecg_detection": """
+The ECG data is collected from a patient's heart. The data consists of a series of electrical signals that represent the heart's electrical activity. The signals are measured in millivolts (mV) and are recorded over a period of time at the sampling frequency of 60Hz. This means there is an interval of 0.017 seconds between the two voltage values.  The data is divided into two categories: normal heartbeats (N) and ventricular ectopic beats (V). The normal heartbeats represent the regular electrical activity of the heart, while the ventricular ectopic beats represent abnormal electrical activity. The data is collected using a single-channel ECG device.  Normal heartbeat (N) signals are characterized by a consistent pattern of electrical activity, while premature ventricular contraction (V) signals exhibit irregular patterns that deviate from the normal rhythm. The ECG data provides valuable insights into the patient's cardiac health and can help in diagnosing various heart conditions.  
+Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is it a Normal heartbeat(N) or Premature ventricular contraction beat(V)?"
+""",
     "wifi_localization": "",
     "wifi_occupancy": ""
 }
@@ -88,7 +92,23 @@ Your professional knowledge includes, but is not limited to:
 2. Data Analysis and Pattern Recognition: You can utilize machine learning and pattern recognition techniques to analyze and process sensor data, accurately identifying human activities.
 3. Exercise Physiology: You understand the physiological changes that occur in the human body during exercise, which can assist in activity recognition.
 As an assistant sports scientist, your task is to classify human activities based on the acceleration data you receive, helping users better understand and monitor their exercise activities.""",
-    "ecg_detection":"",
+    "ecg_detection": """
+You are an experienced physician who is familiar with various types of electrocardiogram (ECG) data. You can easily make preliminary judgments on whether heartbeats are abnormal based on ECG data. You possess the following medical and domain knowledge:
+
+1. **ECG Interpretation:** You understand the basic principles of electrocardiography and know how to interpret ECG waveforms, including identifying different phases of the cardiac cycle and recognizing abnormalities.
+
+2. **Cardiac Physiology:** You are familiar with the physiological functions of the heart, the generation and propagation of cardiac electrical signals, and the characteristics and manifestations of various cardiac arrhythmias.
+
+3. **Recognition of ECG Abnormalities:** You are able to identify abnormal waveforms in ECG data, such as arrhythmias, myocardial ischemia, myocardial infarction, etc., and differentiate them from normal ECG patterns.
+
+4. **Medical Statistics:** You are proficient in statistical analysis of ECG data, identification of outliers, and quantitative assessment of abnormalities.
+
+5. **Clinical Experience:** You have extensive clinical experience to integrate ECG data with patient symptoms and medical history for accurate diagnosis and evaluation.
+
+6. **Medical Ethics and Legal Knowledge:** You understant medical ethics and legal regulations to ensure confidentiality and lawful use of patient data.
+
+The combined application of these domain knowledge and skills would enable you to accurately assess whether there are any abnormalities in the ECG data and provide relevant analysis and interpretation.
+""",
     "wifi_localization":"",
     "wifi_occupancy":""
 }

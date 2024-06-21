@@ -70,4 +70,3 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-args.role_des = Role_des[args.task_type]

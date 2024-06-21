@@ -3,11 +3,23 @@ from imports import *
 from common.utils import * 
 from common.args import args 
 
+
+# # 获取当前的日期和时间
+# now = datetime.datetime.now()
+
+# # 使用f-string格式化并打印当前时间
+# print(f"当前时间：{now:%Y-%m-%d %H:%M:%S}")
+
+
+
+
 if __name__ == "__main__":
     # data_dict, label_dict = read_machine_data()
     data_dict, label_dict = read_IoT_data(args.task_type, cls_num=args.cls_num) # type: ignore
     start_time = time.perf_counter()
+    cur_time = datetime.datetime.now()
     config = f"""
+curtime: {cur_time: %Y-%m-%d %H:%M:%S}
 task_type: {args.task_type}
 sample_num: {args.sample_num}
 no_domain_knowledge: {args.no_domain_knowledge}

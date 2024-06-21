@@ -21,8 +21,8 @@ def task_dependent_info(args, i, data_dict, label_dict):
         query = """Is the machine's cooling system functioning properly?"""
     elif args.task_type == "imu_HAR":
         if args.cls_num == 2:
-            con = "WALKING"
             grd = "STANDING"
+            con = "WALKING"
             template, data_des = gen_prompt_template_with_rag_imu_2cls(args,label_dict, data_dict, grd, con, i) # type: ignore
             query = """
 Based on the given data,choose the activity that the subject is most likely to be performing from the following two options:"""
