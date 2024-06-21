@@ -7,6 +7,61 @@ def Role_Definition(args):
     """input: Task_Descriping(str), Preprocessed_Data(str), model(str)
     output: role_definition(str)"""
     return args.role_des
+
+def gen_prompt_with_rag_ECG(args, data_dict, is_Pos=True, i: int=1):
+    N_signals = data_dict["N_signals"][-i]
+    V_signals = data_dict["V_signals"][-i]
+    N_signals_str = ", ".join([f"{x[0]}mV" for x in N_signals])
+    V_signals_str = ", ".join([f"{x[0]}mV" for x in V_signals])
+    N_signals_demo = data_dict["N_signals"][-i-1]
+    V_signals_demo = data_dict["V_signals"][-i-1]
+    N_signals_demo_str = ", ".join([f"{x[0]}mV" for x in N_signals_demo])
+    V_signals_demo_str = ", ".join([f"{x[0]}mV" for x in V_signals_demo])
+
+    # print(N_signals_str)
+    prompt = f"""{Role_Definition(args)}
+
+ECG DATA:
+The ECG data is collected from a patient's heart. The data consists of a series of electrical signals that represent the heart's electrical activity. The signals are measured in millivolts (mV) and are recorded over a period of time at the sampling frequency of 60Hz. This means there is an interval of 0.017 seconds between the two voltage values.  The data is divided into two categories: normal heartbeats (N) and ventricular ectopic beats (V). The normal heartbeats represent the regular electrical activity of the heart, while the ventricular ectopic beats represent abnormal electrical activity. The data is collected using a single-channel ECG device."""
+    prompt += """
+EXPERT:
+{% for domain_doc in documents_domain %}
+    {{ domain_doc.content }}
+{% endfor %}
+
+"You can analyze whether the heartbeat is normal by considering a combination of factors such as the amplitude of peaks or valleys appearing in the electrocardiogram (ECG) time series, the time intervals between adjacent peaks or valleys, and the fluctuations in voltage values within the ECG data."
+"""
+    prompt += f"""
+EXAMPLE1:
+THE GIVEN ECG DATA:
+{N_signals_str}
+ANSWER: Normal heartbeat (N)
+
+EXAMPLE2:
+THE GIVEN ECG DATA:
+{V_signals_str}
+ANSWER: Premature ventricular contraction (V)
+"""
+    prompt += """
+QUESTION: {{ query }}"""
+    if is_Pos:
+        data_des = f"""
+THE GIVEN ECG DATA:
+{N_signals_demo_str}
+"""
+        prompt += data_des
+    else:
+        data_des = f"""
+THE GIVEN ECG DATA:
+{V_signals_demo_str}
+"""
+        prompt += data_des
+    prompt += """
+Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is it a Normal heartbeat(N) or Premature ventricular contraction beat(V)?"
+ANALYSIS:
+ANSWER:
+"""
+    return prompt, data_des
 def gen_prompt_template_with_rag_imu_2cls(args, label2ids, data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0): 
 
     def create_data_des(i, is_ground=True):

@@ -1,6 +1,57 @@
+
 from imports import *
 
+def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/", length=600000, id=106, sampfrom=0, pysical=True, channels=[0,], interval=150, sample_step=5, draw_pictures=False):
+    record_path = base_dir + f"{id}"
+    record = wfdb.rdrecord(record_path, sampfrom=sampfrom, sampto=length, physical=pysical, channels=channels)
+    print(record.p_signal.shape)
+    import matplotlib.pyplot as plt 
+    # print(f"record frequency: {record.fs}")
+    ventricular_signal = record.p_signal[:]
+    signal_annotation = wfdb.rdann(record_path, 'atr', sampfrom=sampfrom, sampto=length)
+    # print(f"""
+    # symbol: {signal_annotation.symbol}, shape={len(signal_annotation.symbol)}
+    # aux_note: {signal_annotation.aux_note}, shape={len(signal_annotation.aux_note)}""")
+    data_dict = {
+        "N_pos": [],
+        "N_signals": [],
+        "V_pos": [],
+        "V_signals": [],   
 
+    }
+    for i, s in enumerate(signal_annotation.symbol):
+        if s == "V":
+            V_begin = i
+            if V_begin <= 1 or V_begin >= len(signal_annotation.symbol)-2:
+                continue
+            V_signals = ventricular_signal[signal_annotation.sample[V_begin]-interval:signal_annotation.sample[V_begin]+interval:sample_step]
+            data_dict["V_pos"].append([interval//sample_step, V_signals[interval//sample_step]])
+            data_dict["V_signals"].append(V_signals)
+        elif s == "N":
+            N_begin = i
+            if N_begin <= 1 or N_begin >= len(signal_annotation.symbol)-2:
+                continue
+            N_signals = ventricular_signal[signal_annotation.sample[N_begin]-interval:signal_annotation.sample[N_begin]+interval:sample_step]
+            data_dict["N_pos"].append([interval//sample_step, N_signals[interval//sample_step]])
+            data_dict["N_signals"].append(N_signals)
+
+    for k, v in data_dict.items():
+        print(f"{k}: {[len(v), len(v[0])]}")
+    if draw_pictures:
+        # 分别展示5张N和5张V的信号,将这10个信号展示在一个2行5列的大图上,注意，保持上下两行的的纵坐标相同:
+        plt.figure(figsize=(20,10))
+        # 开始话2*5的大图，保持每个子图的纵坐标相同
+        for i in range(1, 6):
+            plt.subplot(2, 5, i)
+            plt.plot(data_dict["N_signals"][i])
+            plt.scatter(data_dict["N_pos"][i][0], data_dict["N_pos"][i][1], marker="*")
+            plt.title(f"N_{i}")
+            plt.subplot(2, 5, i+5)
+            plt.plot(data_dict["V_signals"][i])
+            plt.scatter(data_dict["V_pos"][i][0], data_dict["V_pos"][i][1], marker="*")
+            plt.title(f"V_{i}")
+        plt.show()
+    return data_dict
 def read_machine_data(sample_step=100):
     # 读入profile_labels文件，其中每行包括五列数据，数据之间由空格隔开
     labels = np.loadtxt('/home/ant/RAG/data/machine_detect/profile.txt', dtype=int)
@@ -74,7 +125,7 @@ def read_machine_data(sample_step=100):
     print(f"machine_data loaded")
     return data_dict, label_dict
 
-def read_raw_data_and_preprocess(sample_step: int=5, raw_data_dir: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/", y_train_path: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt"):
+def read_raw_data_and_preprocess_imu(sample_step: int=5, raw_data_dir: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/", y_train_path: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt"):
     """return :
     data_dict: dict[dict[list, list, list]]
 
@@ -134,15 +185,16 @@ def read_IoT_data(task_type, sample_step=100, cls_num=2):
     assert task_type in ["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"] and sample_step > 0
     if task_type == "imu_HAR":
         if cls_num == 2:
-            data_dict, lable_dict =  read_raw_data_and_preprocess()
+            data_dict, lable_dict =  read_raw_data_and_preprocess_imu()
             data_dict = filter_data_dict_with_var(data_dict, lable_dict, thred=0.5, filter_by="body_acc", print_log=False)
             return data_dict, lable_dict
         else:
-            pass
+            pass # TODO
     elif task_type == "machine_detection":
         return read_machine_data(sample_step)
     elif task_type == "ecg_detection":
-        pass 
+        data_dict = read_ECG()
+        return data_dict, None
     elif task_type == "wifi_localization":
         pass
     elif task_type == "wifi_occupancy":

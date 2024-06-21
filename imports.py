@@ -29,6 +29,7 @@ from haystack.components.rankers import TransformersSimilarityRanker
 import time 
 from openAI_API_key import *
 import pdb
+import wfdb
 # import 
 
 EMBEDDER_MODEL = "thenlper/gte-large"

@@ -28,8 +28,17 @@ def task_dependent_info(args, i, data_dict, label_dict):
 Based on the given data,choose the activity that the subject is most likely to be performing from the following two options:"""
         else:
             pass # TODO
-    
-
+    elif args.task_type == "ecg_detection":
+        grd = True 
+        con = False
+        template, data_des = gen_prompt_with_rag_ECG(args, data_dict, grd, i)
+        query = """Is the ECG heatbeat signal normal or abnormal?"""
+    elif args.task_type == "wifi_localization":
+        pass # TODO
+    elif args.task_type == "wifi_occupancy":
+        pass # TODO
+    else:
+        assert(0) 
     return grd, con, template, data_des, query
     
 def eval_by_gpt(ans, candidates, grd, con): 

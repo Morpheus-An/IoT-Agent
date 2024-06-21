@@ -36,8 +36,10 @@ generate results are saved in {args.output_file_path}"""
         for i in range(1, args.sample_num+1):
             
 
-            ### 在下面的函数中根据不同的task编辑相关的信息
+            ###* 在下面的函数中根据不同的task编辑相关的信息
             grd, con, template, data_des, query = task_dependent_info(args, i, data_dict, label_dict)
+            ###*
+
 
             prompt_builder = PromptBuilder(template=template)
             generator = ChatModel(args.model, args.device)
