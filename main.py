@@ -6,7 +6,7 @@ from common.args import args
 
 if __name__ == "__main__":
     # data_dict, label_dict = read_machine_data()
-    data_dict, label_dict = read_IoT_data(args.task_type, args.cls_num) # type: ignore
+    data_dict, label_dict = read_IoT_data(args.task_type, cls_num=args.cls_num) # type: ignore
     start_time = time.perf_counter()
     config = f"""
 task_type: {args.task_type}
