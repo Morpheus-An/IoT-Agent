@@ -68,5 +68,11 @@ parser.add_argument(
     default="results/output.log",
     help="Path to the output file",
 )
+parser.add_argument(
+    "--temperature",
+    type=float,
+    default=0.9,
+    help="Temperature for generation",
+)
 
 args = parser.parse_args()

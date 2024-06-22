@@ -41,19 +41,33 @@ generate results are saved in {args.output_file_path}"""
         meta_data = None # TODO
         embedded_document_store_DM = prepare_and_embed_documents(document_store_demo, Demo_paths, device=args.device, splitter_kwards=splitter_kwags_demo, meta_data=meta_data)
 
-    
     ans = []
+    previous_locals = None
+    locals_to_release = None
     with open(args.output_file_path, "a") as f:
         for i in range(1, args.sample_num+1):
             
+            # pdb.set_trace()
 
+            if previous_locals is not None and locals_to_release is None:
+                locals_to_release = set(locals().keys()).difference(previous_locals) 
+            if previous_locals == None:
+                previous_locals = set(locals())
+            # 释放掉local所占用的内存
+            if locals_to_release is not None:
+                for lc in locals_to_release:
+                    if lc in locals():
+                        del locals()[lc]
+                        torch.cuda.empty_cache()
+
+
+            generator = ChatModel(args.model, args.device, args.temperature)
             ###* 在下面的函数中根据不同的task编辑相关的信息
             grd, con, template, data_des, query = task_dependent_info(args, i, data_dict, label_dict)
             ###*
 
-
+            
             prompt_builder = PromptBuilder(template=template)
-            generator = ChatModel(args.model, args.device)
             
             # 创建pipeline:
             rag_pipeline = Pipeline()
@@ -197,6 +211,7 @@ generate results are saved in {args.output_file_path}"""
             result = rag_pipeline.run(
                 run_kwargs
             )
+            
             an = result["llm"]["replies"][0]
             print(an)
             if i == 1:

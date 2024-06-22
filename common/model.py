@@ -23,14 +23,31 @@ def get_openAI_model(api_base: bool=True,
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     return client
 
-def ChatModel(model, device="cuda"):
+
+
+
+def ChatModel(model, device="cuda", temperature=0.9):
     assert model in ["gpt3.5", "gpt4", "llama2", "Mistral-7b", "Gemini", "Haiku"]
     if model in ["gpt4", "gpt3.5"]:
         set_openAI_key_and_base(False, set_proxy=PROXY)
-        generator = OpenAIGenerator(model=MODEL[model])
+        generator = OpenAIGenerator(model=MODEL[model], generation_kwargs={
+            "temperature": temperature,
+        } )
         return generator
-    elif model == "llamma2":
-        pass 
+    elif model == "llama2":
+
+        generator = HuggingFaceLocalGenerator(
+            model=MODEL["llama2"],
+            task="text-generation",
+            generation_kwargs={
+                   "max_new_tokens": 500,
+                   "temperature": temperature,
+            },
+            device=ComponentDevice.from_str(device)
+        )
+
+        generator.warm_up()
+        return generator 
     elif model == "Mistral-7b":
         pass 
     elif model == "Gemini":

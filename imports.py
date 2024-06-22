@@ -16,6 +16,7 @@ from haystack.components.generators import OpenAIGenerator
 import os 
 from haystack import Pipeline
 import numpy as np 
+import torch
 from openai import OpenAI 
 from collections import Counter 
 from matplotlib import pyplot as plt 
@@ -26,6 +27,8 @@ from haystack.components.preprocessors import DocumentCleaner, DocumentSplitter
 from typing import Any, Dict, List, Optional, Union
 from haystack.components.retrievers.in_memory import InMemoryBM25Retriever
 from haystack.components.rankers import TransformersSimilarityRanker
+from haystack.components.generators import HuggingFaceLocalGenerator
+from haystack.utils.device import ComponentDevice
 import time 
 from openAI_API_key import *
 import pdb
@@ -37,7 +40,11 @@ EMBEDDER_MODEL = "thenlper/gte-large"
 EMBEDDER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--thenlper--gte-large/snapshots/58578616559541da766b9b993734f63bcfcfc057"
 RANKER_MODEL = "BAAI/bge-reranker-base"
 RANKER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--BAAI--bge-reranker-base/snapshots/580465186bcc87f862a9b2f9003d720af2377980"
-MODEL = {"gpt3.5": "gpt-3.5-turbo", "gpt4": "gpt-4-turbo-preview"}
+MODEL = {
+        "gpt3.5": "gpt-3.5-turbo", 
+        "gpt4": "gpt-4-turbo-preview",
+        "llama2": "/home/ant/.cache/huggingface/hub/models--meta-llama--Llama-2-7b-chat-hf/snapshots/92011f62d7604e261f748ec0cfe6329f31193e33",
+}
 # hoices=["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"],
 content4retrieve_domain = {
     "machine_detection": """
