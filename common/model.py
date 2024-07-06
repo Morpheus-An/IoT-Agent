@@ -27,7 +27,7 @@ def get_openAI_model(api_base: bool=True,
 
 
 def ChatModel(model, device="cuda", temperature=0.9):
-    assert model in ["gpt3.5", "gpt4", "llama2", "Mistral-7b", "Gemini", "Haiku"]
+    assert model in ["gpt3.5", "gpt4", "llama2", "Mistral", "Gemini", "Claude"]
     if model in ["gpt4", "gpt3.5"]:
         set_openAI_key_and_base(False, set_proxy=PROXY)
         generator = OpenAIGenerator(model=MODEL[model], generation_kwargs={
@@ -40,7 +40,7 @@ def ChatModel(model, device="cuda", temperature=0.9):
             model=MODEL["llama2"],
             task="text-generation",
             generation_kwargs={
-                   "max_new_tokens": 500,
+                   "max_new_tokens": 512,
                    "temperature": temperature,
             },
             device=ComponentDevice.from_str(device)
@@ -48,9 +48,22 @@ def ChatModel(model, device="cuda", temperature=0.9):
 
         generator.warm_up()
         return generator 
-    elif model == "Mistral-7b":
-        pass 
+    elif model == "Mistral":
+        generator = HuggingFaceLocalGenerator(
+            model=MODEL["Mistral"],
+            task="text-generation",
+            generation_kwargs={
+                   "max_new_tokens": 512,
+                   "temperature": temperature,
+            },
+            device=ComponentDevice.from_str(device)
+        ) 
+        return generator
     elif model == "Gemini":
-        pass 
-    elif model == "Haiku":
+        os.environ["GOOGLE_API_KEY"] = GOOGLE_KEY
+        generator = GoogleAIGeminiGenerator(
+            model="gemini-pro",
+        )
+        return generator
+    elif model == "Claude":
         pass 

@@ -28,6 +28,7 @@ from typing import Any, Dict, List, Optional, Union
 from haystack.components.retrievers.in_memory import InMemoryBM25Retriever
 from haystack.components.rankers import TransformersSimilarityRanker
 from haystack.components.generators import HuggingFaceLocalGenerator
+from haystack_integrations.components.generators.google_ai import GoogleAIGeminiGenerator
 from haystack.utils.device import ComponentDevice
 import time 
 from openAI_API_key import *
@@ -43,7 +44,8 @@ RANKER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--BAAI--bge-reranke
 MODEL = {
         "gpt3.5": "gpt-3.5-turbo", 
         "gpt4": "gpt-4-turbo-preview",
-        "llama2": "/home/ant/.cache/huggingface/hub/models--meta-llama--Llama-2-7b-chat-hf/snapshots/92011f62d7604e261f748ec0cfe6329f31193e33",
+        "llama2": "/home/ant/RAG/models/LLaMa2-7b-32k",
+        "Mistral": "/home/ant/RAG/models/Mistral-7b-instruct-v0.3",
 }
 # hoices=["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"],
 content4retrieve_domain = {
