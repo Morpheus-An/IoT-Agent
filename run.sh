@@ -21,4 +21,4 @@ fi
 
 
 python ./main.py --task_type $task_type --cls_num 2 --sample_num $sample_num --model $model --device "cuda"\
-    --no_demo_knowledge
+    # --no_demo_knowledge
