@@ -27,7 +27,7 @@ def get_openAI_model(api_base: bool=True,
 
 
 def ChatModel(model, device="cuda", temperature=0.9):
-    assert model in ["gpt3.5", "gpt4", "llama2", "Mistral", "Gemini", "Claude"]
+    assert model in ["gpt3.5", "gpt4", "llama2", "Mistral", "gemini-pro", "claude"]
     if model in ["gpt4", "gpt3.5"]:
         set_openAI_key_and_base(False, set_proxy=PROXY)
         generator = OpenAIGenerator(model=MODEL[model], generation_kwargs={
@@ -40,7 +40,6 @@ def ChatModel(model, device="cuda", temperature=0.9):
             model=MODEL["llama2"],
             task="text-generation",
             generation_kwargs={
-                   "max_new_tokens": 512,
                    "temperature": temperature,
             },
             device=ComponentDevice.from_str(device)
@@ -53,17 +52,27 @@ def ChatModel(model, device="cuda", temperature=0.9):
             model=MODEL["Mistral"],
             task="text-generation",
             generation_kwargs={
-                   "max_new_tokens": 512,
                    "temperature": temperature,
             },
             device=ComponentDevice.from_str(device)
         ) 
         return generator
-    elif model == "Gemini":
+    elif "gemini" in model:
         os.environ["GOOGLE_API_KEY"] = GOOGLE_KEY
         generator = GoogleAIGeminiGenerator(
-            model="gemini-pro",
+            model=model,
+            generation_config={
+                   "temperature": temperature,
+            }, # config可以参考https://ai.google.dev/api/python/google/generativeai/types/GenerationConfig
         )
         return generator
-    elif model == "Claude":
-        pass 
+    elif "claude" in model:
+        os.environ["ANTHROPIC_API_KEY"] = CLAUDE_KEY
+        generator = AnthropicGenerator(
+            model="claude-3-5-sonnet-20240620",
+            generation_kwargs={
+                "temperature": temperature,
+            }
+        )
+        return generator 
+

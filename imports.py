@@ -30,6 +30,8 @@ from haystack.components.rankers import TransformersSimilarityRanker
 from haystack.components.generators import HuggingFaceLocalGenerator
 from haystack_integrations.components.generators.google_ai import GoogleAIGeminiGenerator
 from haystack.utils.device import ComponentDevice
+from haystack_integrations.components.generators.anthropic import AnthropicGenerator
+
 import time 
 from openAI_API_key import *
 import pdb

@@ -33,7 +33,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--model",
-    choices=["gpt3.5", "gpt4", "llama2", "Mistral", "Gemini", "Claude"],
+    choices=["gpt3.5", "gpt4", "llama2", "Mistral", "gemini-pro", "claude"],
     # llama2，Mistral-7b，Gemini，Claude3 Haiku
     default="gpt4",
     help="Model to use for generation",
@@ -71,7 +71,7 @@ parser.add_argument(
 parser.add_argument(
     "--temperature",
     type=float,
-    default=0.9,
+    default=0.5,
     help="Temperature for generation",
 )
 

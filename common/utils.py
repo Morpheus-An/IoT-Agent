@@ -61,7 +61,52 @@ def eval_by_gpt(ans, candidates, grd, con):
     print(score)
     return score
 
-def get_knowledge_paths(args, is_domain=True):
+# 写入demo-knowledge：
+def write_demo_knowledge(args, label2ids,tgt_dir_path: str, data_dict, sample_num: int=5):
+    id2labels = {
+        id: label for label, id in label2ids.items()
+    }
+    file_paths = []
+    # 为了不与test使用的demo重复，选用data_dict中的后面的数据作为范例知识
+    if args.task_type == "imu_HAR":
+        if args.cls_num == 2:
+            for label_id in label2ids.values():
+                for i in range(1, sample_num+1):
+                    acc_x = data_dict[label_id]["total_acc"][-i][0]
+                    acc_y = data_dict[label_id]["total_acc"][-i][1]
+                    acc_z = data_dict[label_id]["total_acc"][-i][2]
+                    gyr_x = data_dict[label_id]["body_gyro"][-i][0]
+                    gyr_y = data_dict[label_id]["body_gyro"][-i][1]
+                    gyr_z = data_dict[label_id]["body_gyro"][-i][2]
+                    acc_x_str = ", ".join([f"{x}g" for x in acc_x])
+                    acc_y_str = ", ".join([f"{x}g" for x in acc_y])
+                    acc_z_str = ", ".join([f"{x}g" for x in acc_z])
+                    gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
+                    gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
+                    gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
+                    written_content = f"""1. Triaxial acceleration signal:
+X-axis: {acc_x_str}
+Y-axis: {acc_y_str}
+Z-axis: {acc_z_str}
+X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)}
+Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)}
+Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)}
+2. Triaxial angular velocity signal:
+X-axis: {gyr_x_str}
+Y-axis: {gyr_y_str}
+Z-axis: {gyr_z_str}
+X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)}
+Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)}
+Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}
+ANSWER: {id2labels[label_id]}"""
+                    file_path = tgt_dir_path + "/" + f"{id2labels[label_id]}_{i}.txt"
+                    file_paths.append(file_path)
+                    with open(file_path, 'w') as f:
+                        f.write(written_content)
+                        f.write("\n\n")
+    return file_paths
+
+def get_knowledge_paths(args, is_domain=True, label2id=None, data_dict=None):
     """
     return:
     file_paths: list of str
@@ -77,7 +122,17 @@ def get_knowledge_paths(args, is_domain=True):
         for file in files:
             if file.endswith(".txt") or file.endswith(".pdf") or file.endswith(".md"):
                 file_paths.append(os.path.join(root, file))
-    return file_paths
+    meta_data = None 
+    if not is_domain:
+        if len(file_paths) == 0:
+            file_paths = write_demo_knowledge(args, label2id, folder_path, data_dict, 9)
+        meta_data = [
+            {
+                "label": file_path.split("/")[-1][: -len("_i.txt")]
+            }
+            for file_path in file_paths
+        ]
+    return file_paths, meta_data
 
 def chat_with_openai(data_dict, ground_ans: str="WALKING", contrast_ans: str="STANDING", answer_num: int=10, api_base: bool=True, model: str=MODEL["gpt3.5"], retrive=False, print_prompt=True):
     """
@@ -211,47 +266,6 @@ def pretty_print_res_of_ranker(res):
         print(doc.meta["file_path"], "\t", doc.score)
         print(doc.content)
         print("\n", "\n")
-
-# 写入demo-knowledge：
-def write_demo_knowledge(tgt_dir_path: str, data_dict, sample_num: int=5):
-    file_paths = []
-    # 为了不与test使用的demo重复，选用data_dict中的后面的数据作为范例知识
-    for label_id in label2ids.values():
-        for i in range(1, sample_num+1):
-            acc_x = data_dict[label_id]["total_acc"][-i][0]
-            acc_y = data_dict[label_id]["total_acc"][-i][1]
-            acc_z = data_dict[label_id]["total_acc"][-i][2]
-            gyr_x = data_dict[label_id]["body_gyro"][-i][0]
-            gyr_y = data_dict[label_id]["body_gyro"][-i][1]
-            gyr_z = data_dict[label_id]["body_gyro"][-i][2]
-            acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-            acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-            acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-            gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-            gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-            gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
-            written_content = f"""1. Triaxial acceleration signal:
-X-axis: {acc_x_str}
-Y-axis: {acc_y_str}
-Z-axis: {acc_z_str}
-X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)}
-Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)}
-Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)}
-2. Triaxial angular velocity signal:
-X-axis: {gyr_x_str}
-Y-axis: {gyr_y_str}
-Z-axis: {gyr_z_str}
-X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)}
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)}
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}
-ANSWER: {id2labels[label_id]}"""
-            file_path = tgt_dir_path + f"{id2labels[label_id]}_{i}.txt"
-            file_paths.append(file_path)
-            with open(file_path, 'w') as f:
-                f.write(written_content)
-                f.write("\n\n")
-    return file_paths
-
 
         
 def wikipedia_indexing(some_titles = ["Inertial measurement unit", ]):
