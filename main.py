@@ -4,18 +4,11 @@ from common.utils import *
 from common.args import args 
 
 
-# # 获取当前的日期和时间
-# now = datetime.datetime.now()
-
-# # 使用f-string格式化并打印当前时间
-# print(f"当前时间：{now:%Y-%m-%d %H:%M:%S}")
-
-
-
 
 if __name__ == "__main__":
     # data_dict, label_dict = read_machine_data()
     data_dict, label_dict = read_IoT_data(args.task_type, cls_num=args.cls_num) # type: ignore
+    # pdb.set_trace()
     start_time = time.perf_counter()
     cur_time = datetime.datetime.now()
     config = f"""
@@ -30,22 +23,21 @@ generate results are saved in {args.output_file_path}"""
     # 首先，准备好document_store并写入:
     # 得到指定文件夹下所有文件的路径
     if not args.no_domain_knowledge:
-        KB_paths = get_knowledge_paths(args)    
+        KB_paths, _ = get_knowledge_paths(args)    
         document_store_domain = InMemoryDocumentStore()
         splitter_kwags_domain = {"split_by": "sentence", "split_length": 2}
         embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_paths, device=args.device, splitter_kwards=splitter_kwags_domain)
     if not args.no_demo_knowledge: # TODO
         document_store_demo = InMemoryDocumentStore()
         splitter_kwags_demo = {"split_by": "passage", "split_length": 1}
-        Demo_paths = get_knowledge_paths(args, False)
-        meta_data = None # TODO
+        Demo_paths, meta_data = get_knowledge_paths(args, False, label_dict, data_dict)
         embedded_document_store_DM = prepare_and_embed_documents(document_store_demo, Demo_paths, device=args.device, splitter_kwards=splitter_kwags_demo, meta_data=meta_data)
 
     ans = []
     previous_locals = None
     locals_to_release = None
     with open(args.output_file_path, "a") as f:
-        for i in range(1, args.sample_num+1):
+        for i in range(48, args.sample_num+1):
             
             # pdb.set_trace()
 
@@ -62,9 +54,9 @@ generate results are saved in {args.output_file_path}"""
 
 
             generator = ChatModel(args.model, args.device, args.temperature)
-            ###* 在下面的函数中根据不同的task编辑相关的信息
+            ###! 在下面的函数中根据不同的task编辑相关的信息
             grd, con, template, data_des, query = task_dependent_info(args, i, data_dict, label_dict)
-            ###*
+            ###!
 
             
             prompt_builder = PromptBuilder(template=template)
@@ -148,8 +140,8 @@ generate results are saved in {args.output_file_path}"""
                 rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
                 # rag_pipeline.draw("retriver_pipeline2.png")
                 # print("draw1 done")        
-                content4retrieval_grd_demo = None
-                content4retrieval_con_demo = None
+                content4retrieval_grd_demo = grd 
+                content4retrieval_con_demo = con 
                 rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
                 rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
 
@@ -211,7 +203,7 @@ generate results are saved in {args.output_file_path}"""
             result = rag_pipeline.run(
                 run_kwargs
             )
-            
+            # pdb.set_trace()
             an = result["llm"]["replies"][0]
             print(an)
             if i == 1:
