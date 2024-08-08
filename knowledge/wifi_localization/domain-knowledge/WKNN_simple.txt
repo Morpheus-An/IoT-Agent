@@ -1,0 +1,3 @@
+In the experiment, the neighbor_position and neighbor_similarity denote the position and similarity of the top K neighbors among the database that is most similar to the input sample.
+The first step: neighbor_weight = neighbor_similarity / sum(neighbor_similarity). This is a normalization function to guarantee the sum of neighbor_weight to be 1.
+The second step: estimated_position = sum(neighbor_weight * neighbor_position), which means use the weighted average the top neighbor positions.

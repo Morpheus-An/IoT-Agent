@@ -1,0 +1,8 @@
+The dataset contains 6-dimension rssi collected by 6 APs and the corresponding 2D positions.
+
+It is important to note that the database containing several samples for each position as reference.
+It provides the guidance to estimate the location of a new rssi sample. So when conducting WKNN, it is necessary to calculate the similarity between the input sample and the samples in database.
+Then you need to rank the similarity and select the top K positions with the highest similarity.
+Finally, you can use the weighted average to gain the final answer.
+
+As all the information provided (including database, input rssi and WKNN algorithm), you can implement the algorithm by code to calculate it more correctly.

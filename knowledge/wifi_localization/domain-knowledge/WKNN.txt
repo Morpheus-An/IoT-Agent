@@ -1,0 +1,11 @@
+The description of using WKNN (Weighted k-Nearest Neighbors) algorithm for RSSI localization:
+Initialization: When creating an instance of the WKNN class, you need to provide a database containing the known positions' location information (database_position) and their corresponding RSSI information (database_rssi).
+Compute Similarity: For the RSSI information to be localized (input_rssi), the first step is to compute its similarity with the RSSI information of each position point in the database. Typically, similarity is calculated using the reciprocal of the Euclidean distance, where higher similarity indicates closer distance. In WKNN, the method for calculating similarity can vary depending on the specific scenario, but the reciprocal of the Euclidean distance is commonly used.
+Select Nearest Neighbors: Based on the computed similarities, select the K data points from the database that are most similar to the RSSI information being localized. These K nearest neighbors' location information will be used for the subsequent weighted averaging calculation.
+Weighted Averaging: For these K nearest neighbors' location information, perform a weighted averaging calculation based on their similarity to the RSSI information being localized. Generally, data points with higher similarity are assigned higher weights to improve the accuracy of the estimated position.
+Return Estimated Position: The ultimate goal of the WKNN algorithm is to estimate the position of the RSSI information being localized. The position obtained through the weighted averaging calculation is returned as the estimated position.
+estimated_position = sum(neighbor_weight * neighbor_position), which means use the weighted average the top neighbor positions.
+
+In the experiment, the neighbor_position and neighbor_similarity denote the position and similarity of the top K neighbors among the database that is most similar to the input sample.
+The first step: neighbor_weight = neighbor_similarity / sum(neighbor_similarity). This is a normalization function to guarantee the sum of neighbor_weight to be 1.
+The second step: estimated_position = sum(neighbor_weight * neighbor_position), which means use the weighted average the top neighbor positions.
