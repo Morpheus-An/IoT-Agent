@@ -1,0 +1,14 @@
+526sample
+
+gpt3.5
+mse: 34098.39
+
+gpt4: 150361.97
+
+gemini: 19201.20
+
+claude: 15241.46
+
+llama: 28580.10
+
+Mistral: 35246.93

@@ -1,0 +1,153 @@
+--------------------
+gpt3.5
+
+room2: 
+no_person 60 samples
+correct_rate: 81.67%   正确49 错误11
+
+have_person  87 samples
+correct_rate: 85.06%   正确74 错误13
+
+room1:
+no_person 34 samples
+correct_rate: 91.18%   正确31 错误3
+
+have_person 57 samples
+correct_rate: 89.47%   正确51 错误6
+
+room3:
+no_person 23 samples
+correct_rate: 82.61%   正确19 错误4
+
+have_person 104 samples
+correct_rate: 84.62%   正确88 错误16
+
+
+------------------
+gpt-4
+
+room1
+no_person 34 samples
+correct_rate:  88.23%  正确30  错误4
+
+have_person 57 samples
+correct_rate:  89.47%  正确51 错误6
+
+room2
+no_person 60 samples
+correct_rate:  91.67%  正确55  错误5
+
+have_person 87 samples
+correct_rate: 94.25%   正确82  错误5
+
+room3
+no_person 23 samples
+correct_rate:  82.61%  正确19  错误4
+
+have_person 104 samples
+correct_rate: 75%   正确78  错误26
+
+
+
+
+--------------------
+
+gemini - pro 
+
+room2
+no_person 60 samples
+correct_rate:  66.67%  正确40  错误20
+
+have_person 87 samples
+correct_rate: 82.76%   正确72  错误15
+
+
+room1
+no_person 34 samples
+correct_rate:  70.59%  正确24  错误10
+
+have_person 57 samples
+correct_rate:  45.61%  正确26  错误31
+
+room3
+no_person 23 samples
+correct_rate:  82.61%  正确19  错误4
+
+have_person 104 samples
+correct_rate: 61.54%   正确64  错误40
+
+
+-------------------------
+claude
+
+room1
+no_person 34 samples
+correct_rate:  76.47%  正确26  错误8
+
+have_person 57 samples
+correct_rate:  89.47%  正确51 错误6
+
+room2
+no_person 60 samples
+correct_rate:  66.67%  正确40  错误20
+
+have_person 87 samples
+correct_rate: 95.40%   正确83  错误4
+
+room3
+no_person 23 samples
+correct_rate:  86.96%  正确20  错误3
+
+have_person 104 samples
+correct_rate: 77.88%   正确81  错误23
+
+
+-------------------------------------
+llama
+
+room1
+no_person 34 samples
+correct_rate:  100%  正确34  错误0
+
+have_person 57 samples
+correct_rate:  63.16%  正确36 错误21
+
+room2
+no_person 60 samples
+correct_rate:  100%  正确60  错误0
+
+have_person 87 samples
+correct_rate: 52.87%   正确46  错误41
+
+room3
+no_person 23 samples
+correct_rate:  100%  正确23  错误0
+
+have_person 104 samples
+correct_rate: 98.08%   正确102  错误2
+
+
+-------------------------------------------
+Mistral
+
+room1
+no_person 34 samples
+correct_rate:  41.17%  正确14  错误20
+
+have_person 57 samples
+correct_rate:  68.42%  正确39 错误18
+
+room2
+no_person 60 samples
+correct_rate:  26.67%  正确16  错误44
+
+have_person 87 samples
+correct_rate: 77.01%   正确67  错误20
+
+room3
+no_person 23 samples
+correct_rate:  47.83%  正确11  错误12
+
+have_person 104 samples
+correct_rate: 73.08%   正确76  错误28
+
