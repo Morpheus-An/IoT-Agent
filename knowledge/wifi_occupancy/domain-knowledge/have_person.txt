@@ -1,0 +1,7 @@
+class: have_person
+The CSI data: fluctuation and weaker amplitude
+The mean value of CSI: smaller than no_person
+The standard deviation across subcarriers for the mean CSI amplitude over time: larger than no_person
+The mean standard deviation across subcarriers for each time point: larger than no_person
+If there is a person, the mean value is smaller, the standard deviation across subcarriers for the mean CSI amplitude over time is larger and the mean standard deviation across subcarriers for each time point is larger.
+The precision of the decimal point for the mean and std should be concerned with 0.001.

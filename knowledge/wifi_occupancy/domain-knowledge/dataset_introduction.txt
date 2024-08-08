@@ -1,0 +1,23 @@
+The dataset was collected using Wi-Fi Channel State Information (CSI) to recognize the human occupancy.
+
+CSI represents the change of the signal from a transmitter (denote it as x) to a receiver (denote it as y) and it is represented in the frequency domain. 
+
+To measure the CSI, the transmitter sends the Long Training Symbol (LTS), which contains pre-defined information for each subcarrier. When the receiver receives the LTS, it estimates the CSI having the difference between the original and received LTS.
+
+
+The system responsible for the Tx-Rx communication, CSI computing, and data capturing for further analysis was build. It consists of two programs, one responsible for sending a constant wi-fi packet and the other for receiving it and calculating the CSI.
+
+The dataset characteristics:
+classes: no_person, have_person
+WiFi router: TP-Link TL-WDR4300
+Bandwidth: 40MHz
+Channel: 60
+Frequency: 5GHz
+Antennas: 2Rx * 2Tx
+number of subcarriers: 114
+
+In this dataset, we only use amplitude values, as the angle has much noise.
+The structure of the data is [T,456], where T is the time frames in one CSI data, while 456 denotes the antennas multiply subcarriers.
+In practice, we downsample the subcarriers with a smaller size.
+
+Signals with greater fluctuations and weaker amplitude in sample data in the sequence often indicate human movements, whereas signals with smaller fluctuations and stronger amplitude in sample data often indicate there is no person.
