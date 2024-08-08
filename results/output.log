@@ -1,0 +1,14171 @@
+
+
+config=
+curtime:  2024-07-27 16:15:34
+task_type: wifi_occupancy
+sample_num: 2
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+
+config=
+curtime:  2024-07-27 16:37:46
+task_type: wifi_occupancy
+sample_num: 2
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+
+config=
+curtime:  2024-07-27 16:41:12
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 65
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: have_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+
+config=
+curtime:  2024-07-27 16:51:03
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 65
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: no_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: no_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: no_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: no_person
+38 done_____________________________
+[ANSWER]: no_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: no_person
+42 done_____________________________
+[ANSWER]: no_person
+43 done_____________________________
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: no_person
+45 done_____________________________
+[ANSWER]:
+no_person
+46 done_____________________________
+[ANSWER]: no_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: no_person
+50 done_____________________________
+[ANSWER]: have_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: no_person
+56 done_____________________________
+[ANSWER]: no_person
+57 done_____________________________
+[ANSWER]: no_person
+58 done_____________________________
+[ANSWER]: no_person
+59 done_____________________________
+[ANSWER]: no_person
+60 done_____________________________
+[ANSWER]: no_person
+61 done_____________________________
+[ANSWER]: no_person
+62 done_____________________________
+[ANSWER]: no_person
+63 done_____________________________
+[ANSWER]: no_person
+64 done_____________________________
+
+config=
+curtime:  2024-07-27 19:25:32
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 65
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+[ANSWER]: have_person
+0 done_____________________________
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: no_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: no_person
+33 done_____________________________
+[ANSWER]: no_person
+34 done_____________________________
+[ANSWER]: no_person
+35 done_____________________________
+[ANSWER]:
+no_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: no_person
+38 done_____________________________
+[ANSWER]: no_person
+39 done_____________________________
+[ANSWER]: no_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: no_person
+42 done_____________________________
+[ANSWER]: no_person
+43 done_____________________________
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: no_person
+45 done_____________________________
+[ANSWER]: no_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: no_person
+50 done_____________________________
+[ANSWER]: no_person
+51 done_____________________________
+[ANSWER]: no_person
+52 done_____________________________
+[ANSWER]: no_person
+53 done_____________________________
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: no_person
+55 done_____________________________
+[ANSWER]: no_person
+56 done_____________________________
+[ANSWER]: no_person
+57 done_____________________________
+[ANSWER]: no_person
+58 done_____________________________
+[ANSWER]:
+no_person
+59 done_____________________________
+[ANSWER]: no_person
+60 done_____________________________
+[ANSWER]: no_person
+61 done_____________________________
+[ANSWER]: no_person
+62 done_____________________________
+[ANSWER]: no_person
+63 done_____________________________
+[ANSWER]: no_person
+64 done_____________________________
+
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 20:59:37
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 65
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 21:26:54
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 65
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]:
+no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 21:29:37
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 87
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 21:30:59
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 87
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: no_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: have_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: have_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: have_person
+43 done_____________________________
+[ANSWER]: no_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: have_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+[ANSWER]: have_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+[ANSWER]: have_person
+57 done_____________________________
+[ANSWER]: have_person
+58 done_____________________________
+[ANSWER]: have_person
+59 done_____________________________
+[ANSWER]: have_person
+60 done_____________________________
+[ANSWER]: have_person
+61 done_____________________________
+[ANSWER]: no_person
+62 done_____________________________
+[ANSWER]: have_person
+63 done_____________________________
+[ANSWER]: have_person
+64 done_____________________________
+[ANSWER]: have_person
+65 done_____________________________
+[ANSWER]: have_person
+66 done_____________________________
+[ANSWER]: have_person
+67 done_____________________________
+[ANSWER]: have_person
+68 done_____________________________
+[ANSWER]: have_person
+69 done_____________________________
+[ANSWER]: have_person
+70 done_____________________________
+[ANSWER]: have_person
+71 done_____________________________
+[ANSWER]: have_person
+72 done_____________________________
+[ANSWER]: have_person
+73 done_____________________________
+[ANSWER]: have_person
+74 done_____________________________
+[ANSWER]: no_person
+75 done_____________________________
+[ANSWER]: no_person
+76 done_____________________________
+[ANSWER]: have_person
+77 done_____________________________
+[ANSWER]: have_person
+78 done_____________________________
+[ANSWER]: have_person
+79 done_____________________________
+[ANSWER]: no_person
+80 done_____________________________
+[ANSWER]: no_person
+81 done_____________________________
+[ANSWER]: no_person
+82 done_____________________________
+[ANSWER]: have_person
+83 done_____________________________
+[ANSWER]: have_person
+84 done_____________________________
+[ANSWER]: have_person
+85 done_____________________________
+[ANSWER]: have_person
+86 done_____________________________
+correct_rate is 0.8275862068965517
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 21:47:05
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+correct_rate is 0.4411764705882353
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 21:54:05
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: no_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: no_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+correct_rate is 0.7058823529411765
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 22:02:47
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt3.5 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: no_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: no_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: no_person
+26 done_____________________________
+[ANSWER]: no_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+correct_rate is 0.9117647058823529
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 22:09:03
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 57
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: have_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: have_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: no_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: no_person
+36 done_____________________________
+[ANSWER]: no_person
+37 done_____________________________
+[ANSWER]: no_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: no_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: no_person
+42 done_____________________________
+[ANSWER]: no_person
+43 done_____________________________
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: no_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: no_person
+49 done_____________________________
+[ANSWER]: no_person
+50 done_____________________________
+[ANSWER]: no_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: no_person
+53 done_____________________________
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: no_person
+55 done_____________________________
+[ANSWER]: no_person
+56 done_____________________________
+correct_rate is 0.45614035087719296
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 22:19:23
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 57
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt3.5 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: have_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: have_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: have_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: no_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: no_person
+43 done_____________________________
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: have_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: no_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+correct_rate is 0.8947368421052632
+
+
+config=
+curtime:  2024-07-27 22:28:58
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 23
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: no_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+correct_rate is 0.8260869565217391
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 22:40:57
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: claude on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+I've carefully analyzed the given data, comparing it to the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+I've carefully analyzed the provided data, comparing it to the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: no_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+correct_rate is 0.7647058823529411
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 22:33:28
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 104
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gemini-pro on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: have_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: have_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: no_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: no_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: have_person
+43 done_____________________________
+[ANSWER]:
+no_person
+44 done_____________________________
+[ANSWER]: no_person
+45 done_____________________________
+[ANSWER]: no_person
+46 done_____________________________
+[ANSWER]: no_person
+47 done_____________________________
+[ANSWER]: no_person
+48 done_____________________________
+[ANSWER]: no_person
+49 done_____________________________
+[ANSWER]:
+ have_person
+50 done_____________________________
+[ANSWER]: no_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: no_person
+53 done_____________________________
+[ANSWER]: have_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+[ANSWER]: have_person
+57 done_____________________________
+[ANSWER]: have_person
+58 done_____________________________
+[ANSWER]: have_person
+59 done_____________________________
+[ANSWER]: no_person
+60 done_____________________________
+[ANSWER]: no_person
+61 done_____________________________
+[ANSWER]:
+have_person
+62 done_____________________________
+[ANSWER]: no_person
+63 done_____________________________
+[ANSWER]: no_person
+64 done_____________________________
+[ANSWER]: have_person
+65 done_____________________________
+[ANSWER]: have_person
+66 done_____________________________
+[ANSWER]:
+no_person
+67 done_____________________________
+[ANSWER]: have_person
+68 done_____________________________
+[ANSWER]: have_person
+69 done_____________________________
+[ANSWER]: have_person
+70 done_____________________________
+[ANSWER]: have_person
+71 done_____________________________
+[ANSWER]: have_person
+72 done_____________________________
+[ANSWER]: no_person
+73 done_____________________________
+[ANSWER]: have_person
+74 done_____________________________
+[ANSWER]: have_person
+75 done_____________________________
+[ANSWER]: no_person
+76 done_____________________________
+[ANSWER]: have_person
+77 done_____________________________
+[ANSWER]: have_person
+78 done_____________________________
+[ANSWER]: no_person
+79 done_____________________________
+[ANSWER]: have_person
+80 done_____________________________
+[ANSWER]: have_person
+81 done_____________________________
+[ANSWER]: no_person
+82 done_____________________________
+[ANSWER]: no_person
+83 done_____________________________
+[ANSWER]: have_person
+84 done_____________________________
+[ANSWER]: have_person
+85 done_____________________________
+[ANSWER]: have_person
+86 done_____________________________
+[ANSWER]: no_person
+87 done_____________________________
+[ANSWER]: no_person
+88 done_____________________________
+[ANSWER]: have_person
+89 done_____________________________
+[ANSWER]: have_person
+90 done_____________________________
+[ANSWER]: no_person
+91 done_____________________________
+[ANSWER]: have_person
+92 done_____________________________
+[ANSWER]: have_person
+93 done_____________________________
+[ANSWER]: have_person
+94 done_____________________________
+[ANSWER]: no_person
+95 done_____________________________
+[ANSWER]: have_person
+96 done_____________________________
+[ANSWER]: no_person
+97 done_____________________________
+[ANSWER]: no_person
+98 done_____________________________
+[ANSWER]: have_person
+99 done_____________________________
+[ANSWER]: no_person
+100 done_____________________________
+[ANSWER]: have_person
+101 done_____________________________
+[ANSWER]: have_person
+102 done_____________________________
+[ANSWER]: have_person
+103 done_____________________________
+correct_rate is 0.6153846153846154
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 22:58:32
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 57
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: claude on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+I've carefully analyzed the given data and compared it to the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: have_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+I will analyze the given data step-by-step, comparing it to the provided knowledge and examples. Based on this comprehensive analysis, I can determine the occupancy status.
+
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my answer:
+
+[ANSWER]: have_person
+17 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: have_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+I've carefully analyzed the given data, comparing it to the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+31 done_____________________________
+I have carefully analyzed the provided data and compared it with the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+32 done_____________________________
+I've carefully analyzed the provided data, comparing it to the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: have_person
+36 done_____________________________
+I've carefully analyzed the provided data, comparing it to the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+37 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+42 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. After careful consideration, here is my conclusion:
+
+[ANSWER]: no_person
+43 done_____________________________
+I'll analyze the data based on the provided knowledge and examples, comparing the given values to the typical patterns for occupied and unoccupied spaces. After careful consideration, here is my conclusion:
+
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: have_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+I have carefully analyzed the given data and compared it with the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+correct_rate is 0.8947368421052632
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 23:10:54
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 87
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: claude on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+12 done_____________________________
+I'll analyze the data step-by-step, comparing it with the provided examples and knowledge. Based on this comprehensive analysis, here's my conclusion:
+
+[ANSWER]: no_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on this analysis, here is my conclusion:
+
+[ANSWER]: no_person
+16 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my analysis, here is the answer in the requested format:
+
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: no_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: no_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: no_person
+36 done_____________________________
+[ANSWER]: no_person
+37 done_____________________________
+[ANSWER]: no_person
+38 done_____________________________
+[ANSWER]: no_person
+39 done_____________________________
+[ANSWER]: no_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: no_person
+42 done_____________________________
+[ANSWER]: no_person
+43 done_____________________________
+I'll analyze the data step-by-step, comparing it to the provided examples and knowledge. Based on this analysis, here's my conclusion:
+
+[ANSWER]: have_person
+44 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my analysis, here is the answer in the requested format:
+
+[ANSWER]: no_person
+45 done_____________________________
+[ANSWER]: no_person
+46 done_____________________________
+[ANSWER]: no_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: no_person
+50 done_____________________________
+[ANSWER]: no_person
+51 done_____________________________
+[ANSWER]: no_person
+52 done_____________________________
+[ANSWER]: no_person
+53 done_____________________________
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: no_person
+55 done_____________________________
+[ANSWER]: no_person
+56 done_____________________________
+[ANSWER]: no_person
+57 done_____________________________
+[ANSWER]: no_person
+58 done_____________________________
+[ANSWER]: no_person
+59 done_____________________________
+[ANSWER]: no_person
+60 done_____________________________
+[ANSWER]: no_person
+61 done_____________________________
+[ANSWER]: no_person
+62 done_____________________________
+[ANSWER]: no_person
+63 done_____________________________
+[ANSWER]: no_person
+64 done_____________________________
+correct_rate is 0.666666666667
+I've carefully analyzed the given data, comparing it to the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 23:09:14
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 87
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: claude on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+I will analyze the given data step by step, comparing it with the provided knowledge and examples. Based on this comprehensive analysis, I can determine the occupancy status.
+
+[ANSWER]: have_person
+7 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+I will analyze the given data based on the provided knowledge and examples, comparing the values to the typical patterns for occupied and unoccupied spaces. After careful consideration, here is my conclusion:
+
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: have_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: have_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: have_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: have_person
+43 done_____________________________
+I've carefully analyzed the provided data, comparing it to the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: have_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+Based on the comprehensive analysis of the provided data, comparing it with the examples and the knowledge base, here is my determination:
+
+[ANSWER]: have_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+57 done_____________________________
+[ANSWER]: have_person
+58 done_____________________________
+[ANSWER]: have_person
+59 done_____________________________
+[ANSWER]: have_person
+60 done_____________________________
+[ANSWER]: have_person
+61 done_____________________________
+I'll analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+62 done_____________________________
+[ANSWER]: have_person
+63 done_____________________________
+[ANSWER]: have_person
+64 done_____________________________
+[ANSWER]: have_person
+65 done_____________________________
+[ANSWER]: have_person
+66 done_____________________________
+[ANSWER]: have_person
+67 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+68 done_____________________________
+[ANSWER]: have_person
+69 done_____________________________
+I'll analyze the data step by step, comparing it to the provided knowledge and examples. Based on this analysis, I can determine whether there is a person present or not.
+
+[ANSWER]: have_person
+70 done_____________________________
+[ANSWER]: have_person
+71 done_____________________________
+[ANSWER]: have_person
+72 done_____________________________
+[ANSWER]: have_person
+73 done_____________________________
+[ANSWER]: have_person
+74 done_____________________________
+[ANSWER]: have_person
+75 done_____________________________
+[ANSWER]: have_person
+76 done_____________________________
+[ANSWER]: have_person
+77 done_____________________________
+[ANSWER]: have_person
+78 done_____________________________
+[ANSWER]: have_person
+79 done_____________________________
+[ANSWER]: no_person
+80 done_____________________________
+[ANSWER]: have_person
+81 done_____________________________
+[ANSWER]: have_person
+82 done_____________________________
+[ANSWER]: have_person
+83 done_____________________________
+[ANSWER]: have_person
+84 done_____________________________
+[ANSWER]: have_person
+85 done_____________________________
+[ANSWER]: have_person
+86 done_____________________________
+correct_rate is 0.9540229885057471
+I've carefully analyzed the provided data, comparing it to the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 23:29:20
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 23
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: claude on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on this analysis, here is my answer:
+
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: no_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+Based on the comprehensive analysis of the provided data and comparison with the examples and knowledge given, here is my conclusion:
+
+[ANSWER]: no_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+correct_rate is 0.8695652173913043
+I have carefully analyzed the given data and compared it with the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-27 23:26:15
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 104
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: claude on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+I've carefully analyzed the given data, comparing it to the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my analysis, here is my conclusion:
+
+[ANSWER]: no_person
+7 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+8 done_____________________________
+I've carefully analyzed the given data, comparing it to the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+I have carefully analyzed the given data and compared it with the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+11 done_____________________________
+I have carefully analyzed the provided data and compared it with the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+I've carefully analyzed the given data, comparing it to the provided examples and knowledge base. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+I'll analyze the data step-by-step, comparing it to the provided examples and knowledge. Based on this comprehensive analysis, here's my conclusion:
+
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+I've carefully analyzed the provided data, comparing it to the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: no_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+28 done_____________________________
+I have carefully analyzed the given data, comparing it to the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+29 done_____________________________
+I have carefully analyzed the provided data, comparing it with the given examples and knowledge base. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: have_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+I've carefully analyzed the given data, comparing it to the provided examples and knowledge base. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: no_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: have_person
+38 done_____________________________
+I have analyzed the given data and compared it with the provided knowledge and examples. Based on this comprehensive analysis, here is my answer:
+
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: have_person
+43 done_____________________________
+[ANSWER]: no_person
+44 done_____________________________
+[ANSWER]: no_person
+45 done_____________________________
+[ANSWER]: no_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: no_person
+51 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+[ANSWER]: have_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on my comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+57 done_____________________________
+[ANSWER]: have_person
+58 done_____________________________
+[ANSWER]: have_person
+59 done_____________________________
+[ANSWER]: no_person
+60 done_____________________________
+[ANSWER]: no_person
+61 done_____________________________
+[ANSWER]: have_person
+62 done_____________________________
+[ANSWER]: have_person
+63 done_____________________________
+[ANSWER]: have_person
+64 done_____________________________
+[ANSWER]: have_person
+65 done_____________________________
+[ANSWER]: have_person
+66 done_____________________________
+[ANSWER]: have_person
+67 done_____________________________
+[ANSWER]: have_person
+68 done_____________________________
+Based on a comprehensive analysis of the provided data and comparison with the examples and knowledge given, here is my conclusion:
+
+[ANSWER]: have_person
+69 done_____________________________
+[ANSWER]: have_person
+70 done_____________________________
+I will analyze the data step-by-step based on the provided knowledge and examples. After careful consideration, here is my conclusion:
+
+[ANSWER]: have_person
+71 done_____________________________
+[ANSWER]: have_person
+72 done_____________________________
+[ANSWER]: no_person
+73 done_____________________________
+[ANSWER]: have_person
+74 done_____________________________
+[ANSWER]: have_person
+75 done_____________________________
+[ANSWER]: no_person
+76 done_____________________________
+[ANSWER]: have_person
+77 done_____________________________
+[ANSWER]: have_person
+78 done_____________________________
+[ANSWER]: have_person
+79 done_____________________________
+I've carefully analyzed the given data and compared it with the provided knowledge and examples. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+80 done_____________________________
+[ANSWER]: have_person
+81 done_____________________________
+[ANSWER]: have_person
+82 done_____________________________
+[ANSWER]: no_person
+83 done_____________________________
+[ANSWER]: have_person
+84 done_____________________________
+[ANSWER]: have_person
+85 done_____________________________
+[ANSWER]: have_person
+86 done_____________________________
+I will analyze the data as requested, comparing it to the provided examples and knowledge. Based on my analysis, here is my answer:
+
+[ANSWER]: no_person
+87 done_____________________________
+[ANSWER]: have_person
+88 done_____________________________
+I will analyze the data as requested, comparing it to the provided knowledge and examples. Based on my analysis, here is the answer in the requested format:
+
+[ANSWER]: no_person
+89 done_____________________________
+[ANSWER]: have_person
+90 done_____________________________
+[ANSWER]: have_person
+91 done_____________________________
+[ANSWER]: have_person
+92 done_____________________________
+[ANSWER]: have_person
+93 done_____________________________
+I have carefully analyzed the provided data, comparing it with the examples and knowledge given. Based on this comprehensive analysis, here is my conclusion:
+
+[ANSWER]: have_person
+94 done_____________________________
+[ANSWER]: have_person
+95 done_____________________________
+[ANSWER]: have_person
+96 done_____________________________
+[ANSWER]: have_person
+97 done_____________________________
+[ANSWER]: have_person
+98 done_____________________________
+[ANSWER]: have_person
+99 done_____________________________
+[ANSWER]: have_person
+100 done_____________________________
+[ANSWER]: have_person
+101 done_____________________________
+[ANSWER]: have_person
+102 done_____________________________
+[ANSWER]: have_person
+103 done_____________________________
+correct_rate is 0.7788461538461539
+
+
+    ANSWER: no_pers
+0 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 01:08:55
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: llama2 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 01:18:56
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: llama2 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+22 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+23 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+25 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+26 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+27 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+28 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+29 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+30 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+31 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+32 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+33 done_____________________________
+correct_rate is 0.0
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 02:30:08
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 57
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: llama2 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+15 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+20 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+22 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+23 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+25 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+26 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+27 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+28 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+29 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+30 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+31 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+32 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+33 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+34 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+35 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+36 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+37 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+38 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+39 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+40 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+41 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+42 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+43 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+44 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+45 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+46 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+47 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+48 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+49 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+50 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+51 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+52 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+53 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+54 done_____________________________
+
+    ANSWER: have_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+55 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+56 done_____________________________
+correct_rate is 0.05263157894736842
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 04:29:37
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 60
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: llama2 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+22 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+23 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+25 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+26 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+27 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+28 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+29 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+30 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+31 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+32 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+33 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+34 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+35 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+36 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+37 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+38 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+39 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+40 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+41 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+42 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+43 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+44 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+45 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+46 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+47 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+48 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+49 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+50 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+51 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+52 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+53 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+54 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+55 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+56 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+57 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+58 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+59 done_____________________________
+correct_rate is 1.0
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 06:35:24
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 87
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: llama2 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+1 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+2 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+3 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+4 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+5 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+6 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+7 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+8 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+11 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+16 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+22 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+23 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+25 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+26 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+27 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+28 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+29 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+30 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+31 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+32 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+33 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+34 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+35 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+36 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+37 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+38 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+39 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+40 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+41 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+42 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+43 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+44 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+45 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+46 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+47 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+48 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+49 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+50 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+51 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+52 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+53 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+54 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+55 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+56 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+57 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+58 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+59 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+60 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+61 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+62 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+63 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+64 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+65 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+66 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+67 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+68 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+69 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+70 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+71 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+72 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+73 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+74 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+75 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+76 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+77 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+78 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+79 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+80 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+81 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+82 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+83 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+84 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+85 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+86 done_____________________________
+correct_rate is 0.5287356321839081
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 09:37:05
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 23
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: llama2 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21 done_____________________________
+
+    ANSWER: no_person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+22 done_____________________________
+correct_rate is 1.0
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 10:25:17
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 104
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: llama2 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+1 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+2 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+3 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+4 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+5 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+6 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+7 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+9 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+10 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+11 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+12 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+13 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+14 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+15 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+16 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+17 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+18 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+19 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+20 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+21 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+22 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+23 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+24 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+25 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+26 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+27 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+28 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+29 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+30 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+31 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+32 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+33 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+34 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+35 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+36 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+37 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+38 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+39 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+40 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+41 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+42 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+43 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+44 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+45 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+46 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+47 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+48 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+49 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+50 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+51 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+52 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+53 done_____________________________
+
+    A:
+    B:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+54 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+55 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+56 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+57 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+58 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+59 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+60 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+61 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+62 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+63 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+64 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+65 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+66 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+67 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+68 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+69 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+70 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+71 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+72 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+73 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+74 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+75 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+76 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+77 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+78 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+79 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+80 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+81 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+82 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+83 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+84 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+85 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+86 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+87 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+88 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+89 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+90 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+91 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+92 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+93 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+94 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+95 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+96 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+97 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+98 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+99 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+100 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+101 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+102 done_____________________________
+
+    A: have_person
+    
+    B: no_person
+
+
+
+
+
+
+
+
+
+103 done_____________________________
+correct_rate is 0.9807692307692307
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 15:34:06
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt4 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: no_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: no_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+correct_rate is 0.8823529411764706
+[ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 15:38:55
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 57
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt4 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: have_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: no_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: have_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: have_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: have_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: no_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: no_person
+43 done_____________________________
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: have_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+correct_rate is 0.8947368421052632
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 15:46:28
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 60
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt4 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: no_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: no_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: no_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: no_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+[ANSWER]: no_person
+23 done_____________________________
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: no_person
+26 done_____________________________
+[ANSWER]: no_person
+27 done_____________________________
+[ANSWER]: no_person
+28 done_____________________________
+[ANSWER]: no_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: no_person
+31 done_____________________________
+[ANSWER]: no_person
+32 done_____________________________
+[ANSWER]: no_person
+33 done_____________________________
+[ANSWER]: no_person
+34 done_____________________________
+[ANSWER]: no_person
+35 done_____________________________
+[ANSWER]: no_person
+36 done_____________________________
+[ANSWER]: no_person
+37 done_____________________________
+[ANSWER]: no_person
+38 done_____________________________
+[ANSWER]: no_person
+39 done_____________________________
+[ANSWER]: no_person
+40 done_____________________________
+[ANSWER]: no_person
+41 done_____________________________
+[ANSWER]: no_person
+42 done_____________________________
+[ANSWER]: no_person
+43 done_____________________________
+[ANSWER]: no_person
+44 done_____________________________
+[ANSWER]: no_person
+45 done_____________________________
+[ANSWER]: no_person
+46 done_____________________________
+[ANSWER]: no_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: no_person
+49 done_____________________________
+[ANSWER]: no_person
+50 done_____________________________
+[ANSWER]: no_person
+51 done_____________________________
+[ANSWER]: no_person
+52 done_____________________________
+[ANSWER]: no_person
+53 done_____________________________
+[ANSWER]: no_person
+54 done_____________________________
+[ANSWER]: no_person
+55 done_____________________________
+[ANSWER]: no_person
+56 done_____________________________
+[ANSWER]: no_person
+57 done_____________________________
+[ANSWER]: no_person
+58 done_____________________________
+[ANSWER]: no_person
+59 done_____________________________
+correct_rate is 0.9166666666666666
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 15:54:21
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 87
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt4 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: have_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: have_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: have_person
+12 done_____________________________
+[ANSWER]: have_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: have_person
+24 done_____________________________
+[ANSWER]: have_person
+25 done_____________________________
+[ANSWER]: have_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: have_person
+29 done_____________________________
+[ANSWER]: have_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: have_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: have_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: have_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: have_person
+43 done_____________________________
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: have_person
+51 done_____________________________
+[ANSWER]: have_person
+52 done_____________________________
+[ANSWER]: have_person
+53 done_____________________________
+[ANSWER]: have_person
+54 done_____________________________
+[ANSWER]: have_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+[ANSWER]: have_person
+57 done_____________________________
+[ANSWER]: have_person
+58 done_____________________________
+[ANSWER]: have_person
+59 done_____________________________
+[ANSWER]: have_person
+60 done_____________________________
+[ANSWER]: have_person
+61 done_____________________________
+[ANSWER]: have_person
+62 done_____________________________
+[ANSWER]: have_person
+63 done_____________________________
+[ANSWER]: have_person
+64 done_____________________________
+[ANSWER]: have_person
+65 done_____________________________
+[ANSWER]: have_person
+66 done_____________________________
+[ANSWER]: have_person
+67 done_____________________________
+[ANSWER]: have_person
+68 done_____________________________
+[ANSWER]: have_person
+69 done_____________________________
+[ANSWER]: have_person
+70 done_____________________________
+[ANSWER]: have_person
+71 done_____________________________
+[ANSWER]: have_person
+72 done_____________________________
+[ANSWER]: have_person
+73 done_____________________________
+[ANSWER]: have_person
+74 done_____________________________
+[ANSWER]: have_person
+75 done_____________________________
+[ANSWER]: have_person
+76 done_____________________________
+[ANSWER]: have_person
+77 done_____________________________
+[ANSWER]: have_person
+78 done_____________________________
+[ANSWER]: have_person
+79 done_____________________________
+[ANSWER]: no_person
+80 done_____________________________
+[ANSWER]: no_person
+81 done_____________________________
+[ANSWER]: have_person
+82 done_____________________________
+[ANSWER]: have_person
+83 done_____________________________
+[ANSWER]: have_person
+84 done_____________________________
+[ANSWER]: have_person
+85 done_____________________________
+[ANSWER]: have_person
+86 done_____________________________
+correct_rate is 0.9425287356321839
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 16:05:21
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 23
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt4 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+[ANSWER]: no_person
+1 done_____________________________
+[ANSWER]: no_person
+2 done_____________________________
+[ANSWER]: no_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: no_person
+5 done_____________________________
+[ANSWER]: no_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: no_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: no_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: no_person
+13 done_____________________________
+[ANSWER]: no_person
+14 done_____________________________
+[ANSWER]: no_person
+15 done_____________________________
+[ANSWER]: have_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: no_person
+18 done_____________________________
+[ANSWER]: no_person
+19 done_____________________________
+[ANSWER]: no_person
+20 done_____________________________
+[ANSWER]: no_person
+21 done_____________________________
+[ANSWER]: no_person
+22 done_____________________________
+correct_rate is 0.8260869565217391
+[ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-28 16:08:25
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 104
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: gpt4 on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+[ANSWER]: have_person
+1 done_____________________________
+[ANSWER]: have_person
+2 done_____________________________
+[ANSWER]: have_person
+3 done_____________________________
+[ANSWER]: have_person
+4 done_____________________________
+[ANSWER]: have_person
+5 done_____________________________
+[ANSWER]: have_person
+6 done_____________________________
+[ANSWER]: have_person
+7 done_____________________________
+[ANSWER]: no_person
+8 done_____________________________
+[ANSWER]: have_person
+9 done_____________________________
+[ANSWER]: no_person
+10 done_____________________________
+[ANSWER]: have_person
+11 done_____________________________
+[ANSWER]: no_person
+12 done_____________________________
+[ANSWER]: no_person
+13 done_____________________________
+[ANSWER]: have_person
+14 done_____________________________
+[ANSWER]: have_person
+15 done_____________________________
+[ANSWER]: no_person
+16 done_____________________________
+[ANSWER]: have_person
+17 done_____________________________
+[ANSWER]: have_person
+18 done_____________________________
+[ANSWER]: have_person
+19 done_____________________________
+[ANSWER]: have_person
+20 done_____________________________
+[ANSWER]: have_person
+21 done_____________________________
+[ANSWER]: have_person
+22 done_____________________________
+[ANSWER]: have_person
+23 done_____________________________
+[ANSWER]: no_person
+24 done_____________________________
+[ANSWER]: no_person
+25 done_____________________________
+[ANSWER]: no_person
+26 done_____________________________
+[ANSWER]: have_person
+27 done_____________________________
+[ANSWER]: have_person
+28 done_____________________________
+[ANSWER]: have_person
+29 done_____________________________
+[ANSWER]: no_person
+30 done_____________________________
+[ANSWER]: have_person
+31 done_____________________________
+[ANSWER]: have_person
+32 done_____________________________
+[ANSWER]: have_person
+33 done_____________________________
+[ANSWER]: have_person
+34 done_____________________________
+[ANSWER]: have_person
+35 done_____________________________
+[ANSWER]: have_person
+36 done_____________________________
+[ANSWER]: have_person
+37 done_____________________________
+[ANSWER]: have_person
+38 done_____________________________
+[ANSWER]: have_person
+39 done_____________________________
+[ANSWER]: have_person
+40 done_____________________________
+[ANSWER]: have_person
+41 done_____________________________
+[ANSWER]: have_person
+42 done_____________________________
+[ANSWER]: have_person
+43 done_____________________________
+[ANSWER]: have_person
+44 done_____________________________
+[ANSWER]: have_person
+45 done_____________________________
+[ANSWER]: have_person
+46 done_____________________________
+[ANSWER]: have_person
+47 done_____________________________
+[ANSWER]: have_person
+48 done_____________________________
+[ANSWER]: have_person
+49 done_____________________________
+[ANSWER]: have_person
+50 done_____________________________
+[ANSWER]: no_person
+51 done_____________________________
+[ANSWER]: no_person
+52 done_____________________________
+[ANSWER]: no_person
+53 done_____________________________
+[ANSWER]: have_person
+54 done_____________________________
+[ANSWER]: no_person
+55 done_____________________________
+[ANSWER]: have_person
+56 done_____________________________
+[ANSWER]: no_person
+57 done_____________________________
+[ANSWER]: no_person
+58 done_____________________________
+[ANSWER]: have_person
+59 done_____________________________
+[ANSWER]: have_person
+60 done_____________________________
+[ANSWER]: have_person
+61 done_____________________________
+[ANSWER]: have_person
+62 done_____________________________
+[ANSWER]: have_person
+63 done_____________________________
+[ANSWER]: have_person
+64 done_____________________________
+[ANSWER]: have_person
+65 done_____________________________
+[ANSWER]: have_person
+66 done_____________________________
+[ANSWER]: no_person
+67 done_____________________________
+[ANSWER]: have_person
+68 done_____________________________
+[ANSWER]: have_person
+69 done_____________________________
+[ANSWER]: no_person
+70 done_____________________________
+[ANSWER]: have_person
+71 done_____________________________
+[ANSWER]: have_person
+72 done_____________________________
+[ANSWER]: have_person
+73 done_____________________________
+[ANSWER]: have_person
+74 done_____________________________
+[ANSWER]: have_person
+75 done_____________________________
+[ANSWER]: no_person
+76 done_____________________________
+[ANSWER]: no_person
+77 done_____________________________
+[ANSWER]: have_person
+78 done_____________________________
+[ANSWER]: have_person
+79 done_____________________________
+[ANSWER]: have_person
+80 done_____________________________
+[ANSWER]: have_person
+81 done_____________________________
+[ANSWER]: no_person
+82 done_____________________________
+[ANSWER]: have_person
+83 done_____________________________
+[ANSWER]: have_person
+84 done_____________________________
+[ANSWER]: have_person
+85 done_____________________________
+[ANSWER]: no_person
+86 done_____________________________
+[ANSWER]: no_person
+87 done_____________________________
+[ANSWER]: have_person
+88 done_____________________________
+[ANSWER]: have_person
+89 done_____________________________
+[ANSWER]: have_person
+90 done_____________________________
+[ANSWER]: have_person
+91 done_____________________________
+[ANSWER]: have_person
+92 done_____________________________
+[ANSWER]: have_person
+93 done_____________________________
+[ANSWER]: have_person
+94 done_____________________________
+[ANSWER]: have_person
+95 done_____________________________
+[ANSWER]: have_person
+96 done_____________________________
+[ANSWER]: have_person
+97 done_____________________________
+[ANSWER]: have_person
+98 done_____________________________
+[ANSWER]: have_person
+99 done_____________________________
+[ANSWER]: no_person
+100 done_____________________________
+[ANSWER]: no_person
+101 done_____________________________
+[ANSWER]: have_person
+102 done_____________________________
+[ANSWER]: no_person
+103 done_____________________________
+correct_rate is 0.75
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-31 20:43:58
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 34
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: Mistral on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+1 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+2 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+3 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+4 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+5 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+6 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+7 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+8 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+9 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+10 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+11 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+12 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+13 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+14 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+15 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+16 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+17 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+18 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+19 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+20 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+21 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+22 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+23 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+24 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+25 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+26 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+27 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+28 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+29 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+30 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+31 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+32 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+33 done_____________________________
+correct_rate is 0.4117647058823529
+
+
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-31 22:47:42
+task_type: wifi_occupancy
+cls_num: 1
+sample_num: 57
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: Mistral on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+1 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+2 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+3 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+4 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+5 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+6 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+7 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+8 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+9 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+10 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+11 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+12 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+13 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+14 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+15 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+16 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+17 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+18 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+19 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+20 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+21 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+22 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+23 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+24 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+25 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+26 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+27 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+28 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+29 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+30 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+31 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+32 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+33 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+34 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+35 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+36 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+37 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+38 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+39 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+40 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+41 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+42 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+43 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+44 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+45 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+46 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+47 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+48 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+49 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+50 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+51 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+52 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+53 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+54 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+55 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+56 done_____________________________
+correct_rate is 0.6842105263157895
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+0 done_____________________________
+
+config=
+curtime:  2024-07-31 23:39:33
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 60
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: Mistral on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+1 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+2 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+3 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+4 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+5 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+6 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+7 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+8 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+9 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+10 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+11 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+12 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+13 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+14 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+15 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+16 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+17 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+18 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+19 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+20 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+21 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+22 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+23 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+24 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+25 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+26 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+27 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+28 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+29 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+30 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+31 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+32 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+33 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+34 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+35 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+36 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+37 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+38 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+39 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+40 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+41 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+42 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+43 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+44 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+45 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+46 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+47 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+48 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+49 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+50 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+51 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+52 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+53 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+54 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+55 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+56 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+57 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+58 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+59 done_____________________________
+correct_rate is 0.26666666666666666
+
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-08-02 14:46:28
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 23
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: Mistral on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(no_person)====================
+
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+1 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+2 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+3 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+4 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+5 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+6 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+7 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+8 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+9 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+10 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+11 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+12 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+13 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+14 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+15 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+16 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+17 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+18 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+19 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+20 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: no_person
+21 done_____________________________
+1. no_person
+    2. have_person
+    [ANSWER]: have_person
+22 done_____________________________
+correct_rate is 0.4782608695652174
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-08-02 15:10:06
+task_type: wifi_occupancy
+cls_num: 3
+sample_num: 104
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: Mistral on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+1 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+2 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+3 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+4 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+5 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+6 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+7 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+8 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+9 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+10 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+11 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+12 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+13 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+14 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+15 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+16 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+17 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+18 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+19 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+20 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+21 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+22 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+23 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+24 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+25 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+26 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+27 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+28 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+29 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+30 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+31 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+32 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+33 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+34 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+35 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+36 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+37 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+38 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+39 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+40 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+41 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+42 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+43 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+44 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+45 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+46 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+47 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+48 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+49 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+50 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+51 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+52 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+53 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+54 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+55 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+56 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+57 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+58 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+59 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+60 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+61 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+62 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+63 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+64 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+65 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+66 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+67 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+68 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+69 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+70 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+71 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+72 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+73 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+74 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+75 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+76 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+77 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+78 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+79 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+80 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+81 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+82 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+83 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+84 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+85 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+86 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+87 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+88 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+89 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+90 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+91 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+92 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+93 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+94 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+95 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+96 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+97 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+98 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+99 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+100 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+101 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+102 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+103 done_____________________________
+correct_rate is 0.7307692307692307
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+0 done_____________________________
+
+config=
+curtime:  2024-08-02 17:08:14
+task_type: wifi_occupancy
+cls_num: 2
+sample_num: 87
+no_domain_knowledge: False
+no_demo_knowledge: False
+model: Mistral on cuda
+generate results are saved in results/output.log
+=================BEGIN A NEW RUN(have_person)====================
+
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+1 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+2 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+3 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+4 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+5 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+6 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+7 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+8 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+9 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+10 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+11 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+12 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+13 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+14 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+15 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+16 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+17 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+18 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+19 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+20 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+21 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+22 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+23 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+24 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+25 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+26 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+27 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+28 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+29 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+30 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+31 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+32 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+33 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+34 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+35 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+36 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+37 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+38 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+39 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+40 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+41 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+42 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+43 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+44 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+45 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+46 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+47 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+48 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+49 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+50 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+51 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+52 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+53 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+54 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+55 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+56 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+57 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+58 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+59 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+60 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+61 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+62 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+63 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+64 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+65 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+66 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+67 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+68 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+69 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+70 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+71 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+72 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+73 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+74 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+75 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+76 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+77 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+78 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+79 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+80 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+81 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: no_person
+82 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+83 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+84 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+85 done_____________________________
+1. have_person
+    2. no_person
+    [ANSWER]: have_person
+86 done_____________________________
+correct_rate is 0.7701149425287356
