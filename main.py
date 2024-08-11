@@ -97,18 +97,6 @@ generate results are saved in {args.output_file_path}"""
     # 得到指定文件夹下所有文件的路径
     if not args.no_domain_knowledge:
         KB_paths, _ = get_knowledge_paths(args)
-        if args.task_type == "wifi_occupancy" and args.model == "llama2":
-            KB_paths = ["knowledge/wifi_occupancy/domain-knowledge/Value_description.txt"]
-        elif args.task_type == "wifi_occupancy" and args.model == "Mistral":
-            KB_paths = ["knowledge/wifi_occupancy/domain-knowledge/Value_description.txt"]
-        elif args.task_type == "wifi_occupancy" and args.model != "llama2" and args.model != "Mistral":
-            KB_paths.remove("knowledge/wifi_occupancy/domain-knowledge/Value_description.txt")
-        elif args.task_type == "wifi_localization" and args.model == "llama2":
-            KB_paths = ["knowledge/wifi_localization/domain-knowledge/WKNN_simple.txt"]
-        elif args.task_type == "wifi_localization" and args.model == "Mistral":
-            KB_paths = ["knowledge/wifi_localization/domain-knowledge/WKNN_simple.txt"]
-        elif args.task_type == "wifi_localization" and args.model != "llama2" and args.model != "Mistral":
-            KB_paths.remove("knowledge/wifi_localization/domain-knowledge/WKNN_simple.txt")
         document_store_domain = InMemoryDocumentStore()
         splitter_kwags_domain = {"split_by": "sentence", "split_length": 2}
         embedded_document_store_KB = prepare_and_embed_documents(document_store_domain, KB_paths, device=args.device, splitter_kwards=splitter_kwags_domain)
@@ -356,12 +344,11 @@ generate results are saved in {args.output_file_path}"""
                         "top_k": 1,
                     }
              
-            # if args.debug:
+            if args.debug:
                 # pdb.set_trace()
-                # pass
-            # final_prompt = rag_pipeline.run(run_kwargs)
-            # print(f"final_prompt is:\n{final_prompt['prompt_builder']['prompt']}")
-                # assert(0)
+                final_prompt = rag_pipeline.run(run_kwargs)
+                print(f"final_prompt is:\n{final_prompt['prompt_builder']['prompt']}")
+                assert(0)
             
             rag_pipeline.add_component("llm", generator) # type: ignore
             rag_pipeline.connect("prompt_builder", "llm")
