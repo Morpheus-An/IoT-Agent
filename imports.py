@@ -123,6 +123,7 @@ The combined application of these domain knowledge and skills would enable you t
     "wifi_localization":"",
     "wifi_occupancy":""
 }
+<<<<<<< HEAD
 # id2labels = {
 #     1: "WALKING",
 #     2: "WALKING_UPSTAIRS",
@@ -169,3 +170,6 @@ The combined application of these domain knowledge and skills would enable you t
 # }
 
 
+=======
+ 
+>>>>>>> pridy999-main

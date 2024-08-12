@@ -1,0 +1,24 @@
+our(gpt4):
+
+5 position: 5644
+10 position: 13544
+
+
+gpt3.5的计算能力太弱，经常出现Estimated position = (0.55672526 * [-1880. 0.]) + (0.29704599 * [-1880. 0.]) + (0.14622875 * [-1880. 0.])
+                      = [-1050.4 0.]导致计算效果较差。
+
+
+no domain
+
+5 position: 5581
+10 position: 13476
+
+no demo
+
+5 position: 103314
+10 position: 47595
+
+no no:
+
+5 position: 293719
+10 position: 185607

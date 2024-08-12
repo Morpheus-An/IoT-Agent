@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ```
 IoT-Agent/
 ├── data/
@@ -31,4 +32,6 @@ IoT-Agent/
 ├── run.sh
 └── README.md
 ```
+=======
+>>>>>>> pridy999-main
 
