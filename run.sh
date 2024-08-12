@@ -19,6 +19,13 @@ else
     sample_num=$3
 fi
 
+if [ -z "$4" ]
+then
+    output_file_path="results/output.log"
+else
+    output_file_path=$4
+fi
 
-python ./main.py --task_type $task_type --cls_num 2 --sample_num $sample_num --model $model --device "cuda"\
+# python ./main.py --task_type $task_type --cls_num 2 --sample_num $sample_num --model $model --device "cuda"\
     # --no_demo_knowledge
+python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path    

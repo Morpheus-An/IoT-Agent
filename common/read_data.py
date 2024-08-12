@@ -125,6 +125,8 @@ def read_machine_data(sample_step=100):
     print(f"machine_data loaded")
     return data_dict, label_dict
 
+
+
 def read_raw_data_and_preprocess_imu(sample_step: int=5, raw_data_dir: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/", y_train_path: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt"):
     """return :
     data_dict: dict[dict[list, list, list]]
@@ -206,7 +208,34 @@ def read_multicls_data_and_preprocess(labels, sample_step: int=50, raw_data_dir:
 
     >>> data_dict[label_id]["acc"] = [[acc_x, acc_y, acc_z], ...]
     """
-    # TODO
+    id2labels = {
+    1: "WALKING",
+    2: "WALKING_UPSTAIRS",
+    3: "WALKING_DOWNSTAIRS",
+    4: "SITTING",
+    5: "STANDING",
+    6: "LAYING",
+    7: "STAND_TO_SIT",
+    8: "SIT_TO_STAND",
+    9: "SIT_TO_LIE",
+    10: "LIE_TO_SIT",
+    11: "STAND_TO_LIE",
+    12: "LIE_TO_STAND"}
+
+    label2ids = {
+    "WALKING": 1,
+    "WALKING_UPSTAIRS": 2,
+    "WALKING_DOWNSTAIRS": 3,
+    "SITTING": 4,
+    "STANDING": 5,
+    "LAYING": 6,
+    "STAND_TO_SIT": 7,
+    "SIT_TO_STAND": 8,
+    "SIT_TO_LIE": 9,
+    "LIE_TO_SIT": 10,
+    "STAND_TO_LIE": 11,
+    "LIE_TO_STAND": 12
+}
     data_dict: dict[dict[list, list, list]] = {}
     # 其中有12个key，分别代表12个活动类别，每个key中有两个list，分别代表两个传感器的数据
     for label_id in id2labels.keys():
@@ -229,7 +258,7 @@ def read_multicls_data_and_preprocess(labels, sample_step: int=50, raw_data_dir:
     for label_id in data_dict.keys():
         print(f"{id2labels[label_id]}: {len(data_dict[label_id]['total_acc'])}")
 
-    return data_dict
+    return data_dict, label2ids
 
 
 def filter_data_dict_with_var(data_dict, label2ids,thred: float=0.5, filter_by: str="body_acc", print_log: bool=True):
