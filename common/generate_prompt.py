@@ -285,45 +285,8 @@ def gen_prompt_tamplate_with_rag_machine(args, data_dict, label_dict, target, i:
         TS_neg_str = ", ".join([f"{x}°C" for x in TS_neg])
         CP_neg_str = ", ".join([f"{x}KW" for x in CP_neg])
         CE_neg_str = ", ".join([f"{x}%" for x in CE_neg])
-        prompt = f"""{Role_Definition(args)}
 
-SENSOR DATA:
-For each sensor, we collected 60 data points over a period of 60 seconds at a monitoring frequency of 1Hz (measuring sensor data once every second), forming a time series of length 60. We measured the following sequences using temperature sensors, Cooling power sensors, and Cooling efficiency sensors:
-
-1. **Temperature Change Sequence**: Reflects the machine's temperature variation over 60 seconds, in degrees Celsius. By analyzing this sequence, you can assess whether the cooling equipment is operating normally. Typically, when the cooling system is functioning well, the machine's temperature is relatively low and does not fluctuate too significantly. If the temperature consistently remains at a high degrees Celsius or fluctuates significantly, it may indicate an abnormal issue with the cooling equipment.
-
-2. **Cooling Power Change Sequence**: Reflects the variation in the cooling power of the machine's cooling equipment over 60 seconds, in kilowatts (KW). By analyzing this sequence, you can determine if the cooling equipment is operating normally. Generally, when the cooling system is functioning properly, the cooling power is relatively high and remains relatively stable throughout the period. If the power consistently stays low, it may suggest an abnormal issue with the cooling equipment.
-
-3. **Cooling Efficiency Change Sequence**: Reflects the variation in the efficiency of the machine's cooling equipment over 60 seconds, in percentage (%). By analyzing this sequence, you can judge if the cooling equipment is operating normally. Typically, when the cooling system is working well, the cooling efficiency is relatively high, otherwise, it indicates that there may be an abnormal issue with the cooling equipment."""
-        if not args.no_domain_knowledge:
-            prompt += """
-EXPERT: 
-{% for domain_doc in documents_domain %}
-    {{ domain_doc.content }}
-{% endfor %}
-
-
-
-"""     
-
-        prompt += f"""
-EXAMPLE1:
-1. Temperature Change Sequence:
-{TS_neg_demo_str}
-2. Cooling Power Change Sequence:
-{CP_neg_demo_str}
-3. Cooling Efficiency Change Sequence:
-{CE_neg_demo_str}
-ANSWER: not operating normally. 
-EXAMPLE2:
-1. Temperature Change Sequence:
-{TS_pos_demo_str}
-2. Cooling Power Change Sequence:
-{CP_pos_demo_str}
-3. Cooling Efficiency Change Sequence:
-{CE_pos_demo_str}
-ANSWER: operating normally."""
-        prompt += """
+        prompt = """
 QUESTION: {{ query }}"""
         if ground_truth == "Pos":
             data_des = f"""
