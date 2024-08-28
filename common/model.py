@@ -73,6 +73,7 @@ def ChatModel(model, device="cuda", temperature=0.9):
             generation_kwargs={
                 "temperature": temperature,
             }
+            
         )
         return generator 
 

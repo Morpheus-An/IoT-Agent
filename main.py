@@ -90,7 +90,7 @@ generate results are saved in {args.output_file_path}"""
                 rag_pipeline.connect("embedding_retriever_domain", "document_joiner_domain")
                 rag_pipeline.connect("keyword_retriever_domain", "document_joiner_domain")
                 rag_pipeline.connect("document_joiner_domain", "ranker_domain")
-                content4retrieval_domain = gen_content4retrive_domain(args.task_type, data_des)
+                content4retrieval_domain = gen_content4retrive_domain(args, args.task_type, data_des)
                 rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
 
                 run_kwargs["text_embedder_domain"] = {"text": content4retrieval_domain}
@@ -140,7 +140,8 @@ generate results are saved in {args.output_file_path}"""
                 rag_pipeline.connect("con_document_joiner_demo", "con_ranker_demo")
                 # rag_pipeline.draw("retriver_pipeline2.png")
                 # print("draw1 done")        
-                content4retrieval_grd_demo = grd 
+                content4retrieval_grd_demo = grd
+                # TODO: 这里当imu_multi_cls时，con有多个，会出现bug，暂时不de
                 content4retrieval_con_demo = con 
                 rag_pipeline.connect("grd_ranker_demo", "prompt_builder.grd_demo")
                 rag_pipeline.connect("con_ranker_demo", "prompt_builder.con_demo")
@@ -220,3 +221,6 @@ generate results are saved in {args.output_file_path}"""
     print(f"总共耗时{elapsed_time}秒")
     # print(eval_generated_ans(ans, ground_ans, contrast_ans)
 
+# HF_ENDPOINT="https://hf-mirror.com" huggingface-cli download mistralai/Mistral-7B-v0.3 --resume --token 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 --local-dir Mistral-7b-instruct-v0.3/
+# huggingface-cli download --token hf_*** --resume-download meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf
+# HF_ENDPOINT="https://hf-mirror.com" huggingface-cli download mistralai/Mistral-7B-v0.3 --resume --local-dir Mistral-7b-instruct-v0.3/

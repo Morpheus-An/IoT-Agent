@@ -8,19 +8,27 @@ from common.model import *
 
 def task_dependent_info(args, i, data_dict, label_dict):
     if args.task_type == "machine_detection":
-        grd = "Pos"
-        con = "Neg"
+        grd = "Neg"
+        con = "Pos"
         template, data_des = gen_prompt_tamplate_with_rag_machine(args, data_dict, label_dict, "Cooler condition %", i, grd)
         query = """Is the machine's cooling system functioning properly?"""
     elif args.task_type == "imu_HAR":
         if args.cls_num == 2:
             grd = "WALKING"
             con = "STANDING"
-            template, data_des = gen_prompt_template_with_rag_imu_2cls(args,label_dict, data_dict, grd, con, i) # type: ignore
+            template, data_des = gen_prompt_template_with_rag_imu(args, label_dict, data_dict, grd, con, i) # type: ignore
             query = """
 Based on the given data,choose the activity that the subject is most likely to be performing from the following two options:"""
+        elif args.cls_num > 2:
+            candidates = ["LAYING", "WALKING_UPSTAIRS", "LIE_TO_SIT"]
+            # grd = candidates[0]
+            grd = args.grd
+            template, data_des = gen_prompt_template_with_rag_imu(args, label_dict, data_dict, grd, None, i, candidates)
+            query = """
+Based on the given data, choose the activity that the subject is most likely to be performing from the following options:"""
+            con = [c for c in candidates if c != grd]
         else:
-            pass # TODO
+            raise ValueError("cls_num must be greater than 2")
     elif args.task_type == "ecg_detection":
         grd = False
         con = True 

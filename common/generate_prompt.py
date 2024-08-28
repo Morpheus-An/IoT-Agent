@@ -1,8 +1,17 @@
 from imports import *
 
 
-def gen_content4retrive_domain(task_type, data_des=""):
-    return content4retrieve_domain[task_type] + data_des 
+def gen_content4retrive_domain(args, task_type, data_des=""):
+    if args.task_type != "imu_HAR":
+        return content4retrieve_domain[task_type] + data_des
+    else:
+        if args.cls_num == 2:
+            return content4retrieve_domain[task_type]["2cls"] + data_des
+        elif args.cls_num > 2:
+            return content4retrieve_domain[task_type]["mcls"] + data_des
+        else:
+            raise ValueError("The number of classes should be greater than 2.")
+
 def Role_Definition(args):
     """input: Task_Descriping(str), Preprocessed_Data(str), model(str)
     output: role_definition(str)"""
@@ -62,13 +71,22 @@ ANALYSIS:
 ANSWER:
 """
     return prompt, data_des
-def gen_prompt_template_with_rag_imu_2cls(args, label2ids, data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0): 
+def gen_prompt_template_with_rag_imu(args, label2ids, data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0, candidates=None): 
 
-    def create_data_des(i, is_ground=True):
+    def create_data_des(i, is_ground=True, candidate=None):
         if is_ground:
             target_cls = ground_ans 
         else:
-            target_cls = contract_ans
+            i = 0
+            if args.cls_num == 2:
+                target_cls = contract_ans
+            elif args.cls_num > 2:
+                assert(candidate is not None)
+                target_cls = candidate
+            else:
+                raise ValueError("The number of classes should be greater than 2.")
+
+        # pdb.set_trace()
         acc_x = data_dict[label2ids[target_cls]]["total_acc"][i][0]
         acc_y = data_dict[label2ids[target_cls]]["total_acc"][i][1]
         acc_z = data_dict[label2ids[target_cls]]["total_acc"][i][2]
@@ -97,10 +115,72 @@ X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gy
 Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
 Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
         return data_des
-    data_des = create_data_des(i)
-    demo_grd_data_des = create_data_des(i+1)
-    demo_con_data_des = create_data_des(i, is_ground=False)
-    prompt = f"""{Role_Definition(args)}
+    if args.cls_num == 2:
+        data_des = create_data_des(i)
+        demo_grd_data_des = create_data_des(i+1)
+        demo_con_data_des = create_data_des(i, is_ground=False)
+        prompt = f"""{Role_Definition(args)}
+
+    EXPERT:
+    1. Triaxial acceleration signal: 
+    The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
+    2. Triaxial angular velocity signal: 
+    The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+    3. Other domain knowledge:
+    """
+        prompt += """
+    {% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
+    """
+        prompt += f"""
+    EXAMPLE1:
+    {demo_grd_data_des}
+    """
+        prompt += """QUESTION:
+    {{ query }}
+    """
+        prompt += f"""[{ground_ans}, {contract_ans}]
+    ANSWER: {ground_ans}
+
+    EXAMPLE2:
+    {demo_con_data_des}
+    """
+        prompt += """QUESTION:
+    {{ query }}
+    """
+        prompt += f"""[{ground_ans}, {contract_ans}]
+    ANSWER: {contract_ans}
+
+
+    """
+
+        prompt += """
+
+    You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status.
+
+    """
+        prompt += f"""
+    Before answering your question, you must refer to the EXPERT and EXAMPLES above and make analysis step by step.
+    ​
+    THE GIVEN DATA: 
+    {data_des}
+    """
+        prompt += """QUESTION:
+    {{ query }}
+    """
+        prompt += f"""[{ground_ans}, {contract_ans}]
+    ANALYSIS:
+    ANSWER:
+    """
+    elif args.cls_num > 2:
+        assert(candidates is not None)
+        demo_data_desciptions = {}
+        data_des = create_data_des(i)
+        for candidate in candidates:
+            if candidate != ground_ans:
+                demo_data_desciptions[candidate] = create_data_des(i, False, candidate)
+            else:
+                demo_data_desciptions[candidate] = create_data_des(i+1)
+        prompt = f"""{Role_Definition(args)}
 
 EXPERT:
 1. Triaxial acceleration signal: 
@@ -109,49 +189,42 @@ The provided three-axis acceleration signals contain acceleration data for the X
 The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
 3. Other domain knowledge:
 """
-    prompt += """
-{% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
+        prompt += """
+    {% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
+    """
+        for i, candidate in enumerate(candidates):
+            prompt += f"""
+EXAMPLE{i+1}:
+{demo_data_desciptions[candidate]}
 """
-    prompt += f"""
-EXAMPLE1:
-{demo_grd_data_des}
-"""
-    prompt += """QUESTION:
+            prompt += """QUESTION:
 {{ query }}
 """
-    prompt += f"""[{ground_ans}, {contract_ans}]
-ANSWER: {ground_ans}
-
-EXAMPLE2:
-{demo_con_data_des}
-"""
-    prompt += """QUESTION:
-{{ query }}
-"""
-    prompt += f"""[{ground_ans}, {contract_ans}]
-ANSWER: {contract_ans}
-
+            candidates_str = ", ".join(candidates)
+            prompt += f"""[{candidates_str}]
+ANSWER: {candidate}
 
 """
-
-    prompt += """
+        prompt += """
 
 You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status.
-
 """
-    prompt += f"""
+        prompt += f"""
 Before answering your question, you must refer to the EXPERT and EXAMPLES above and make analysis step by step.
-​
+    ​
 THE GIVEN DATA: 
 {data_des}
 """
-    prompt += """QUESTION:
+        prompt += """QUESTION:
 {{ query }}
 """
-    prompt += f"""[{ground_ans}, {contract_ans}]
+        prompt += f"""[{candidates_str}]]
 ANALYSIS:
 ANSWER:
 """
+    else:
+        raise ValueError("The number of classes should be greater than 2.")
+    
     return prompt, data_des
 
 # EXAMPLE1:

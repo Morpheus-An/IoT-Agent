@@ -15,6 +15,20 @@ parser.add_argument(
     default=2,
     help="Number of classes to classify (just used in imu_HAR task)",
 )
+# parser.add_argument(
+#     "--grd_idx",
+#     type=int,
+#     default=0,
+#     help="Index of the ground truth class (just used in imu_HAR task when cls_num > 2)",
+# )
+parser.add_argument(
+    "--grd",
+    # choices=["LAYING", "WALKING_UPSTAIRS", "LIE_TO_SIT"],
+    type=str,
+    default="LAYING",
+    help="Ground truth class (just used in imu_HAR task when cls_num > 2)",
+)
+
 parser.add_argument(
     "--sample_num",
     type=int,
@@ -75,4 +89,9 @@ parser.add_argument(
     help="Temperature for generation",
 )
 
+
 args = parser.parse_args()
+
+# BAAI/bge-reranker-base
+# huggingface-cli download --resume-download gpt2 --local-dir gpt2
+# huggingface-access-token-mistral: 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

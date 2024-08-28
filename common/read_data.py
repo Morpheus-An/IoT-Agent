@@ -190,8 +190,13 @@ def read_IoT_data(task_type, sample_step=100, cls_num=2):
             data_dict, lable_dict =  read_raw_data_and_preprocess_imu()
             data_dict = filter_data_dict_with_var(data_dict, lable_dict, thred=0.5, filter_by="body_acc", print_log=False)
             return data_dict, lable_dict
+        elif cls_num > 2:
+            labels = np.loadtxt("/home/ant/RAG/data/IMU/smartphone+based+recognition+of+human+activities+and+postural+transitions/RawData/labels.txt", dtype=int)
+            data_dict, lable_dict = read_multicls_data_and_preprocess(labels, sample_step=45)
+            return data_dict, lable_dict
         else:
-            pass # TODO
+            raise ValueError("cls_num should be greater than 1")
+
     elif task_type == "machine_detection":
         return read_machine_data(sample_step)
     elif task_type == "ecg_detection":
