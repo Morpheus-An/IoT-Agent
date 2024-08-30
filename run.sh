@@ -10,8 +10,14 @@ then
     task_type="imu_HAR"
 else
     task_type=$2
-fi
+fi 
 
+if [ -z "$3" ]
+then
+    sample_num=2
+else
+    sample_num=$3
+fi
 
 if [ -z "$4" ]
 then
@@ -20,12 +26,6 @@ else
     output_file_path=$4
 fi
 
-if [ -z "$3" ]
-then
-    sample_num=2
-else
-    sample_num=$3
-fi
 
 if [ -z "$5" ]
 then 

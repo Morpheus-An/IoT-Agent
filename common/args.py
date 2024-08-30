@@ -26,7 +26,6 @@ parser.add_argument(
     # choices=["LAYING", "WALKING_UPSTAIRS", "LIE_TO_SIT"],
     type=str,
     default="LAYING",
-    help="Ground truth class (just used in imu_HAR task when cls_num > 2)",
 )
 
 parser.add_argument(

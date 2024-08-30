@@ -28,30 +28,7 @@ def gen_prompt_with_rag_ECG(args, data_dict, is_Pos=True, i: int=1):
     V_signals_demo_str = ", ".join([f"{x[0]}mV" for x in V_signals_demo])
 
     # print(N_signals_str)
-    prompt = f"""{Role_Definition(args)}
-
-ECG DATA:
-The ECG data is collected from a patient's heart. The data consists of a series of electrical signals that represent the heart's electrical activity. The signals are measured in millivolts (mV) and are recorded over a period of time at the sampling frequency of 60Hz. This means there is an interval of 0.017 seconds between the two voltage values.  The data is divided into two categories: normal heartbeats (N) and ventricular ectopic beats (V). The normal heartbeats represent the regular electrical activity of the heart, while the ventricular ectopic beats represent abnormal electrical activity. The data is collected using a single-channel ECG device."""
-    prompt += """
-EXPERT:
-{% for domain_doc in documents_domain %}
-    {{ domain_doc.content }}
-{% endfor %}
-
-"You can analyze whether the heartbeat is normal by considering a combination of factors such as the amplitude of peaks or valleys appearing in the electrocardiogram (ECG) time series, the time intervals between adjacent peaks or valleys, and the fluctuations in voltage values within the ECG data."
-"""
-    prompt += f"""
-EXAMPLE1:
-THE GIVEN ECG DATA:
-{N_signals_str}
-ANSWER: Normal heartbeat (N)
-
-EXAMPLE2:
-THE GIVEN ECG DATA:
-{V_signals_str}
-ANSWER: Premature ventricular contraction (V)
-"""
-    prompt += """
+    prompt = """
 QUESTION: {{ query }}"""
     if is_Pos:
         data_des = f"""
@@ -104,63 +81,17 @@ def gen_prompt_template_with_rag_imu(args, label2ids, data_dict, ground_ans: str
 X-axis: {acc_x_str} 
 Y-axis: {acc_y_str} 
 Z-axis: {acc_z_str} 
-X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)} 
-Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)} 
-Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)} 
 2. Triaxial angular velocity signal: 
 X-axis: {gyr_x_str} 
 Y-axis: {gyr_y_str} 
-Z-axis: {gyr_z_str} 
-X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)} 
-Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
-Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
+Z-axis: {gyr_z_str} """
         return data_des
     if args.cls_num == 2:
         data_des = create_data_des(i)
-        demo_grd_data_des = create_data_des(i+1)
-        demo_con_data_des = create_data_des(i, is_ground=False)
-        prompt = f"""{Role_Definition(args)}
-
-    EXPERT:
-    1. Triaxial acceleration signal: 
-    The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-    2. Triaxial angular velocity signal: 
-    The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
-    3. Other domain knowledge:
-    """
-        prompt += """
-    {% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
-    """
-        prompt += f"""
-    EXAMPLE1:
-    {demo_grd_data_des}
-    """
-        prompt += """QUESTION:
-    {{ query }}
-    """
-        prompt += f"""[{ground_ans}, {contract_ans}]
-    ANSWER: {ground_ans}
-
-    EXAMPLE2:
-    {demo_con_data_des}
-    """
-        prompt += """QUESTION:
-    {{ query }}
-    """
-        prompt += f"""[{ground_ans}, {contract_ans}]
-    ANSWER: {contract_ans}
-
-
-    """
-
-        prompt += """
-
-    You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status.
-
-    """
-        prompt += f"""
-    Before answering your question, you must refer to the EXPERT and EXAMPLES above and make analysis step by step.
-    ​
+        # demo_grd_data_des = create_data_des(i+1)
+        # demo_con_data_des = create_data_des(i, is_ground=False)
+       
+        prompt = f"""
     THE GIVEN DATA: 
     {data_des}
     """
@@ -175,43 +106,13 @@ Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gy
         assert(candidates is not None)
         demo_data_desciptions = {}
         data_des = create_data_des(i)
+        candidates_str = ", ".join(candidates)
         for candidate in candidates:
             if candidate != ground_ans:
                 demo_data_desciptions[candidate] = create_data_des(i, False, candidate)
             else:
                 demo_data_desciptions[candidate] = create_data_des(i+1)
-        prompt = f"""{Role_Definition(args)}
-
-EXPERT:
-1. Triaxial acceleration signal: 
-The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
-2. Triaxial angular velocity signal: 
-The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
-3. Other domain knowledge:
-"""
-        prompt += """
-    {% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
-    """
-        for i, candidate in enumerate(candidates):
-            prompt += f"""
-EXAMPLE{i+1}:
-{demo_data_desciptions[candidate]}
-"""
-            prompt += """QUESTION:
-{{ query }}
-"""
-            candidates_str = ", ".join(candidates)
-            prompt += f"""[{candidates_str}]
-ANSWER: {candidate}
-
-"""
-        prompt += """
-
-You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status.
-"""
-        prompt += f"""
-Before answering your question, you must refer to the EXPERT and EXAMPLES above and make analysis step by step.
-    ​
+        prompt = f"""
 THE GIVEN DATA: 
 {data_des}
 """
