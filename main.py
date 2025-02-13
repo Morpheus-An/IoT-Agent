@@ -37,7 +37,7 @@ generate results are saved in {args.output_file_path}"""
     previous_locals = None
     locals_to_release = None
     with open(args.output_file_path, "a") as f:
-        for i in range(44, args.sample_num+1):
+        for i in range(1, args.sample_num+1):
             
             # pdb.set_trace()
 
@@ -189,14 +189,14 @@ generate results are saved in {args.output_file_path}"""
                     "query": content4retrieval_con_demo,
                     "top_k": 1,
                 }
-             
+            # print("?")
             if args.debug:
                 # pdb.set_trace()
                 
                 final_prompt = rag_pipeline.run(run_kwargs)
                 print(f"final_prompt is:\n{final_prompt['prompt_builder']['prompt']}")
                 assert(0)
-            
+            # print("!")
             rag_pipeline.add_component("llm", generator) # type: ignore
             rag_pipeline.connect("prompt_builder", "llm")
             # rag_pipeline.draw("rag_pipeline.png")

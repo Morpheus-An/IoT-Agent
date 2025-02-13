@@ -1,6 +1,11 @@
 if [ -z "$1" ]
 then
-    model="gpt4"
+    # model="gpt3.5"
+    model="gemini-pro"
+    # model="claude"
+    # model="llama2"
+    # model="Mistral"
+    # model="gpt4o-mini"
 else
     model=$1
 fi
@@ -14,14 +19,14 @@ fi
 
 if [ -z "$3" ]
 then
-    sample_num=2
+    sample_num=50
 else
     sample_num=$3
 fi
 
 if [ -z "$4" ]
 then
-    output_file_path="results/output.log"
+    output_file_path="results/output_baseline_gemini.log"
 else
     output_file_path=$4
 fi
@@ -34,13 +39,17 @@ else
     cls_num=$5
 fi
 
-if [ -z "$6" ]
-then 
-    grd="None"
-else
-    grd=$6
-fi 
+# if [ -z "$6" ]
+# then 
+#     grd="WALKING"
+# else
+#     grd=$6
+# fi 
 
 # python ./main.py --task_type $task_type --cls_num 2 --sample_num $sample_num --model $model --device "cuda"\
     # --no_demo_knowledge
-python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd --no_domain_knowledge --debug
+for grd in "WALKING" "STANDING"
+# for grd in "LAYING" "WALKING_UPSTAIRS" "LIE_TO_SIT"
+do 
+    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd --no_domain_knowledge
+done

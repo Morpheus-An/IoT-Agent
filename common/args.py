@@ -46,7 +46,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--model",
-    choices=["gpt3.5", "gpt4", "llama2", "Mistral", "gemini-pro", "claude"],
+    choices=["gpt3.5", "gpt4", "gpt4o-mini", "llama2", "Mistral", "gemini-pro", "claude"],
     # llama2，Mistral-7b，Gemini，Claude3 Haiku
     default="gpt4",
     help="Model to use for generation",

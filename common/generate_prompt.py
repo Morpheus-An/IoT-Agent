@@ -70,12 +70,12 @@ def gen_prompt_template_with_rag_imu(args, label2ids, data_dict, ground_ans: str
         gyr_x = data_dict[label2ids[target_cls]]["body_gyro"][i][0]
         gyr_y = data_dict[label2ids[target_cls]]["body_gyro"][i][1]
         gyr_z = data_dict[label2ids[target_cls]]["body_gyro"][i][2] 
-        acc_x_str = ", ".join([f"{x}g" for x in acc_x])
-        acc_y_str = ", ".join([f"{x}g" for x in acc_y])
-        acc_z_str = ", ".join([f"{x}g" for x in acc_z])
-        gyr_x_str = ", ".join([f"{x}rad/s" for x in gyr_x])
-        gyr_y_str = ", ".join([f"{x}rad/s" for x in gyr_y])
-        gyr_z_str = ", ".join([f"{x}rad/s" for x in gyr_z])
+        acc_x_str = ", ".join([f"{x}" for x in acc_x])
+        acc_y_str = ", ".join([f"{x}" for x in acc_y])
+        acc_z_str = ", ".join([f"{x}" for x in acc_z])
+        gyr_x_str = ", ".join([f"{x}" for x in gyr_x])
+        gyr_y_str = ", ".join([f"{x}" for x in gyr_y])
+        gyr_z_str = ", ".join([f"{x}" for x in gyr_z])
         data_des = f"""
 1. Triaxial acceleration signal: 
 X-axis: {acc_x_str} 
@@ -91,17 +91,33 @@ Z-axis: {gyr_z_str} """
         # demo_grd_data_des = create_data_des(i+1)
         # demo_con_data_des = create_data_des(i, is_ground=False)
        
-        prompt = f"""
-    THE GIVEN DATA: 
-    {data_des}
-    """
-        prompt += """QUESTION:
-    {{ query }}
-    """
-        prompt += f"""[{ground_ans}, {contract_ans}]
-    ANALYSIS:
-    ANSWER:
-    """
+    #     prompt = f"""
+    # THE GIVEN DATA: 
+    # {data_des}
+    # """
+    #     prompt += """QUESTION:
+    # {{ query }}
+    # """
+    #     prompt += f"""[{ground_ans}, {contract_ans}]
+    # ANALYSIS:
+    # ANSWER:
+    # """
+        prompt = """Objective:
+{{ query }}"""
+        prompt += f"""[{ground_ans}, {contract_ans}]"""
+        prompt += f"""Sensor Data and Expert Knowledge:
+You will receive data from various sensors. Here's how to interpret this data: 
+Three-axis acceleration data reflects the acceleration of the device in three orthogonal directions, while three-axis angular velocity data reflects the rotational speed of the device in three orthogonal directions.
+
+Response Format:
+Reasoning: Provide a comprehensive analysis of the sensor data.
+Summary: Conclude with a brief summary of your findings.
+
+Now give your response according to the following sensor data:
+Sensor data:
+{data_des}
+Reasoning:
+Summary:"""
     elif args.cls_num > 2:
         assert(candidates is not None)
         demo_data_desciptions = {}
@@ -112,17 +128,33 @@ Z-axis: {gyr_z_str} """
                 demo_data_desciptions[candidate] = create_data_des(i, False, candidate)
             else:
                 demo_data_desciptions[candidate] = create_data_des(i+1)
-        prompt = f"""
-THE GIVEN DATA: 
+#         prompt = f"""
+# THE GIVEN DATA: 
+# {data_des}
+# """
+#         prompt += """QUESTION:
+# {{ query }}
+# """
+#         prompt += f"""[{candidates_str}]]
+# ANALYSIS:
+# ANSWER:
+# """
+        prompt = """Objective:
+{{ query }}"""
+        prompt += f"""[{ground_ans}, {contract_ans}]\n"""
+        prompt += f"""Sensor Data and Expert Knowledge:
+You will receive data from various sensors. Here's how to interpret this data: 
+Three-axis acceleration data reflects the acceleration of the device in three orthogonal directions, while three-axis angular velocity data reflects the rotational speed of the device in three orthogonal directions.
+
+Response Format:
+Reasoning: Provide a comprehensive analysis of the sensor data.
+Summary: Conclude with a brief summary of your findings.
+
+Now give your response according to the following sensor data:
+Sensor data:
 {data_des}
-"""
-        prompt += """QUESTION:
-{{ query }}
-"""
-        prompt += f"""[{candidates_str}]]
-ANALYSIS:
-ANSWER:
-"""
+Reasoning:
+Summary:"""
     else:
         raise ValueError("The number of classes should be greater than 2.")
     

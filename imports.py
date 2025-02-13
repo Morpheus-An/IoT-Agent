@@ -45,6 +45,7 @@ RANKER_MODEL_LOCAL = "/home/nfs02/ant/baai-bge-reranker-base"
 MODEL = {
         "gpt3.5": "gpt-3.5-turbo", 
         "gpt4": "gpt-4-turbo-preview",
+        "gpt4o-mini": "gpt-4o-mini",
         "llama2": "/home/nfs02/ant/LLaMa2-7b-32k",
         "Mistral": "/home/nfs03/ant/models/Mistral-7b-instruct-v0.3",
 }

@@ -27,8 +27,9 @@ def get_openAI_model(api_base: bool=True,
 
 
 def ChatModel(model, device="cuda", temperature=0.9):
-    assert model in ["gpt3.5", "gpt4", "llama2", "Mistral", "gemini-pro", "claude"]
-    if model in ["gpt4", "gpt3.5"]:
+    # assert model in ["gpt3.5", "gpt4", "llama2", "Mistral", "gemini-pro", "claude"]
+    # if model in ["gpt4", "gpt3.5"]:
+    if "gpt" in model:
         set_openAI_key_and_base(False, set_proxy=PROXY)
         generator = OpenAIGenerator(model=MODEL[model], generation_kwargs={
             "temperature": temperature,
