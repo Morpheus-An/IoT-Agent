@@ -47,7 +47,7 @@ MODEL = {
         "gpt4": "gpt-4-turbo-preview",
         "gpt4o-mini": "gpt-4o-mini",
         "llama2": "/home/nfs02/ant/LLaMa2-7b-32k",
-        "Mistral": "/home/nfs03/ant/models/Mistral-7b-instruct-v0.3",
+        "Mistral": "/home/nfs02/ant/Mistral-7b-instruct-v0.3",
 }
 # hoices=["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"],
 content4retrieve_domain = {
