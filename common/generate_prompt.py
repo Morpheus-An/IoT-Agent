@@ -20,33 +20,43 @@ def Role_Definition(args):
 def gen_prompt_with_rag_ECG(args, data_dict, is_Pos=True, i: int=1):
     N_signals = data_dict["N_signals"][-i]
     V_signals = data_dict["V_signals"][-i]
-    N_signals_str = ", ".join([f"{x[0]}mV" for x in N_signals])
-    V_signals_str = ", ".join([f"{x[0]}mV" for x in V_signals])
+    N_signals_str = ", ".join([f"{x[0]}" for x in N_signals])
+    V_signals_str = ", ".join([f"{x[0]}" for x in V_signals])
     N_signals_demo = data_dict["N_signals"][-i-1]
     V_signals_demo = data_dict["V_signals"][-i-1]
-    N_signals_demo_str = ", ".join([f"{x[0]}mV" for x in N_signals_demo])
-    V_signals_demo_str = ", ".join([f"{x[0]}mV" for x in V_signals_demo])
+    N_signals_demo_str = ", ".join([f"{x[0]}" for x in N_signals_demo])
+    V_signals_demo_str = ", ".join([f"{x[0]}" for x in V_signals_demo])
 
     # print(N_signals_str)
-    prompt = """
-QUESTION: {{ query }}"""
+    prompt = "Objective:\n{{ query }}"
+    # prompt = """
+# QUESTION: {{ query }}"""
+    prompt += """\nSensor Data and Expert Knowledge:
+You will receive data from ECG sensors. Here's how to interpret this data:
+ECG data (electrocardiogram data) is the data that records the electrical activity of the heart. This data is typically presented in the form of a time series, reflecting the electrophysiological activity of the heart.
+
+Response Format:
+Reasoning: Provide a comprehensive analysis of the sensor data.
+Summary: Conclude with a brief summary of your findings.
+
+Now give your reponse according to the following sensor data:
+"""
     if is_Pos:
-        data_des = f"""
-THE GIVEN ECG DATA:
+        data_des = f"""Sensor data:
 {N_signals_demo_str}
 """
         prompt += data_des
     else:
-        data_des = f"""
-THE GIVEN ECG DATA:
+        data_des = f"""Sensor data:
 {V_signals_demo_str}
 """
         prompt += data_des
-    prompt += """
-Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is it a Normal heartbeat(N) or Premature ventricular contraction beat(V)?"
-ANALYSIS:
-ANSWER:
-"""
+#     prompt += """
+# Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is it a Normal heartbeat(N) or Premature ventricular contraction beat(V)?"
+# ANALYSIS:
+# ANSWER:
+# """
+    prompt += """Is it a Normal heartbeat(N) or not(abnormal)?\nReasoning:\nSummary:"""
     return prompt, data_des
 def gen_prompt_template_with_rag_imu(args, label2ids, data_dict, ground_ans: str="WALKING", contract_ans: str="STANDING", i: int=0, candidates=None): 
 
