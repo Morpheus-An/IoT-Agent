@@ -229,11 +229,20 @@ def gen_prompt_tamplate_with_rag_machine(args, data_dict, label_dict, target, i:
         CP_neg_str = ", ".join([f"{x}KW" for x in CP_neg])
         CE_neg_str = ", ".join([f"{x}%" for x in CE_neg])
 
-        prompt = """
-QUESTION: {{ query }}"""
+        prompt = """Objective:\n{{ query }}"""
+        # prompt = """
+# QUESTION: {{ query }}"""
+        prompt += """\nSensor Data and Expert Knowledge:
+You will receive data from various sensors. Here's how to interpret this data:
+Temperature Change Sequence reflects changes of temperature during working; Cooling Power Change Sequence implies changes of machine's cooling power during working; Cooling Efficiency Change Sequence reflects changes of machine's cooling efficiency.
+
+Response Format:
+Reasoning: Provide a comprehensive analysis of the sensor data.
+Summary: Conclude with a brief summary of your findings.
+
+Now give your response according to the following sensor data:\n"""
         if ground_truth == "Pos":
-            data_des = f"""
-THE GIVEN DATA:
+            data_des = f"""Sensor data:
 1. Temperature Change Sequence:
 {Ts_pos_str}
 2. Cooling Power Change Sequence:
@@ -243,8 +252,7 @@ THE GIVEN DATA:
 """
             prompt += data_des
         else:
-            data_des = f"""
-THE GIVEN DATA:
+            data_des = f"""Sensor data:
 1. Temperature Change Sequence:
 {TS_neg_str}
 2. Cooling Power Change Sequence:
@@ -253,11 +261,8 @@ THE GIVEN DATA:
 {CE_neg_str}
 """
             prompt += data_des
-        prompt += """
-Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is the machine's cooling system functioning properly?"
-ANALYSIS:
-ANSWER:
-"""
+        prompt += """Reasoning:
+Summary:"""
     elif target == "":
         pass 
     return prompt, data_des
