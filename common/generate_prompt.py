@@ -47,8 +47,16 @@ def gen_prompt_with_rag_ECG(args, data_dict, is_Pos=True, i: int=1):
     prompt = "Objective:\n{{ query }}"
     # prompt = """
 # QUESTION: {{ query }}"""
-    prompt += """\nSensor Data and Expert Knowledge:
+    prompt += """\nExpert knowledge about Sensor data:
 You will receive data from ECG sensors. Here's how to interpret this data:
+
+The ECG data is collected from a patient's heart. The data consists of a series of electrical signals that represent the heart's electrical activity. The signals are measured in millivolts (mV) and are recorded over a period of time at the sampling frequency of 60Hz. This means there is an interval of 0.017 seconds between the two voltage values.  The data is divided into two categories: normal heartbeats (N) and ventricular ectopic beats (V). The normal heartbeats represent the regular electrical activity of the heart, while the ventricular ectopic beats represent abnormal electrical activity. The data is collected using a single-channel ECG device."""
+    prompt += """{% for domain_doc in documents_domain %}
+    {{ domain_doc.content }}
+{% endfor %}
+You can analyze whether the heartbeat is normal by considering a combination of factors such as the amplitude of peaks or valleys appearing in the electrocardiogram (ECG) time series, the time intervals between adjacent peaks or valleys, and the fluctuations in voltage values within the ECG data."""
+
+    prompt += """\n
 ECG data (electrocardiogram data) is the data that records the electrical activity of the heart. This data is typically presented in the form of a time series, reflecting the electrophysiological activity of the heart.
 
 Response Format:

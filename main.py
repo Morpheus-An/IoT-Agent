@@ -94,7 +94,11 @@ generate results are saved in {args.output_file_path}"""
                 rag_pipeline.connect("ranker_domain", "prompt_builder.documents_domain")
 
                 run_kwargs["text_embedder_domain"] = {"text": content4retrieval_domain}
-                run_kwargs["keyword_retriever_domain"] = {"query": content4retrieval_domain}
+                run_kwargs["keyword_retriever_domain"] = {"query": content4retrieval_domain, "top_k": 2}
+                run_kwargs["embedding_retriever_domain"] = {
+                    # "query": content4retrieval_domain,
+                    "top_k": 2,
+                }
                 run_kwargs["ranker_domain"] = {"query": content4retrieval_domain}
 
             if not args.no_demo_knowledge: # TODO
