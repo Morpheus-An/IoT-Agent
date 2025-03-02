@@ -56,8 +56,25 @@ The ECG data is collected from a patient's heart. The data consists of a series 
 {% endfor %}
 You can analyze whether the heartbeat is normal by considering a combination of factors such as the amplitude of peaks or valleys appearing in the electrocardiogram (ECG) time series, the time intervals between adjacent peaks or valleys, and the fluctuations in voltage values within the ECG data."""
 
-    prompt += """\n
+    prompt += f"""\n
 ECG data (electrocardiogram data) is the data that records the electrical activity of the heart. This data is typically presented in the form of a time series, reflecting the electrophysiological activity of the heart.
+
+Pay attention to the following examples. Learn to utilize the features of ECG data to assist in your decision-making.
+EXAMPLE1:
+THE GIVEN ECG DATA:
+{N_signals_str}
+Features:
+Spectral centroid: {N_spectral_centroid}
+Max psd: {N_max_psd}
+Ground Answer: Normal heartbeat (N)
+
+EXAMPLE2:
+THE GIVEN ECG DATA:
+{V_signals_str}
+Features:
+Spectral centroid: {V_spectral_centroid}
+Max psd: {V_max_psd}
+Ground answer: Premature ventricular contraction (V)
 
 Response Format:
 Reasoning: Provide a comprehensive analysis of the sensor data.

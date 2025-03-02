@@ -34,7 +34,7 @@ then
     # output_file_path="results/machine/baseline/4omini.log"
     # output_file_path="results/machine/baseline/llama.log"
     # output_file_path="results/machine/baseline/Mistral.log"
-    output_file_path="results/new_ablation_study/ecg/2.log"
+    output_file_path="results/new_ablation_study/ecg/3.log"
 
 else
     output_file_path=$4
@@ -62,5 +62,5 @@ fi
 for grd in "normal" "abnormal"
 # for grd in "LAYING" "WALKING_UPSTAIRS" "LIE_TO_SIT"
 do 
-    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd --debug
+    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd
 done
