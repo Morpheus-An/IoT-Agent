@@ -1,5 +1,14 @@
 from imports import *
 
+def format_number(number):
+    # 将数值转换为字符串
+    number_str = str(number)
+    # 将字符串中的每个字符用空格分隔开
+    # formatted_str = ' '.join(number_str)
+    # # 去掉小数点两边的空格
+    # formatted_str = formatted_str.replace(' . ', '.')
+    # return formatted_str
+    return number_str
 
 def gen_content4retrive_domain(args, task_type, data_des=""):
     if args.task_type != "imu_HAR":
@@ -127,21 +136,27 @@ def gen_prompt_template_with_rag_imu(args, label2ids, data_dict, ground_ans: str
         gyr_x = data_dict[label2ids[target_cls]]["body_gyro"][i][0]
         gyr_y = data_dict[label2ids[target_cls]]["body_gyro"][i][1]
         gyr_z = data_dict[label2ids[target_cls]]["body_gyro"][i][2] 
-        acc_x_str = ", ".join([f"{x}" for x in acc_x])
-        acc_y_str = ", ".join([f"{x}" for x in acc_y])
-        acc_z_str = ", ".join([f"{x}" for x in acc_z])
-        gyr_x_str = ", ".join([f"{x}" for x in gyr_x])
-        gyr_y_str = ", ".join([f"{x}" for x in gyr_y])
-        gyr_z_str = ", ".join([f"{x}" for x in gyr_z])
+        acc_x_str = ", ".join([f"{format_number(x)} g" for x in acc_x])
+        acc_y_str = ", ".join([f"{format_number(x)} g" for x in acc_y])
+        acc_z_str = ", ".join([f"{format_number(x)} g" for x in acc_z])
+        gyr_x_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_x])
+        gyr_y_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_y])
+        gyr_z_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_z])
         data_des = f"""
 1. Triaxial acceleration signal: 
 X-axis: {acc_x_str} 
 Y-axis: {acc_y_str} 
 Z-axis: {acc_z_str} 
+X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)} 
+Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)} 
+Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)} 
 2. Triaxial angular velocity signal: 
 X-axis: {gyr_x_str} 
 Y-axis: {gyr_y_str} 
-Z-axis: {gyr_z_str} """
+Z-axis: {gyr_z_str}
+X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)} 
+Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
+Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
         return data_des
     if args.cls_num == 2:
         data_des = create_data_des(i)
@@ -198,7 +213,7 @@ Summary:"""
 # """
         prompt = """Objective:
 {{ query }}"""
-        prompt += f"""[{ground_ans}, {contract_ans}]\n"""
+        prompt += f"""[{candidates_str}]\n"""
         prompt += f"""Sensor Data and Expert Knowledge:
 You will receive data from various sensors. Here's how to interpret this data: 
 Three-axis acceleration data reflects the acceleration of the device in three orthogonal directions, while three-axis angular velocity data reflects the rotational speed of the device in three orthogonal directions.

@@ -13,7 +13,8 @@ fi
 if [ -z "$2" ]
 then
     # task_type="machine_detection"
-    task_type="ecg_detection"
+    # task_type="ecg_detection"
+    task_type="imu_HAR"
 else
     task_type=$2
 fi 
@@ -34,7 +35,8 @@ then
     # output_file_path="results/machine/baseline/4omini.log"
     # output_file_path="results/machine/baseline/llama.log"
     # output_file_path="results/machine/baseline/Mistral.log"
-    output_file_path="results/new_ablation_study/ecg/3.log"
+    # output_file_path="results/new_ablation_study/ecg/3.log"
+    output_file_path="results/new_ablation_study/HAR/1-3cls.log"
 
 else
     output_file_path=$4
@@ -43,7 +45,7 @@ fi
 
 if [ -z "$5" ]
 then 
-    cls_num=2
+    cls_num=3
 else
     cls_num=$5
 fi
@@ -59,8 +61,8 @@ fi
     # --no_demo_knowledge
 # for grd in "WALKING" "STANDING"
 # for grd in "Pos" "Neg"
-for grd in "normal" "abnormal"
-# for grd in "LAYING" "WALKING_UPSTAIRS" "LIE_TO_SIT"
+# for grd in "normal" "abnormal"
+for grd in "LAYING" "WALKING_UPSTAIRS" "LIE_TO_SIT"
 do 
-    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd
+    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --no_domain_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd --debug
 done
