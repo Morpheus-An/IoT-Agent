@@ -19,13 +19,29 @@ def Role_Definition(args):
 
 def gen_prompt_with_rag_ECG(args, data_dict, is_Pos=True, i: int=1):
     N_signals = data_dict["N_signals"][-i]
+    N_spectral_centroid = data_dict["frequency_features"]["N_fe"]["spectral_centroid"][-i]
+    N_max_psd = data_dict["frequency_features"]["N_fe"]["max_psd"][-i]
+
+
     V_signals = data_dict["V_signals"][-i]
-    N_signals_str = ", ".join([f"{x[0]}" for x in N_signals])
-    V_signals_str = ", ".join([f"{x[0]}" for x in V_signals])
+    V_spectral_centroid = data_dict["frequency_features"]["V_fe"]["spectral_centroid"][-i]
+    V_max_psd = data_dict["frequency_features"]["V_fe"]["max_psd"][-i]
+
+    N_signals_str = ", ".join([f"{x[0]}mv" for x in N_signals])
+    V_signals_str = ", ".join([f"{x[0]}mv" for x in V_signals])
     N_signals_demo = data_dict["N_signals"][-i-1]
+    N_spectral_centroid_demo = data_dict["frequency_features"]["N_fe"]["spectral_centroid"][-i-1]
+    N_max_psd_demo = data_dict["frequency_features"]["N_fe"]["max_psd"][-i-1]
+    
+
+
     V_signals_demo = data_dict["V_signals"][-i-1]
-    N_signals_demo_str = ", ".join([f"{x[0]}" for x in N_signals_demo])
-    V_signals_demo_str = ", ".join([f"{x[0]}" for x in V_signals_demo])
+    V_spectral_centroid_demo = data_dict["frequency_features"]["V_fe"]["spectral_centroid"][-i-1]
+    V_max_psd_demo = data_dict["frequency_features"]["V_fe"]["max_psd"][-i-1]
+
+    N_signals_demo_str = ", ".join([f"{x[0]}mv" for x in N_signals_demo])
+    V_signals_demo_str = ", ".join([f"{x[0]}mv" for x in V_signals_demo])
+
 
     # print(N_signals_str)
     prompt = "Objective:\n{{ query }}"
@@ -39,16 +55,22 @@ Response Format:
 Reasoning: Provide a comprehensive analysis of the sensor data.
 Summary: Conclude with a brief summary of your findings.
 
-Now give your reponse according to the following sensor data:
+Now give your reponse according to the following sensor data (Hint: learn to utilize the features of ECG data to assist in your decision-making):
 """
     if is_Pos:
         data_des = f"""Sensor data:
 {N_signals_demo_str}
+Features:
+Spectral_centroid: {N_spectral_centroid_demo}
+Max psd: {N_max_psd_demo}
 """
         prompt += data_des
     else:
         data_des = f"""Sensor data:
 {V_signals_demo_str}
+Features:
+Spectral centroid: {V_spectral_centroid_demo}
+Max psd: {V_max_psd_demo}
 """
         prompt += data_des
 #     prompt += """

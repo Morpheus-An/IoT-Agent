@@ -20,6 +20,7 @@ import torch
 from openai import OpenAI 
 from collections import Counter 
 from matplotlib import pyplot as plt 
+from scipy import signal
 from haystack.components.routers import FileTypeRouter
 from haystack.components.converters import MarkdownToDocument, PyPDFToDocument, TextFileToDocument
 from haystack.components.joiners import DocumentJoiner

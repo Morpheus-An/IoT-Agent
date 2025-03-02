@@ -1,6 +1,55 @@
 
 from imports import *
 
+def compute_frequency_features(data, fs):
+    """
+    计算时间序列的频域特征
+    参数：
+        data : 输入时间序列（一维数组）
+        fs   : 采样频率（Hz）
+    返回：
+        freq_features : 包含频域特征的字典
+    """
+    # 预处理：去趋势
+    detrended = signal.detrend(data)
+    
+    # 计算功率谱密度 (PSD)
+    freqs, psd = signal.welch(detrended, fs, nperseg=1024, window='hann')
+    
+    # 计算总功率
+    total_power = np.trapz(psd, freqs)
+    
+    # 定义典型频带边界（可根据领域调整）
+    bands = {
+        'ultra_low': (0.003, 0.04),    # 超低频（如心率变异性ULF）
+        'low': (0.04, 0.15),           # 低频（如交感神经活动）
+        'high': (0.15, 0.4),           # 高频（如副交感神经活动）
+        'very_high': (0.4, 0.5)        # 甚高频
+    }
+    
+    # 计算各频带功率
+    band_powers = {}
+    for band_name, (low, high) in bands.items():
+        mask = (freqs >= low) & (freqs <= high)
+        band_power = np.trapz(psd[mask], freqs[mask])
+        band_powers[f"{band_name}_power"] = band_power
+        band_powers[f"{band_name}_ratio"] = band_power / total_power
+    
+    # 提取峰值特征
+    dominant_freq = freqs[np.argmax(psd)]
+    max_power = np.max(psd)
+    
+    # 频谱质心
+    centroid = np.sum(freqs * psd) / total_power
+    
+    return {
+        'total_power': total_power,
+        'dominant_frequency': dominant_freq,
+        'max_psd': max_power,
+        'spectral_centroid': centroid,
+        **band_powers
+    }
+
 def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/", length=600000, id=106, sampfrom=0, pysical=True, channels=[0,], interval=150, sample_step=5, draw_pictures=False):
     record_path = base_dir + f"{id}"
     record = wfdb.rdrecord(record_path, sampfrom=sampfrom, sampto=length, physical=pysical, channels=channels)
@@ -16,7 +65,25 @@ def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/",
         "N_pos": [],
         "N_signals": [],
         "V_pos": [],
-        "V_signals": [],   
+        "V_signals": [],
+        "frequency_features": {
+            "N_fe": {
+                "total_power": [],
+                "dominant_fre": [],
+                "max_psd": [],
+                "spectral_centroid": [],
+                "vars": [],
+                "means": [],
+            },
+            "V_fe": {
+                "total_power": [],
+                "dominant_fre": [],
+                "max_psd": [],
+                "spectral_centroid": [],
+                "vars": [],
+                "means": [],
+            }
+        }
 
     }
     for i, s in enumerate(signal_annotation.symbol):
@@ -24,19 +91,49 @@ def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/",
             V_begin = i
             if V_begin <= 1 or V_begin >= len(signal_annotation.symbol)-2:
                 continue
+            V_signals_dense = ventricular_signal[signal_annotation.sample[V_begin]-interval:signal_annotation.sample[V_begin]+interval].flatten().tolist()
             V_signals = ventricular_signal[signal_annotation.sample[V_begin]-interval:signal_annotation.sample[V_begin]+interval:sample_step]
+
+
+            
+            features = compute_frequency_features(V_signals_dense, 360)
+            
             data_dict["V_pos"].append([interval//sample_step, V_signals[interval//sample_step]])
             data_dict["V_signals"].append(V_signals)
+            data_dict["frequency_features"]["V_fe"]["total_power"].append(features["total_power"])
+            data_dict["frequency_features"]["V_fe"]["dominant_fre"].append(features["dominant_frequency"])
+            data_dict["frequency_features"]["V_fe"]["max_psd"].append(features["max_psd"])
+            data_dict["frequency_features"]["V_fe"]["spectral_centroid"].append(features["spectral_centroid"])
+            data_dict["frequency_features"]["V_fe"]["vars"].append(np.var(V_signals_dense))
+            data_dict["frequency_features"]["V_fe"]["means"].append(np.mean(V_signals_dense))
+
         elif s == "N":
             N_begin = i
             if N_begin <= 1 or N_begin >= len(signal_annotation.symbol)-2:
                 continue
+            N_signals_dense = ventricular_signal[signal_annotation.sample[N_begin]-interval:signal_annotation.sample[N_begin]+interval].flatten().tolist()
             N_signals = ventricular_signal[signal_annotation.sample[N_begin]-interval:signal_annotation.sample[N_begin]+interval:sample_step]
+
+            # print(type(N_signals_dense))
+            # print(N_signals_dense)
+            # N_list = N_signals_dense.flatten().tolist()
+            # print(N_list)
+            # assert(0)
+            features = compute_frequency_features(N_signals_dense, 360)
+            
             data_dict["N_pos"].append([interval//sample_step, N_signals[interval//sample_step]])
             data_dict["N_signals"].append(N_signals)
+            data_dict["frequency_features"]["N_fe"]["total_power"].append(features["total_power"])
+            data_dict["frequency_features"]["N_fe"]["dominant_fre"].append(features["dominant_frequency"])
+            data_dict["frequency_features"]["N_fe"]["max_psd"].append(features["max_psd"])
+            data_dict["frequency_features"]["N_fe"]["spectral_centroid"].append(features["spectral_centroid"])
+            data_dict["frequency_features"]["N_fe"]["vars"].append(np.var(N_signals_dense))
+            data_dict["frequency_features"]["N_fe"]["means"].append(np.mean(N_signals_dense))
+
 
     for k, v in data_dict.items():
-        print(f"{k}: {[len(v), len(v[0])]}")
+        if type(v) == list:
+            print(f"{k}: {[len(v), len(v[0])]}")
     if draw_pictures:
         # 分别展示5张N和5张V的信号,将这10个信号展示在一个2行5列的大图上,注意，保持上下两行的的纵坐标相同:
         plt.figure(figsize=(20,10))
