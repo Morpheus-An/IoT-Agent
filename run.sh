@@ -1,7 +1,7 @@
 if [ -z "$1" ]
 then
     # model="gpt3.5"
-    # model="gemini-pro"
+    # model="gemini-1.5-pro-002"
     # model="claude"
     # model="llama2"
     # model="Mistral"
@@ -36,7 +36,11 @@ then
     # output_file_path="results/machine/baseline/llama.log"
     # output_file_path="results/machine/baseline/Mistral.log"
     # output_file_path="results/new_ablation_study/ecg/3.log"
-    output_file_path="results/new_ablation_study/HAR/1-3cls.log"
+    # output_file_path="results/new_ablation_study/HAR/1-3cls.log"
+    # output_file_path="results/new-baseline4imu-3cls/gemini.log"
+    # output_file_path="results/new-baseline4imu-3cls/claude.log"
+    output_file_path="results/new_ablation_study/HAR/2-3cls.log"
+    # output_file_path="results/new-baseline4imu-3cls/Mistral.log"
 
 else
     output_file_path=$4
@@ -64,5 +68,7 @@ fi
 # for grd in "normal" "abnormal"
 for grd in "LAYING" "WALKING_UPSTAIRS" "LIE_TO_SIT"
 do 
-    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --no_domain_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd --debug
+    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd
 done
+
+

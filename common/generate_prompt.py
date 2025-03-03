@@ -136,22 +136,27 @@ def gen_prompt_template_with_rag_imu(args, label2ids, data_dict, ground_ans: str
         gyr_x = data_dict[label2ids[target_cls]]["body_gyro"][i][0]
         gyr_y = data_dict[label2ids[target_cls]]["body_gyro"][i][1]
         gyr_z = data_dict[label2ids[target_cls]]["body_gyro"][i][2] 
-        acc_x_str = ", ".join([f"{x}" for x in acc_x])
-        acc_y_str = ", ".join([f"{x}" for x in acc_y])
-        acc_z_str = ", ".join([f"{x}" for x in acc_z])
-        gyr_x_str = ", ".join([f"{x}" for x in gyr_x])
-        gyr_y_str = ", ".join([f"{x}" for x in gyr_y])
-        gyr_z_str = ", ".join([f"{x}" for x in gyr_z])
+        acc_x_str = ", ".join([f"{format_number(x)} g" for x in acc_x])
+        acc_y_str = ", ".join([f"{format_number(x)} g" for x in acc_y])
+        acc_z_str = ", ".join([f"{format_number(x)} g" for x in acc_z])
+        gyr_x_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_x])
+        gyr_y_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_y])
+        gyr_z_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_z])
         data_des = f"""
 1. Triaxial acceleration signal: 
 X-axis: {acc_x_str} 
 Y-axis: {acc_y_str} 
-Z-axis: {acc_z_str} 
+Z-axis: {acc_z_str}
+X-axis-mean={np.around(np.mean(acc_x), 3)}g, X-axis-var={np.around(np.var(acc_x), 3)} 
+Y-axis-mean={np.around(np.mean(acc_y), 3)}g, Y-axis-var={np.around(np.var(acc_y), 3)} 
+Z-axis-mean={np.around(np.mean(acc_z), 3)}g, Z-axis-var={np.around(np.var(acc_z), 3)} 
 2. Triaxial angular velocity signal: 
 X-axis: {gyr_x_str} 
 Y-axis: {gyr_y_str} 
 Z-axis: {gyr_z_str}
-"""
+X-axis-mean={np.around(np.mean(gyr_x), 3)}rad/s, X-axis-var={np.around(np.var(gyr_x), 3)} 
+Y-axis-mean={np.around(np.mean(gyr_y), 3)}rad/s, Y-axis-var={np.around(np.var(gyr_y), 3)} 
+Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gyr_z), 3)}"""
         return data_des
     if args.cls_num == 2:
         data_des = create_data_des(i)
@@ -172,8 +177,15 @@ Z-axis: {gyr_z_str}
         prompt = """Objective:
 {{ query }}"""
         prompt += f"""[{ground_ans}, {contract_ans}]"""
-        prompt += f"""Sensor Data and Expert Knowledge:
-You will receive data from various sensors. Here's how to interpret this data: 
+        prompt += f"""\nSensor Data and Expert Knowledge:
+You will receive data from various sensors. Here's how to interpret this data:
+1. Triaxial acceleration signal: 
+The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
+2. Triaxial angular velocity signal: 
+The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+3. Other domain knowledge:"""
+        prompt += """{% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
+
 Three-axis acceleration data reflects the acceleration of the device in three orthogonal directions, while three-axis angular velocity data reflects the rotational speed of the device in three orthogonal directions.
 
 Response Format:
@@ -210,7 +222,14 @@ Summary:"""
 {{ query }}"""
         prompt += f"""[{candidates_str}]\n"""
         prompt += f"""Sensor Data and Expert Knowledge:
-You will receive data from various sensors. Here's how to interpret this data: 
+You will receive data from various sensors. Here's how to interpret this data:
+1. Triaxial acceleration signal: 
+The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
+2. Triaxial angular velocity signal: 
+The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of some data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
+3. Other domain knowledge:"""
+        prompt += """{% for domain_doc in documents_domain %} {{ domain_doc.content }}{% endfor %}
+
 Three-axis acceleration data reflects the acceleration of the device in three orthogonal directions, while three-axis angular velocity data reflects the rotational speed of the device in three orthogonal directions.
 
 Response Format:
