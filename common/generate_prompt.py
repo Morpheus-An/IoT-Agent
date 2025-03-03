@@ -142,8 +142,7 @@ def gen_prompt_template_with_rag_imu(args, label2ids, data_dict, ground_ans: str
         gyr_x_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_x])
         gyr_y_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_y])
         gyr_z_str = ", ".join([f"{format_number(x)} rad/s" for x in gyr_z])
-        data_des = f"""
-1. Triaxial acceleration signal: 
+        data_des = f"""1. Triaxial acceleration signal: 
 X-axis: {acc_x_str} 
 Y-axis: {acc_y_str} 
 Z-axis: {acc_z_str}
@@ -160,8 +159,8 @@ Z-axis-mean={np.around(np.mean(gyr_z), 3)}rad/s, Z-axis-var={np.around(np.var(gy
         return data_des
     if args.cls_num == 2:
         data_des = create_data_des(i)
-        # demo_grd_data_des = create_data_des(i+1)
-        # demo_con_data_des = create_data_des(i, is_ground=False)
+        demo_grd_data_des = create_data_des(i+1)
+        demo_con_data_des = create_data_des(i, is_ground=False)
        
     #     prompt = f"""
     # THE GIVEN DATA: 
@@ -187,6 +186,21 @@ The provided three-axis angular velocity signals contain angular velocity data f
         prompt += """{% for domain_doc in documents_domain %}{{ domain_doc.content }}{% endfor %}
 
 Three-axis acceleration data reflects the acceleration of the device in three orthogonal directions, while three-axis angular velocity data reflects the rotational speed of the device in three orthogonal directions.
+
+Here are some useful examples you can learn from:\n"""
+        prompt += f"""EXAMPLE1:
+{demo_grd_data_des}"""
+        prompt += """\nQUESTION:
+{{ query }}"""
+        prompt += f"""[{ground_ans}, {contract_ans}]
+True ANSWER: {ground_ans}
+        
+EXAMPLE2:
+{demo_con_data_des}"""
+        prompt += """\nQUESTION:
+{{ query }}"""
+        prompt += f"""[{ground_ans}, {contract_ans}]
+True ANSWER: {contract_ans}
 
 Response Format:
 Reasoning: Provide a comprehensive analysis of the sensor data.
@@ -232,13 +246,25 @@ The provided three-axis angular velocity signals contain angular velocity data f
 
 Three-axis acceleration data reflects the acceleration of the device in three orthogonal directions, while three-axis angular velocity data reflects the rotational speed of the device in three orthogonal directions.
 
-Response Format:
+Here are some useful examples you can learn from:\n"""
+        for i, candidate in enumerate(candidates):
+            prompt += f"""EXAMPLE{i+1}:
+{demo_data_desciptions[candidate]}"""
+            prompt += """\nQUESTION:
+{{ query }}"""
+            prompt += f"""[{candidates_str}]
+True ANSWER: {candidate}\n"""
+
+
+        prompt += f"""Response Format:
 Reasoning: Provide a comprehensive analysis of the sensor data.
 Summary: Conclude with a brief summary of your findings.
 
 Now give your response according to the following sensor data:
 Sensor data:
-{data_des}
+{data_des}"""
+        prompt += """\nQUESTION: {{ query }}"""
+        prompt += f"""[{candidates_str}]
 Reasoning:
 Summary:"""
     else:
