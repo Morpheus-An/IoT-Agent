@@ -2,13 +2,14 @@ from imports import *
 
 def format_number(number):
     # 将数值转换为字符串
+    number = np.around(number, decimals=1)
     number_str = str(number)
     # 将字符串中的每个字符用空格分隔开
-    # formatted_str = ' '.join(number_str)
+    formatted_str = ' '.join(number_str)
     # # 去掉小数点两边的空格
-    # formatted_str = formatted_str.replace(' . ', '.')
-    # return formatted_str
-    return number_str
+    formatted_str = formatted_str.replace(' . ', '.')
+    return formatted_str
+    # return number_str
 
 def gen_content4retrive_domain(args, task_type, data_des=""):
     if args.task_type != "imu_HAR":
@@ -311,12 +312,12 @@ def gen_prompt_tamplate_with_rag_machine(args, data_dict, label_dict, target, i:
         TS_pos_demo = Cooler_condition_100_data["TS1"][-i-1]
         CP_pos_demo = Cooler_condition_100_data["CP"][-i-1]
         CE_pos_demo = Cooler_condition_100_data["CE"][-i-1]
-        TS_pos_demo_str = ", ".join([f"{x}°C" for x in TS_pos_demo])
-        CP_pos_demo_str = ", ".join([f"{x}KW" for x in CP_pos_demo])
-        CE_pos_demo_str = ", ".join([f"{x}%" for x in CE_pos_demo])
-        TS_neg_demo_str = ", ".join([f"{x}°C" for x in TS_neg_demo])
-        CP_neg_demo_str = ", ".join([f"{x}KW" for x in CP_neg_demo])
-        CE_neg_demo_str = ", ".join([f"{x}%" for x in CE_neg_demo])
+        TS_pos_demo_str = ", ".join([f"{format_number(x)} °C" for x in TS_pos_demo])
+        CP_pos_demo_str = ", ".join([f"{format_number(x)} KW" for x in CP_pos_demo])
+        CE_pos_demo_str = ", ".join([f"{format_number(x)} %" for x in CE_pos_demo])
+        TS_neg_demo_str = ", ".join([f"{format_number(x)} °C" for x in TS_neg_demo])
+        CP_neg_demo_str = ", ".join([f"{format_number(x)} KW" for x in CP_neg_demo])
+        CE_neg_demo_str = ", ".join([f"{format_number(x)} %" for x in CE_neg_demo])
 
         TS_pos = Cooler_condition_100_data["TS1"][-i]
         CP_pos = Cooler_condition_100_data["CP"][-i]
@@ -324,12 +325,12 @@ def gen_prompt_tamplate_with_rag_machine(args, data_dict, label_dict, target, i:
         TS_neg = Cooler_condition_3_data["TS1"][-i]
         CP_neg = Cooler_condition_3_data["CP"][-i]
         CE_neg = Cooler_condition_3_data["CE"][-i]
-        Ts_pos_str = ", ".join([f"{x}°C" for x in TS_pos])
-        CP_pos_str = ", ".join([f"{x}KW" for x in CP_pos])
-        CE_pos_str = ", ".join([f"{x}%" for x in CE_pos])
-        TS_neg_str = ", ".join([f"{x}°C" for x in TS_neg])
-        CP_neg_str = ", ".join([f"{x}KW" for x in CP_neg])
-        CE_neg_str = ", ".join([f"{x}%" for x in CE_neg])
+        Ts_pos_str = ", ".join([f"{format_number(x)} °C" for x in TS_pos])
+        CP_pos_str = ", ".join([f"{format_number(x)} KW" for x in CP_pos])
+        CE_pos_str = ", ".join([f"{format_number(x)} %" for x in CE_pos])
+        TS_neg_str = ", ".join([f"{format_number(x)} °C" for x in TS_neg])
+        CP_neg_str = ", ".join([f"{format_number(x)} KW" for x in CP_neg])
+        CE_neg_str = ", ".join([f"{format_number(x)} %" for x in CE_neg])
 
         prompt = """Objective:\n{{ query }}"""
         # prompt = """

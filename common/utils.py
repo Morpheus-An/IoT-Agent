@@ -12,7 +12,7 @@ def task_dependent_info(args, i, data_dict, label_dict):
         grd = args.grd
         con = "Pos" if grd == "Neg" else "Neg"
         template, data_des = gen_prompt_tamplate_with_rag_machine(args, data_dict, label_dict, "Cooler condition %", i, grd)
-        query = """Is the machine's cooling system functioning properly?"""
+        query = """Is the machine's cooling system functioning properly or not?"""
     elif args.task_type == "imu_HAR":
         if args.cls_num == 2:
             # grd = "WALKING"
