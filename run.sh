@@ -40,7 +40,7 @@ then
     # output_file_path="results/new-baseline4imu-3cls/gemini.log"
     # output_file_path="results/new-baseline4imu-3cls/claude.log"
     # output_file_path="results/new_ablation_study/HAR/3-2cls.log"
-    output_file_path="results/new_ablation_study/machine/1.log"
+    output_file_path="results/new_ablation_study/machine/2.log"
     # output_file_path="results/new-baseline4imu-3cls/Mistral.log"
 
 else
@@ -69,7 +69,7 @@ for grd in "Pos" "Neg"
 # for grd in "normal" "abnormal"
 # for grd in "LAYING" "WALKING_UPSTAIRS" "LIE_TO_SIT"
 do 
-    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --no_domain_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd
+    python ./main.py --task_type $task_type --sample_num $sample_num --model $model --device "cuda" --no_demo_knowledge --output_file_path $output_file_path --cls_num $cls_num --grd $grd
 done
 
 
