@@ -37,7 +37,7 @@ generate results are saved in {args.output_file_path}"""
     previous_locals = None
     locals_to_release = None
     with open(args.output_file_path, "a") as f:
-        for i in range(1, args.sample_num+1):
+        for i in range(42, args.sample_num+1):
             
             # pdb.set_trace()
 

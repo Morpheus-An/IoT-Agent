@@ -349,6 +349,26 @@ Temperature Change Sequence reflects changes of temperature during working; Cool
             prompt += """{% for domain_doc in documents_domain %}
     {{ domain_doc.content }}
 {% endfor %}"""
+        
+        prompt += f"""Here are some useful examples you can learn from:
+EXAMPLE1:
+1. Temperature Change Sequence:
+{TS_neg_demo_str}
+2. Cooling Power Change Sequence:
+{CP_neg_demo_str}
+3. Cooling Efficiency Change Sequence:
+{CE_neg_demo_str}
+ANSWER: not operating properly. 
+EXAMPLE2:
+1. Temperature Change Sequence:
+{TS_pos_demo_str}
+2. Cooling Power Change Sequence:
+{CP_pos_demo_str}
+3. Cooling Efficiency Change Sequence:
+{CE_pos_demo_str}
+ANSWER: operating properly."""
+        prompt += """\nQuestion: {{ query }}"""
+        
         prompt += f"""Response Format:
 Reasoning: Provide a comprehensive analysis of the sensor data.
 Summary: Conclude with a brief summary of your findings.
