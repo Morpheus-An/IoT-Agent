@@ -1,5 +1,54 @@
 
 from imports import *
+def compute_frequency_features(data, fs):
+    """
+    计算时间序列的频域特征
+    参数：
+        data : 输入时间序列（一维数组）
+        fs   : 采样频率（Hz）
+    返回：
+        freq_features : 包含频域特征的字典
+    """
+    # 预处理：去趋势
+    detrended = signal.detrend(data)
+    
+    # 计算功率谱密度 (PSD)
+    freqs, psd = signal.welch(detrended, fs, nperseg=1024, window='hann')
+    
+    # 计算总功率
+    total_power = np.trapz(psd, freqs)
+    
+    # 定义典型频带边界（可根据领域调整）
+    bands = {
+        'ultra_low': (0.003, 0.04),    # 超低频（如心率变异性ULF）
+        'low': (0.04, 0.15),           # 低频（如交感神经活动）
+        'high': (0.15, 0.4),           # 高频（如副交感神经活动）
+        'very_high': (0.4, 0.5)        # 甚高频
+    }
+    
+    # 计算各频带功率
+    band_powers = {}
+    for band_name, (low, high) in bands.items():
+        mask = (freqs >= low) & (freqs <= high)
+        band_power = np.trapz(psd[mask], freqs[mask])
+        band_powers[f"{band_name}_power"] = band_power
+        band_powers[f"{band_name}_ratio"] = band_power / total_power
+    
+    # 提取峰值特征
+    dominant_freq = freqs[np.argmax(psd)]
+    max_power = np.max(psd)
+    
+    # 频谱质心
+    centroid = np.sum(freqs * psd) / total_power
+    
+    return {
+        'total_power': total_power,
+        'dominant_frequency': dominant_freq,
+        'max_psd': max_power,
+        'spectral_centroid': centroid,
+        **band_powers
+    }
+
 
 def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/", length=600000, id=106, sampfrom=0, pysical=True, channels=[0,], interval=150, sample_step=5, draw_pictures=False):
     record_path = base_dir + f"{id}"
@@ -16,7 +65,25 @@ def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/",
         "N_pos": [],
         "N_signals": [],
         "V_pos": [],
-        "V_signals": [],   
+        "V_signals": [],
+        "frequency_features": {
+            "N_fe": {
+                "total_power": [],
+                "dominant_fre": [],
+                "max_psd": [],
+                "spectral_centroid": [],
+                "vars": [],
+                "means": [],
+            },
+            "V_fe": {
+                "total_power": [],
+                "dominant_fre": [],
+                "max_psd": [],
+                "spectral_centroid": [],
+                "vars": [],
+                "means": [],
+            }
+        }
 
     }
     for i, s in enumerate(signal_annotation.symbol):
@@ -24,19 +91,49 @@ def read_ECG(base_dir="/home/ant/RAG/data/ECG/physionet.org/files/mitdb/1.0.0/",
             V_begin = i
             if V_begin <= 1 or V_begin >= len(signal_annotation.symbol)-2:
                 continue
+            V_signals_dense = ventricular_signal[signal_annotation.sample[V_begin]-interval:signal_annotation.sample[V_begin]+interval].flatten().tolist()
             V_signals = ventricular_signal[signal_annotation.sample[V_begin]-interval:signal_annotation.sample[V_begin]+interval:sample_step]
+
+
+            
+            features = compute_frequency_features(V_signals_dense, 360)
+            
             data_dict["V_pos"].append([interval//sample_step, V_signals[interval//sample_step]])
             data_dict["V_signals"].append(V_signals)
+            data_dict["frequency_features"]["V_fe"]["total_power"].append(features["total_power"])
+            data_dict["frequency_features"]["V_fe"]["dominant_fre"].append(features["dominant_frequency"])
+            data_dict["frequency_features"]["V_fe"]["max_psd"].append(features["max_psd"])
+            data_dict["frequency_features"]["V_fe"]["spectral_centroid"].append(features["spectral_centroid"])
+            data_dict["frequency_features"]["V_fe"]["vars"].append(np.var(V_signals_dense))
+            data_dict["frequency_features"]["V_fe"]["means"].append(np.mean(V_signals_dense))
+
         elif s == "N":
             N_begin = i
             if N_begin <= 1 or N_begin >= len(signal_annotation.symbol)-2:
                 continue
+            N_signals_dense = ventricular_signal[signal_annotation.sample[N_begin]-interval:signal_annotation.sample[N_begin]+interval].flatten().tolist()
             N_signals = ventricular_signal[signal_annotation.sample[N_begin]-interval:signal_annotation.sample[N_begin]+interval:sample_step]
+
+            # print(type(N_signals_dense))
+            # print(N_signals_dense)
+            # N_list = N_signals_dense.flatten().tolist()
+            # print(N_list)
+            # assert(0)
+            features = compute_frequency_features(N_signals_dense, 360)
+            
             data_dict["N_pos"].append([interval//sample_step, N_signals[interval//sample_step]])
             data_dict["N_signals"].append(N_signals)
+            data_dict["frequency_features"]["N_fe"]["total_power"].append(features["total_power"])
+            data_dict["frequency_features"]["N_fe"]["dominant_fre"].append(features["dominant_frequency"])
+            data_dict["frequency_features"]["N_fe"]["max_psd"].append(features["max_psd"])
+            data_dict["frequency_features"]["N_fe"]["spectral_centroid"].append(features["spectral_centroid"])
+            data_dict["frequency_features"]["N_fe"]["vars"].append(np.var(N_signals_dense))
+            data_dict["frequency_features"]["N_fe"]["means"].append(np.mean(N_signals_dense))
+
 
     for k, v in data_dict.items():
-        print(f"{k}: {[len(v), len(v[0])]}")
+        if type(v) == list:
+            print(f"{k}: {[len(v), len(v[0])]}")
     if draw_pictures:
         # 分别展示5张N和5张V的信号,将这10个信号展示在一个2行5列的大图上,注意，保持上下两行的的纵坐标相同:
         plt.figure(figsize=(20,10))
@@ -125,6 +222,8 @@ def read_machine_data(sample_step=100):
     print(f"machine_data loaded")
     return data_dict, label_dict
 
+
+
 def read_raw_data_and_preprocess_imu(sample_step: int=5, raw_data_dir: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/", y_train_path: str="/home/ant/RAG/data/IMU/human+activity+recognition+using+smartphones/UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt"):
     """return :
     data_dict: dict[dict[list, list, list]]
@@ -185,11 +284,17 @@ def read_IoT_data(task_type, sample_step=100, cls_num=2):
     assert task_type in ["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"] and sample_step > 0
     if task_type == "imu_HAR":
         if cls_num == 2:
-            data_dict, lable_dict =  read_raw_data_and_preprocess_imu()
+            data_dict, lable_dict =  read_raw_data_and_preprocess_imu(sample_step=5)
+            # pdb.set_trace()
             data_dict = filter_data_dict_with_var(data_dict, lable_dict, thred=0.5, filter_by="body_acc", print_log=False)
             return data_dict, lable_dict
+        elif cls_num > 2:
+            labels = np.loadtxt("/home/ant/RAG/data/IMU/smartphone+based+recognition+of+human+activities+and+postural+transitions/RawData/labels.txt", dtype=int)
+            data_dict, lable_dict = read_multicls_data_and_preprocess(labels, sample_step=45)
+            return data_dict, lable_dict
         else:
-            pass # TODO
+            raise ValueError("cls_num should be greater than 1")
+
     elif task_type == "machine_detection":
         return read_machine_data(sample_step)
     elif task_type == "ecg_detection":
@@ -206,7 +311,34 @@ def read_multicls_data_and_preprocess(labels, sample_step: int=50, raw_data_dir:
 
     >>> data_dict[label_id]["acc"] = [[acc_x, acc_y, acc_z], ...]
     """
-    # TODO
+    id2labels = {
+    1: "WALKING",
+    2: "WALKING_UPSTAIRS",
+    3: "WALKING_DOWNSTAIRS",
+    4: "SITTING",
+    5: "STANDING",
+    6: "LAYING",
+    7: "STAND_TO_SIT",
+    8: "SIT_TO_STAND",
+    9: "SIT_TO_LIE",
+    10: "LIE_TO_SIT",
+    11: "STAND_TO_LIE",
+    12: "LIE_TO_STAND"}
+
+    label2ids = {
+    "WALKING": 1,
+    "WALKING_UPSTAIRS": 2,
+    "WALKING_DOWNSTAIRS": 3,
+    "SITTING": 4,
+    "STANDING": 5,
+    "LAYING": 6,
+    "STAND_TO_SIT": 7,
+    "SIT_TO_STAND": 8,
+    "SIT_TO_LIE": 9,
+    "LIE_TO_SIT": 10,
+    "STAND_TO_LIE": 11,
+    "LIE_TO_STAND": 12
+}
     data_dict: dict[dict[list, list, list]] = {}
     # 其中有12个key，分别代表12个活动类别，每个key中有两个list，分别代表两个传感器的数据
     for label_id in id2labels.keys():
@@ -229,7 +361,7 @@ def read_multicls_data_and_preprocess(labels, sample_step: int=50, raw_data_dir:
     for label_id in data_dict.keys():
         print(f"{id2labels[label_id]}: {len(data_dict[label_id]['total_acc'])}")
 
-    return data_dict
+    return data_dict, label2ids
 
 
 def filter_data_dict_with_var(data_dict, label2ids,thred: float=0.5, filter_by: str="body_acc", print_log: bool=True):

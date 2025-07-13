@@ -15,6 +15,20 @@ parser.add_argument(
     default=2,
     help="Number of classes to classify (just used in imu_HAR task)",
 )
+# parser.add_argument(
+#     "--grd_idx",
+#     type=int,
+#     default=0,
+#     help="Index of the ground truth class (just used in imu_HAR task when cls_num > 2)",
+# )
+parser.add_argument(
+    "--grd",
+    # choices=["LAYING", "WALKING_UPSTAIRS", "LIE_TO_SIT"],
+    type=str,
+    default="LAYING",
+    help="Ground truth class (just used in imu_HAR task when cls_num > 2)",
+)
+
 parser.add_argument(
     "--sample_num",
     type=int,
@@ -33,7 +47,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--model",
-    choices=["gpt3.5", "gpt4", "llama2", "Mistral", "gemini-pro", "claude"],
+    choices=["gpt3.5", "gpt4", "llama2", "Mistral", "gemini-pro", "claude", "gpt4o-mini", "gemini-pro-flash", "gemini-1.5-pro", "gemini-1.5-pro-002"],
     # llama2，Mistral-7b，Gemini，Claude3 Haiku
     default="gpt4",
     help="Model to use for generation",

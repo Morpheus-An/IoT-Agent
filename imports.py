@@ -7,6 +7,7 @@ from haystack.components.writers import DocumentWriter
 from haystack.document_stores.types import DuplicatePolicy
 from haystack.utils import ComponentDevice
 import wikipedia
+import google.generativeai as genai
 from haystack import Document
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 from haystack.components.embedders import SentenceTransformersTextEmbedder
@@ -17,6 +18,7 @@ import os
 from haystack import Pipeline
 import numpy as np 
 import torch
+from scipy import signal
 from openai import OpenAI 
 from collections import Counter 
 from matplotlib import pyplot as plt 
@@ -31,7 +33,6 @@ from haystack.components.generators import HuggingFaceLocalGenerator
 from haystack_integrations.components.generators.google_ai import GoogleAIGeminiGenerator
 from haystack.utils.device import ComponentDevice
 from haystack_integrations.components.generators.anthropic import AnthropicGenerator
-
 import time 
 from openAI_API_key import *
 import pdb
@@ -40,14 +41,15 @@ import datetime
 
 
 EMBEDDER_MODEL = "thenlper/gte-large"
-EMBEDDER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--thenlper--gte-large/snapshots/58578616559541da766b9b993734f63bcfcfc057"
+EMBEDDER_MODEL_LOCAL = "/home/nfs02/ant/thenlper-gte-large"
 RANKER_MODEL = "BAAI/bge-reranker-base"
-RANKER_MODEL_LOCAL = "/home/ant/.cache/huggingface/hub/models--BAAI--bge-reranker-base/snapshots/580465186bcc87f862a9b2f9003d720af2377980"
+RANKER_MODEL_LOCAL = "/home/nfs02/ant/baai-bge-reranker-base"
 MODEL = {
-        "gpt3.5": "gpt-3.5-turbo", 
+        "gpt3.5": "gpt-3.5-turbo",
         "gpt4": "gpt-4-turbo-preview",
-        "llama2": "/home/ant/RAG/models/LLaMa2-7b-32k",
-        "Mistral": "/home/ant/RAG/models/Mistral-7b-instruct-v0.3",
+        "gpt4o-mini": "gpt-4o-mini",
+        "llama2": "/home/nfs02/ant/LLaMa2-7b-32k",
+        "Mistral": "/home/nfs02/ant/Mistral-7b-instruct-v0.3"
 }
 # hoices=["imu_HAR", "machine_detection", "ecg_detection", "wifi_localization", "wifi_occupancy"],
 content4retrieve_domain = {
@@ -70,13 +72,23 @@ For each sensor, we collected 60 data points over a period of 60 seconds at a mo
 
 Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is the machine's cooling system functioning properly?"
 """,
-    "imu_HAR": """
+    "imu_HAR": {
+        "2cls" : """
 1. Triaxial acceleration signal: 
 The provided three-axis acceleration signals contain acceleration data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz(10 samples is collected per second). The unit is gravitational acceleration (g), equivalent to 9.8m/s^2. It's important to note that the measured acceleration is influenced by gravity, meaning the acceleration measurement along a certain axis will be affected by the vertical downward force of gravity. 
 2. Triaxial angular velocity signal: 
 The provided three-axis angular velocity signals contain angular velocity data for the X-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting of 26 data samples, measured at a fixed time interval with a frequency of 10Hz. The unit is radians per second (rad/s).
 
 You need to comprehensively analyze the acceleration and angular velocity data on each axis. For each axis, you should analyze not only the magnitude and direction of each sampled data (the direction is determined by the positive or negative sign in the data) but also the changes and fluctuations in the sequential data along that axis. This analysis helps in understanding the subject's motion status. For example, signals with greater fluctuations in sample data in the sequence often indicate the subject is engaging in more vigorous activities like WALKING, whereas signals with smaller fluctuations in sample data often indicate the subject is engaged in calmer activities like STANDING.""",
+        "mcls": """
+1. Triaxial acceleration signal: 
+The provided three-axis acceleration signals contain acceleration data for the X-axisY-axis, and Z-axis respectively. Each axis's data is a time-series signal consisting omultiple data samples, measured at a fixed time interval with a frequency of 10Hz(1samples is collected per second). The unit is gravitational acceleration (g), equivalent t9.8m/s^2. It's important to note that the measured acceleration is influenced by gravitymeaning the acceleration measurement along a certain axis will be affected by the verticadownward force of gravity. 
+2. Triaxial angular velocity signal: 
+The provided three-axis angular velocity signals contain angular velocity data for thX-axis, Y-axis, and Z-axis respectively. Each axis's data is a time-series signaconsisting of multiple data samples, measured at a fixed time interval with a frequency o10Hz. The unit is radians per second (rad/s)
+
+You need to comprehensively analyze the acceleration and angular velocity data on eacaxis. For each axis, you should analyze not only the magnitude and direction of eacsampled data (the direction is determined by the positive or negative sign in the data) bualso the changes and fluctuations in the sequential data along that axis. This analysihelps in understanding the subject's motion status. 
+For example, when the signal consistently shows significant fluctuations, it indicates tha the person may be engaged in continuous activities, such as WALKING_UPSTAIRS. On the other hand, when the signal consistently displays fewer fluctuations, it suggests that the person mabe in a relatively calm state, such as LAYING. However, if there are differing pattern between segments of the signal sequence, and there are notable changes, particularly on certain axes during specific periods, it suggests that the person may be transitioning between activity states, such as in the case of LIE-TO-SIT"""
+},
     "ecg_detection": """
 The ECG data is collected from a patient's heart. The data consists of a series of electrical signals that represent the heart's electrical activity. The signals are measured in millivolts (mV) and are recorded over a period of time at the sampling frequency of 60Hz. This means there is an interval of 0.017 seconds between the two voltage values.  The data is divided into two categories: normal heartbeats (N) and ventricular ectopic beats (V). The normal heartbeats represent the regular electrical activity of the heart, while the ventricular ectopic beats represent abnormal electrical activity. The data is collected using a single-channel ECG device.  Normal heartbeat (N) signals are characterized by a consistent pattern of electrical activity, while premature ventricular contraction (V) signals exhibit irregular patterns that deviate from the normal rhythm. The ECG data provides valuable insights into the patient's cardiac health and can help in diagnosing various heart conditions.  
 Please analyze the data step by step to explain what it reflects, and then provide your final answer based on your analysis: "Is it a Normal heartbeat(N) or Premature ventricular contraction beat(V)?"
