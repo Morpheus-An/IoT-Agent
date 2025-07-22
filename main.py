@@ -224,7 +224,3 @@ generate results are saved in {args.output_file_path}"""
     elapsed_time = end_time - start_time
     print(f"总共耗时{elapsed_time}秒")
     # print(eval_generated_ans(ans, ground_ans, contrast_ans)
-
-# HF_ENDPOINT="https://hf-mirror.com" huggingface-cli download mistralai/Mistral-7B-v0.3 --resume --token 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 --local-dir Mistral-7b-instruct-v0.3/
-# huggingface-cli download --token hf_*** --resume-download meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf
-# HF_ENDPOINT="https://hf-mirror.com" huggingface-cli download mistralai/Mistral-7B-v0.3 --resume --local-dir Mistral-7b-instruct-v0.3/
